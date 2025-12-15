@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probability & Bayesian Thinking - Theory in Practice</title>
+  <meta name="description" content="Learn probability and Bayesian reasoning through interactive experiences. Understand how to update beliefs with evidence and make better decisions under uncertainty.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="probability.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+
+      <div class="nav-controls">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Mathematics</p>
+        <h1 class="article-title">Probability & Bayesian Thinking</h1>
+        <p class="article-subtitle">
+          How to update your beliefs with evidence and make better decisions under uncertainty.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>Thinking in Probabilities</h2>
+        <p>
+          Most decisions we make involve uncertainty. Will this product succeed? Is this email spam?
+          Should I take an umbrella? Probability gives us a framework for reasoning about uncertain
+          events&mdash;and Bayesian thinking shows us how to update our beliefs as new evidence arrives.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Weather Forecast Problem</p>
+          <p>
+            A weather app says there's a 30% chance of rain. Most people either grab an umbrella
+            or don't&mdash;treating it as binary. But what if you have an important outdoor event?
+            A 30% chance might warrant a backup plan. What if you're just walking to the car?
+            Probably fine to skip the umbrella. Same probability, different decisions based on stakes.
+          </p>
+        </div>
+
+        <p>
+          The key insight: probability isn't about predicting what <em>will</em> happen. It's about
+          quantifying uncertainty so you can make better decisions given what you know.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Probability</p>
+            <p class="concept-definition">A number from 0 to 1 representing how likely an event is (0 = impossible, 1 = certain)</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Prior</p>
+            <p class="concept-definition">Your initial belief before seeing new evidence</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Posterior</p>
+            <p class="concept-definition">Your updated belief after incorporating new evidence</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Law of Large Numbers -->
+      <section class="content-section">
+        <h2>The Law of Large Numbers</h2>
+        <p>
+          Flip a coin once and you might get heads or tails&mdash;it feels random. But flip it
+          1,000 times and you'll get very close to 50% heads. This is the <strong>law of large
+          numbers</strong>: as you repeat an experiment, the average result converges to the
+          expected value.
+        </p>
+        <p>
+          This is why casinos always win in the long run (their expected value is positive),
+          why insurance companies can predict claims accurately across millions of customers,
+          and why A/B tests need large sample sizes to be reliable.
+        </p>
+      </section>
+
+      <!-- Coin Flip Simulator -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Coin Flip Simulator</h2>
+        <p class="interactive-description">
+          Watch the law of large numbers in action. With few flips, results vary wildly.
+          With many flips, the percentage approaches 50%. This is why sample size matters
+          in surveys, experiments, and business metrics.
+        </p>
+
+        <div class="coin-simulator">
+          <div class="coin-display">
+            <div class="coin" id="coin">
+              <div class="coin-face heads">H</div>
+              <div class="coin-face tails">T</div>
+            </div>
+          </div>
+
+          <div class="coin-stats">
+            <div class="stat-box">
+              <span class="stat-value" id="total-flips">0</span>
+              <span class="stat-label">Total Flips</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-value" id="heads-count">0</span>
+              <span class="stat-label">Heads</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-value" id="heads-percent">0%</span>
+              <span class="stat-label">Heads %</span>
+            </div>
+          </div>
+
+          <div class="coin-chart" id="coin-chart"></div>
+
+          <div class="coin-controls">
+            <button class="btn btn-primary" id="flip-one">Flip Once</button>
+            <button class="btn btn-secondary" id="flip-ten">Flip 10x</button>
+            <button class="btn btn-secondary" id="flip-hundred">Flip 100x</button>
+            <button class="btn btn-secondary" id="reset-coins">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conditional Probability -->
+      <section class="content-section">
+        <h2>Conditional Probability: When Context Matters</h2>
+        <p>
+          Here's a puzzle: A company's drug test is 99% accurate. An employee tests positive.
+          What's the probability they actually use drugs?
+        </p>
+        <p>
+          Most people say 99%. But that's wrong&mdash;often dramatically wrong. The answer
+          depends on how common drug use is in the population (the <strong>base rate</strong>).
+          If only 1% of employees use drugs, a positive test actually means roughly a 50% chance
+          of true drug use, not 99%.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Base Rate Neglect</p>
+          <p>
+            This counterintuitive result happens because we ignore base rates. With 1,000 employees
+            where 1% (10 people) use drugs: the test correctly identifies 9-10 users, but also
+            falsely flags about 10 non-users (1% of 990). So half of positive tests are false positives!
+            This is why screening tests need confirmation tests.
+          </p>
+        </div>
+      </section>
+
+      <!-- Bayesian Updater -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Bayesian Probability Calculator</h2>
+        <p class="interactive-description">
+          Explore how base rates dramatically affect the meaning of test results. Adjust the
+          sliders to see how prior probability and test accuracy combine to give you the
+          true probability after a positive result.
+        </p>
+
+        <div class="bayes-calculator">
+          <div class="bayes-inputs">
+            <div class="input-group">
+              <label for="base-rate">Base Rate (Prior Probability)</label>
+              <p class="input-hint">How common is the condition in the population?</p>
+              <input type="range" id="base-rate" min="0.1" max="50" value="1" step="0.1">
+              <span class="input-value" id="base-rate-value">1%</span>
+            </div>
+
+            <div class="input-group">
+              <label for="sensitivity">Test Sensitivity (True Positive Rate)</label>
+              <p class="input-hint">If you have the condition, how often does the test detect it?</p>
+              <input type="range" id="sensitivity" min="50" max="99.9" value="99" step="0.1">
+              <span class="input-value" id="sensitivity-value">99%</span>
+            </div>
+
+            <div class="input-group">
+              <label for="specificity">Test Specificity (True Negative Rate)</label>
+              <p class="input-hint">If you don't have the condition, how often is the test negative?</p>
+              <input type="range" id="specificity" min="50" max="99.9" value="99" step="0.1">
+              <span class="input-value" id="specificity-value">99%</span>
+            </div>
+          </div>
+
+          <div class="bayes-result">
+            <div class="result-main">
+              <span class="result-label">If you test positive, the actual probability you have the condition:</span>
+              <span class="result-value" id="posterior-value">50%</span>
+            </div>
+            <div class="result-explanation" id="result-explanation">
+              With a 1% base rate and 99% accurate test, about half of positive results are false positives.
+            </div>
+          </div>
+
+          <div class="bayes-visual">
+            <div class="visual-title">Out of 1,000 people tested:</div>
+            <div class="population-grid" id="population-grid"></div>
+            <div class="visual-legend">
+              <span><span class="legend-dot true-positive"></span> True Positive</span>
+              <span><span class="legend-dot false-positive"></span> False Positive</span>
+              <span><span class="legend-dot true-negative"></span> True Negative</span>
+              <span><span class="legend-dot false-negative"></span> False Negative</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Monty Hall Section -->
+      <section class="content-section">
+        <h2>The Monty Hall Problem</h2>
+        <p>
+          You're on a game show with three doors. Behind one is a car; behind the others, goats.
+          You pick door #1. The host, who knows what's behind each door, opens door #3 to reveal
+          a goat. He then asks: "Do you want to switch to door #2?"
+        </p>
+        <p>
+          Most people think it doesn't matter&mdash;it's 50/50 now, right? Wrong. You should
+          <strong>always switch</strong>. Switching wins 2/3 of the time; staying wins only 1/3.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Why Switching Wins</p>
+          <p>
+            When you first picked, you had a 1/3 chance of being right and 2/3 chance of being wrong.
+            The host's reveal doesn't change your original odds&mdash;it just concentrates that 2/3
+            probability onto the remaining door. The host's action gives you information, and
+            switching lets you use it.
+          </p>
+        </div>
+      </section>
+
+      <!-- Monty Hall Simulator -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Monty Hall Simulator</h2>
+        <p class="interactive-description">
+          Play the game yourself and track your results. Or run simulations to see the
+          probabilities emerge. After enough games, you'll see that switching wins about
+          67% of the time.
+        </p>
+
+        <div class="monty-hall">
+          <div class="doors-container">
+            <div class="door" data-door="1">
+              <div class="door-front">
+                <span class="door-number">1</span>
+              </div>
+              <div class="door-back">
+                <span class="door-prize"></span>
+              </div>
+            </div>
+            <div class="door" data-door="2">
+              <div class="door-front">
+                <span class="door-number">2</span>
+              </div>
+              <div class="door-back">
+                <span class="door-prize"></span>
+              </div>
+            </div>
+            <div class="door" data-door="3">
+              <div class="door-front">
+                <span class="door-number">3</span>
+              </div>
+              <div class="door-back">
+                <span class="door-prize"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="monty-message" id="monty-message">
+            Pick a door to start!
+          </div>
+
+          <div class="monty-controls">
+            <button class="btn btn-primary" id="switch-btn" disabled>Switch Door</button>
+            <button class="btn btn-secondary" id="stay-btn" disabled>Stay</button>
+            <button class="btn btn-secondary" id="new-game-btn">New Game</button>
+          </div>
+
+          <div class="monty-stats">
+            <div class="stat-group">
+              <h4>Your Results</h4>
+              <div class="stat-row">
+                <span>Games Played:</span>
+                <span id="games-played">0</span>
+              </div>
+              <div class="stat-row">
+                <span>Wins by Switching:</span>
+                <span id="switch-wins">0</span>
+              </div>
+              <div class="stat-row">
+                <span>Wins by Staying:</span>
+                <span id="stay-wins">0</span>
+              </div>
+            </div>
+            <div class="stat-group">
+              <h4>Win Rates</h4>
+              <div class="stat-row">
+                <span>Switch Win Rate:</span>
+                <span id="switch-rate">-</span>
+              </div>
+              <div class="stat-row">
+                <span>Stay Win Rate:</span>
+                <span id="stay-rate">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="simulation-controls">
+            <button class="btn btn-secondary" id="sim-100">Simulate 100 Games</button>
+            <button class="btn btn-secondary" id="reset-monty">Reset Stats</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bayes in Business Section -->
+      <section class="content-section">
+        <h2>Bayesian Thinking in Business</h2>
+
+        <p>
+          <strong>Spam filters:</strong> Email services use Bayesian classification. The prior is
+          "most emails are legitimate." Each spam-like feature (certain words, suspicious links)
+          updates the probability. Only when the posterior crosses a threshold does the email go to spam.
+        </p>
+
+        <p>
+          <strong>A/B testing:</strong> You launch a new button color. Early results show the new
+          version winning 60-40 with 100 visitors. Should you ship it? A Bayesian approach combines
+          your prior (most changes don't help much) with the data. With small samples, you need
+          stronger evidence to overcome skepticism.
+        </p>
+
+        <p>
+          <strong>Medical diagnosis:</strong> Doctors implicitly use Bayes. A rare disease with common
+          symptoms requires strong evidence. Common conditions with specific symptoms can be diagnosed
+          more quickly. Good doctors update their mental probabilities as test results come in.
+        </p>
+
+        <p>
+          <strong>Fraud detection:</strong> Banks flag unusual transactions. The prior is "most
+          transactions are legitimate." But a purchase in a new country + high value + unusual
+          merchant category combines to raise the fraud probability above the alert threshold.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Bayesian Mindset</p>
+          <p>
+            Bayesian thinking isn't just math&mdash;it's a mindset. Start with reasonable priors
+            based on experience. Update incrementally as evidence arrives. Hold beliefs with
+            appropriate confidence. Be willing to change your mind when the evidence warrants it.
+          </p>
+        </div>
+      </section>
+
+      <!-- Key Insights -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Base rates matter more than you think.</strong> A "99% accurate" test can be
+          mostly wrong if the condition is rare. Always ask: how common is this in the population?
+          This applies to medical tests, fraud detection, hiring assessments, and any screening process.
+        </p>
+
+        <p>
+          <strong>Small samples are deceiving.</strong> A startup with 10 users and 80% retention
+          isn't necessarily better than an established product with 50% retention across millions.
+          The law of large numbers means you need sufficient data before trusting percentages.
+        </p>
+
+        <p>
+          <strong>Update beliefs incrementally.</strong> New evidence should shift your beliefs,
+          not replace them entirely. A single data point rarely justifies going from "definitely not"
+          to "definitely yes." Strong priors require strong evidence to overcome.
+        </p>
+
+        <p>
+          <strong>The Monty Hall lesson applies broadly.</strong> When someone with more information
+          than you reveals something, that revelation contains information. Ignoring it (like refusing
+          to switch doors) means leaving value on the table. In business, this is why expert advisors,
+          market signals, and competitor actions deserve attention.
+        </p>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../game-theory/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Game Theory
+        </a>
+        <span style="color: var(--color-text-muted); display: flex; align-items: center; gap: var(--space-2);">
+          Next: Graph Theory (Coming Soon)
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="probability.js"></script>
+</body>
+</html>
