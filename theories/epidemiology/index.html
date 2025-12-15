@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Epidemiology - Theory in Practice</title>
+  <meta name="description" content="Explore epidemiology through interactive simulations. Learn about SIR models, R0, herd immunity, and how diseases spread through populations.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="epidemiology.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Biology</p>
+        <h1 class="article-title">Epidemiology</h1>
+        <p class="article-subtitle">
+          The mathematics of contagion: how diseases spread and how we stop them.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>Understanding Disease Spread</h2>
+        <p>
+          Epidemiology studies how diseases spread through populations. At its core are simple
+          mathematical models that capture the dynamics of infection, recovery, and immunity.
+          These models helped humanity understand plagues, predict outbreaks, and design
+          vaccination strategies.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The SIR Model</p>
+          <p>
+            The foundational model divides a population into three groups: <strong>S</strong>usceptible
+            (can catch the disease), <strong>I</strong>nfected (have and spread the disease), and
+            <strong>R</strong>ecovered (immune). People flow from S to I to R. Despite its simplicity,
+            this model captures the essential dynamics of many real epidemics.
+          </p>
+        </div>
+
+        <p>
+          The math reveals surprising truths: epidemics don't infect everyone&mdash;they burn out
+          when enough people are immune. Small changes in transmission can mean the difference
+          between a contained outbreak and a global pandemic. Timing of interventions matters
+          enormously.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">R<sub>0</sub> (Basic Reproduction Number)</p>
+            <p class="concept-definition">Average infections caused by one infected person in a susceptible population</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Herd Immunity</p>
+            <p class="concept-definition">When enough people are immune that the disease can't spread</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Epidemic Curve</p>
+            <p class="concept-definition">The number of cases over time, typically rising then falling</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SIR Model Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">SIR Model Simulator</h2>
+
+        <p class="interactive-description">
+          Watch an epidemic unfold. Adjust the transmission rate (&beta;) and recovery rate (&gamma;)
+          to see how they affect the epidemic curve. R<sub>0</sub> = &beta;/&gamma; determines if the
+          disease spreads or dies out.
+        </p>
+
+        <div class="sir-container">
+          <canvas id="sir-canvas" width="400" height="250"></canvas>
+
+          <div class="sir-legend">
+            <div class="legend-item">
+              <span class="legend-color susceptible-color"></span>
+              <span>Susceptible: <span class="s-percent">99%</span></span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color infected-color"></span>
+              <span>Infected: <span class="i-percent">1%</span></span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color recovered-color"></span>
+              <span>Recovered: <span class="r-percent">0%</span></span>
+            </div>
+          </div>
+
+          <div class="sir-stats">
+            <div class="stat-item">
+              <span class="stat-label">R<sub>0</sub></span>
+              <span class="stat-value r0-value">2.5</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Peak Infected</span>
+              <span class="stat-value peak-infected">--</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Total Infected</span>
+              <span class="stat-value total-infected">--</span>
+            </div>
+          </div>
+
+          <div class="sir-controls">
+            <div class="control-row">
+              <label>Transmission Rate (&beta;): <span class="beta-display">0.5</span></label>
+              <input type="range" id="beta-slider" min="0.1" max="1" step="0.05" value="0.5" class="slider">
+            </div>
+            <div class="control-row">
+              <label>Recovery Rate (&gamma;): <span class="gamma-display">0.2</span></label>
+              <input type="range" id="gamma-slider" min="0.05" max="0.5" step="0.05" value="0.2" class="slider">
+            </div>
+          </div>
+
+          <div class="sir-actions">
+            <button class="btn btn-primary run-sir-btn">Run Simulation</button>
+            <button class="btn btn-secondary reset-sir-btn">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- R0 Section -->
+      <section class="content-section">
+        <h2>The Magic Number: R<sub>0</sub></h2>
+
+        <p>
+          R<sub>0</sub> (pronounced "R-naught") is the most important number in epidemiology. It's the
+          average number of people one infected person infects when everyone is susceptible. If
+          R<sub>0</sub> &gt; 1, the epidemic grows. If R<sub>0</sub> &lt; 1, it dies out.
+        </p>
+
+        <p>
+          Different diseases have different R<sub>0</sub> values. Measles is extremely contagious
+          (R<sub>0</sub> &asymp; 15). Seasonal flu is moderate (R<sub>0</sub> &asymp; 1.3). COVID-19
+          variants range from 2 to 18. The higher the R<sub>0</sub>, the harder the disease is to control.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">R vs R<sub>0</sub></p>
+          <p>
+            R<sub>0</sub> assumes everyone is susceptible. The <em>effective</em> reproduction
+            number R changes as people become immune or behavior changes. When R drops below 1,
+            the epidemic declines. Interventions like masks and distancing lower R even when
+            R<sub>0</sub> stays the same.
+          </p>
+        </div>
+      </section>
+
+      <!-- Population Spread Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Population Spread</h2>
+
+        <p class="interactive-description">
+          Watch a disease spread through a population. Each person can infect nearby susceptible
+          people. See how a single infection can cascade into an epidemic.
+        </p>
+
+        <div class="spread-container">
+          <canvas id="spread-canvas" width="400" height="300"></canvas>
+
+          <div class="spread-stats">
+            <div class="stat-item">
+              <span class="stat-label">Susceptible</span>
+              <span class="stat-value spread-susceptible">200</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Infected</span>
+              <span class="stat-value spread-infected">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Recovered</span>
+              <span class="stat-value spread-recovered">0</span>
+            </div>
+          </div>
+
+          <div class="spread-controls">
+            <div class="control-row">
+              <label>Infection Radius: <span class="radius-display">30</span></label>
+              <input type="range" id="radius-slider" min="15" max="60" value="30" class="slider">
+            </div>
+            <div class="control-row">
+              <label>Infection Chance: <span class="chance-display">20%</span></label>
+              <input type="range" id="chance-slider" min="5" max="50" value="20" class="slider">
+            </div>
+          </div>
+
+          <div class="spread-actions">
+            <button class="btn btn-primary start-spread-btn">Start Spread</button>
+            <button class="btn btn-secondary reset-spread-btn">Reset</button>
+          </div>
+          <p class="spread-hint">Click any person to infect them</p>
+        </div>
+      </section>
+
+      <!-- Herd Immunity Section -->
+      <section class="content-section">
+        <h2>Herd Immunity</h2>
+
+        <p>
+          An epidemic doesn't need to infect everyone to stop&mdash;it stops when there aren't
+          enough susceptible people left to sustain spread. This threshold is <strong>herd
+          immunity</strong>. The formula is simple: 1 - 1/R<sub>0</sub>. For measles (R<sub>0</sub>=15),
+          that's 93%. For a disease with R<sub>0</sub>=2, it's 50%.
+        </p>
+
+        <p>
+          Vaccines achieve herd immunity without the disease having to spread. If enough people
+          are vaccinated, the disease can't find enough susceptible hosts to keep spreading.
+          This protects even unvaccinated people&mdash;they're surrounded by immune neighbors.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Gaps in the Shield</p>
+          <p>
+            Herd immunity only works if immune people are evenly distributed. If unvaccinated
+            people cluster together (geographically or socially), outbreaks can still happen
+            within those clusters. Measles outbreaks in communities with low vaccination rates
+            demonstrate this vulnerability.
+          </p>
+        </div>
+      </section>
+
+      <!-- Herd Immunity Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Herd Immunity Calculator</h2>
+
+        <p class="interactive-description">
+          See how the herd immunity threshold changes with R<sub>0</sub>. More contagious diseases
+          require higher vaccination rates to achieve herd immunity.
+        </p>
+
+        <div class="herd-container">
+          <div class="herd-visual">
+            <div class="herd-grid" id="herd-grid"></div>
+          </div>
+
+          <div class="herd-stats">
+            <div class="stat-item">
+              <span class="stat-label">R<sub>0</sub></span>
+              <span class="stat-value herd-r0">3.0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Threshold</span>
+              <span class="stat-value herd-threshold">67%</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Vaccinated</span>
+              <span class="stat-value herd-vaccinated">0%</span>
+            </div>
+          </div>
+
+          <div class="herd-controls">
+            <div class="control-row">
+              <label>R<sub>0</sub>: <span class="herd-r0-display">3.0</span></label>
+              <input type="range" id="herd-r0-slider" min="1.5" max="10" step="0.5" value="3" class="slider">
+            </div>
+            <div class="control-row">
+              <label>Vaccination Rate: <span class="vax-display">0%</span></label>
+              <input type="range" id="vax-slider" min="0" max="100" value="0" class="slider">
+            </div>
+          </div>
+
+          <div class="herd-status">
+            <span class="status-indicator not-protected"></span>
+            <span class="status-text">Not protected - disease can spread</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interventions Section -->
+      <section class="content-section">
+        <h2>Controlling Epidemics</h2>
+
+        <p>
+          <strong>Reducing Transmission:</strong> Masks, distancing, ventilation, and hygiene all
+          lower the transmission rate &beta;. This reduces R<sub>0</sub> and flattens the curve,
+          even if it doesn't stop the disease entirely.
+        </p>
+
+        <p>
+          <strong>Faster Recovery:</strong> Treatments that help people recover faster reduce the
+          infectious period, lowering R<sub>0</sub>. Isolation of infected individuals has the same
+          effect&mdash;they recover from transmission's perspective.
+        </p>
+
+        <p>
+          <strong>Vaccination:</strong> Vaccines move people directly from S to R without getting
+          sick. This is the most powerful tool&mdash;it reduces the susceptible population without
+          requiring anyone to suffer the disease.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Timing Matters</p>
+          <p>
+            Interventions early in an epidemic have far more impact than the same interventions
+            later. Exponential growth means that doubling the time to peak with early action
+            can reduce total infections dramatically. Waiting is costly.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>R<sub>0</sub> determines fate.</strong> If R<sub>0</sub> &gt; 1, expect an epidemic.
+          The higher R<sub>0</sub>, the harder to control. Interventions aim to push the effective
+          R below 1.
+        </p>
+
+        <p>
+          <strong>Exponential growth is deceptive.</strong> Early in an epidemic, numbers look
+          small and manageable. But exponential curves explode. By the time alarm bells ring,
+          the outbreak may already be large.
+        </p>
+
+        <p>
+          <strong>Herd immunity is achievable.</strong> We don't need to vaccinate everyone&mdash;
+          just enough to break transmission chains. The threshold depends on how contagious the
+          disease is.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Public Health:</strong> Vaccination policy, outbreak response, resource planning.
+            <strong>Business:</strong> Viral marketing, information spread, network security.
+            <strong>Technology:</strong> Computer viruses, misinformation, meme propagation.
+            <strong>Society:</strong> Social movements, behavior change, idea adoption.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../natural-selection/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Natural Selection
+        </a>
+        <a href="../cognitive-biases/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Cognitive Biases
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="epidemiology.js"></script>
+</body>
+</html>
