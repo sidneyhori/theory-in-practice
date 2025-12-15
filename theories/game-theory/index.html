@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Theory - Theory in Practice</title>
+  <meta name="description" content="Learn game theory through interactive experiences. Explore the Prisoner's Dilemma, Nash equilibrium, and strategic decision-making.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="game-theory.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+
+      <div class="nav-controls">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Mathematics</p>
+        <h1 class="article-title">Game Theory</h1>
+        <p class="article-subtitle">
+          The mathematics of strategic decision-making: from pricing wars to social dilemmas.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What is Game Theory?</h2>
+        <p>
+          Game theory is the study of strategic decision-making&mdash;situations where your best
+          choice depends on what others do. It's not about board games; it's about any situation
+          where multiple people (or companies, or countries) make choices that affect each other's outcomes.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Coffee Shop War</p>
+          <p>
+            Two coffee shops open across the street from each other. If one lowers prices, customers
+            switch to them. The other shop responds by lowering prices too. Soon both have low prices
+            and low profits&mdash;even though both would prefer to keep prices high! This "race to the
+            bottom" happens in gas stations, airlines, and streaming services.
+          </p>
+        </div>
+
+        <p>
+          You see game theory everywhere once you know what to look for. Social media algorithms,
+          salary negotiations, international trade deals&mdash;all strategic games where success
+          depends on anticipating others' moves.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Players</p>
+            <p class="concept-definition">The decision-makers: you, companies, teams, even countries</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Strategies</p>
+            <p class="concept-definition">Your options&mdash;the different moves you could make</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Payoffs</p>
+            <p class="concept-definition">What you get based on what everyone chooses (points, money, market share)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-World Examples Section -->
+      <section class="content-section">
+        <h2>Game Theory in Business</h2>
+
+        <p>
+          <strong>Pricing strategy:</strong> Airlines don't set prices in a vacuum. When Delta drops fares
+          to Miami, United has to decide: match the price (keep customers but lower margins) or stay
+          high (lose some customers but profit more on each ticket). The result? Airlines increasingly
+          use algorithms to adjust prices in real-time, creating a continuous pricing game.
+        </p>
+
+        <p>
+          <strong>Advertising wars:</strong> Coke and Pepsi both spend billions on advertising. If both
+          stopped, they'd each save money and probably keep similar market share. But neither can stop
+          unilaterally&mdash;the other would grab customers. So both keep spending. This is why mature
+          industries often have massive marketing budgets that might seem "wasteful."
+        </p>
+
+        <p>
+          <strong>Streaming exclusives:</strong> Netflix, Disney+, and HBO Max each sign exclusive
+          content deals. From a viewer's perspective, having everything on one platform would be better.
+          But from each company's view, exclusives are how you differentiate. The result: fragmented
+          content and subscribers juggling multiple services.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Nash Equilibrium</p>
+          <p>
+            A situation where no player can improve their outcome by changing strategy alone.
+            Named after mathematician John Nash (portrayed in "A Beautiful Mind"), this concept
+            explains why certain competitive patterns persist&mdash;even when everyone would be
+            better off cooperating. The equilibrium is stable because any unilateral change makes
+            you worse off.
+          </p>
+        </div>
+      </section>
+
+      <!-- Prisoner's Dilemma Interactive -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">The Prisoner's Dilemma</h2>
+
+        <p class="interactive-description">
+          The most famous problem in game theory. Two players can either cooperate or defect.
+          The catch? What makes sense for you individually leads to a worse outcome for everyone.
+          Play 10 rounds against different computer strategies and discover why "always looking
+          out for #1" often backfires.
+        </p>
+
+        <!-- Game Interface -->
+        <div class="pd-game">
+          <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+            Play 10 rounds against a computer opponent. Points: Mutual cooperation = 3 each,
+            mutual defection = 1 each, betrayal = 5 for defector, 0 for cooperator.
+          </p>
+
+          <div class="control-group" style="margin-bottom: var(--space-4);">
+            <label for="strategy" style="font-weight: var(--font-semibold);">Opponent Strategy:</label>
+            <select class="strategy-select" id="strategy" style="margin-top: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text-primary); width: 100%;">
+              <option value="tit-for-tat">Tit-for-Tat (cooperate first, then mirror)</option>
+              <option value="always-defect">Always Defect</option>
+              <option value="always-cooperate">Always Cooperate</option>
+              <option value="grudger">Grudger (cooperate until betrayed, then defect forever)</option>
+              <option value="random">Random</option>
+            </select>
+          </div>
+
+          <!-- Score Bar -->
+          <div class="pd-score-bar" style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) var(--space-4); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-4); flex-wrap: wrap; gap: var(--space-2);">
+            <div>Round: <strong class="current-round">0</strong>/10</div>
+            <div>Your Score: <strong class="your-total" style="color: var(--color-accent);">0</strong></div>
+            <div>Opponent: <strong class="opponent-total" style="color: var(--color-accent-secondary);">0</strong></div>
+          </div>
+
+          <!-- Choice Buttons -->
+          <div class="pd-choices" style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+            <button class="pd-choice-btn cooperate btn btn-primary" data-choice="cooperate" style="flex: 1; padding: var(--space-3) var(--space-4);">Cooperate</button>
+            <button class="pd-choice-btn defect btn btn-secondary" data-choice="defect" style="flex: 1; padding: var(--space-3) var(--space-4); border-color: var(--color-physics);">Defect</button>
+          </div>
+
+          <!-- Game Over -->
+          <div class="pd-game-over" style="display: none; text-align: center; padding: var(--space-6); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+          </div>
+
+          <!-- Reset Button -->
+          <button class="btn btn-secondary pd-reset-game" style="width: 100%; margin-bottom: var(--space-4);">Reset Game</button>
+
+          <!-- Result Box -->
+          <div class="pd-result" style="display: none; background: var(--color-bg); border-radius: var(--radius-md); padding: var(--space-4); text-align: center; border: 1px solid var(--color-border); margin-bottom: var(--space-4);">
+          </div>
+
+          <!-- History -->
+          <div class="pd-history" style="display: none;">
+            <h4 style="font-weight: var(--font-semibold); margin-bottom: var(--space-2);">History:</h4>
+            <div class="pd-history-items" style="display: flex; flex-wrap: wrap; gap: var(--space-2);"></div>
+          </div>
+        </div>
+
+        <!-- Payoff Matrix -->
+        <div class="matrix-container">
+          <h3 class="matrix-title">Payoff Matrix</h3>
+          <div class="matrix-grid">
+            <!-- Column headers -->
+            <div class="matrix-corner"></div>
+            <div class="matrix-col-header">
+              <span class="matrix-label">Opponent</span>
+              <span class="matrix-action cooperate-label">Cooperate</span>
+            </div>
+            <div class="matrix-col-header">
+              <span class="matrix-label">&nbsp;</span>
+              <span class="matrix-action defect-label">Defect</span>
+            </div>
+
+            <!-- Row 1: You Cooperate -->
+            <div class="matrix-row-header">
+              <span class="matrix-label">You</span>
+              <span class="matrix-action cooperate-label">Cooperate</span>
+            </div>
+            <div class="matrix-cell best-outcome">
+              <div class="payoff-pair">
+                <span class="payoff you">+3</span>
+                <span class="payoff them">+3</span>
+              </div>
+              <span class="outcome-label">Win-Win</span>
+            </div>
+            <div class="matrix-cell worst-for-you">
+              <div class="payoff-pair">
+                <span class="payoff you">0</span>
+                <span class="payoff them">+5</span>
+              </div>
+              <span class="outcome-label">Sucker</span>
+            </div>
+
+            <!-- Row 2: You Defect -->
+            <div class="matrix-row-header">
+              <span class="matrix-label">&nbsp;</span>
+              <span class="matrix-action defect-label">Defect</span>
+            </div>
+            <div class="matrix-cell best-for-you">
+              <div class="payoff-pair">
+                <span class="payoff you">+5</span>
+                <span class="payoff them">0</span>
+              </div>
+              <span class="outcome-label">Temptation</span>
+            </div>
+            <div class="matrix-cell nash-equilibrium">
+              <div class="payoff-pair">
+                <span class="payoff you">+1</span>
+                <span class="payoff them">+1</span>
+              </div>
+              <span class="outcome-label">Punishment</span>
+            </div>
+          </div>
+          <div class="matrix-legend">
+            <span><span class="legend-dot you"></span> Your payoff</span>
+            <span><span class="legend-dot them"></span> Opponent payoff</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Strategy Simulator -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Strategy Simulator</h2>
+        <p class="interactive-description">
+          What happens when different strategies compete over many rounds? Run simulations
+          to discover which approaches work best in the long run. This mirrors real business
+          relationships where you interact with the same partners, suppliers, or competitors repeatedly.
+        </p>
+
+        <div class="simulator">
+          <div class="simulator-controls">
+            <div class="control-group">
+              <label for="strategy1">Player 1 Strategy</label>
+              <select class="strategy1-select" id="strategy1">
+                <option value="tit-for-tat">Tit-for-Tat</option>
+                <option value="always-cooperate">Always Cooperate</option>
+                <option value="always-defect">Always Defect</option>
+                <option value="random">Random</option>
+                <option value="grudger">Grudger</option>
+                <option value="pavlov">Pavlov (Win-Stay, Lose-Shift)</option>
+                <option value="tit-for-two-tats">Tit-for-Two-Tats</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="strategy2">Player 2 Strategy</label>
+              <select class="strategy2-select" id="strategy2">
+                <option value="always-defect">Always Defect</option>
+                <option value="tit-for-tat">Tit-for-Tat</option>
+                <option value="always-cooperate">Always Cooperate</option>
+                <option value="random">Random</option>
+                <option value="grudger">Grudger</option>
+                <option value="pavlov">Pavlov (Win-Stay, Lose-Shift)</option>
+                <option value="tit-for-two-tats">Tit-for-Two-Tats</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="rounds">Rounds</label>
+              <input type="number" class="rounds-input" id="rounds" value="100" min="10" max="1000">
+            </div>
+            <button class="btn btn-primary simulator-run">Run Simulation</button>
+          </div>
+
+          <div class="simulator-results">
+            <div class="simulator-chart"></div>
+            <div class="simulator-stats"></div>
+          </div>
+
+          <div class="history-log"></div>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>The "rational" choice can be the wrong choice.</strong> In the Prisoner's Dilemma,
+          defecting seems smart&mdash;it's better for you no matter what the other person does.
+          But when both players think this way, both lose. This explains arms races, advertising
+          wars, and why group projects sometimes fall apart.
+        </p>
+
+        <p>
+          <strong>Reputation is currency.</strong> In one-shot games, betrayal might pay off. But
+          when you'll see someone again? Your past actions follow you. This is why reviews matter
+          on Amazon and Yelp, why suppliers maintain quality with repeat customers, and why
+          businesses protect their reputation even when cutting corners would be profitable short-term.
+        </p>
+
+        <p>
+          <strong>Simple rules can beat complex strategies.</strong> In computer tournaments run
+          by political scientist Robert Axelrod, the simple "tit-for-tat" strategy (cooperate first,
+          then copy your opponent) consistently beat sophisticated strategies. The lesson: be nice,
+          be forgiving, be retaliatory when needed, and be predictable.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Negotiations:</strong> Know when you're in a one-shot vs. repeated game.
+            <strong>Pricing:</strong> Understand why price wars start and how to avoid them.
+            <strong>Partnerships:</strong> Build trust through consistent cooperation over time.
+            <strong>Competition:</strong> Anticipate competitor reactions before making moves.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../../index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to All Theories
+        </a>
+        <span style="color: var(--color-text-muted); display: flex; align-items: center; gap: var(--space-2);">
+          Next: Probability & Bayes (Coming Soon)
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="game-theory.js"></script>
+</body>
+</html>

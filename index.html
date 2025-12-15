@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theory in Practice - Interactive Learning</title>
+  <meta name="description" content="Learn fascinating theories through interactive experiences. From game theory to quantum computing, explore concepts adapted to your level.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <style>
+    /* Landing page specific styles */
+    .hero {
+      padding: var(--space-24) 0 var(--space-16);
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: clamp(var(--text-3xl), 8vw, var(--text-5xl));
+      margin-bottom: var(--space-6);
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-xl);
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto var(--space-8);
+      line-height: var(--leading-relaxed);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Category filter */
+    .category-filter {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .filter-btn {
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      color: var(--color-text-secondary);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      transition: all var(--transition-fast);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--color-text-muted);
+      color: var(--color-text-primary);
+    }
+
+    .filter-btn.active {
+      background-color: var(--color-text-primary);
+      color: var(--color-bg);
+      border-color: var(--color-text-primary);
+    }
+
+    /* About section */
+    .about {
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .about-grid {
+      display: grid;
+      gap: var(--space-8);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .about-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .about-item {
+      text-align: center;
+    }
+
+    .about-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-4);
+      color: var(--color-accent);
+    }
+
+    .about-item h3 {
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-2);
+    }
+
+    .about-item p {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin: 0 auto;
+    }
+
+    /* Mobile padding */
+    @media (max-width: 640px) {
+      .hero {
+        padding: var(--space-16) var(--space-4) var(--space-12);
+      }
+
+      .hero-subtitle {
+        font-size: var(--text-lg);
+        padding: 0 var(--space-2);
+      }
+
+      .hero-cta {
+        padding: 0 var(--space-2);
+      }
+
+      .category-filter {
+        padding: 0 var(--space-4);
+      }
+
+      .about-grid {
+        padding: 0 var(--space-4);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Theory in Practice</a>
+
+      <div class="nav-controls">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Hero Section -->
+    <section class="hero container">
+      <h1 class="hero-title">Learn by Doing</h1>
+      <p class="hero-subtitle">
+        Explore fascinating theories through interactive experiences.
+        Real-world examples and hands-on simulations make complex ideas click.
+      </p>
+      <div class="hero-cta">
+        <a href="theories/game-theory/index.html" class="btn btn-primary">Start with Game Theory</a>
+        <a href="#theories" class="btn btn-secondary">Browse All Topics</a>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-item">
+            <svg class="about-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+            </svg>
+            <h3>Read</h3>
+            <p>Clear explanations with real-world examples from business, technology, and everyday life.</p>
+          </div>
+          <div class="about-item">
+            <svg class="about-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/>
+            </svg>
+            <h3>Play</h3>
+            <p>Interactive simulations and games that let you experience concepts firsthand.</p>
+          </div>
+          <div class="about-item">
+            <svg class="about-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
+            </svg>
+            <h3>Understand</h3>
+            <p>Build real intuition for powerful ideas that shape our world.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Theories Section -->
+    <section id="theories" class="section">
+      <div class="container">
+        <div class="section-header" style="text-align: center;">
+          <h2 class="section-title">Explore Theories</h2>
+          <p class="section-description" style="margin: 0 auto;">
+            20 interactive explorations across mathematics, physics, computer science, and more.
+          </p>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-filter">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="math">Mathematics</button>
+          <button class="filter-btn" data-category="physics">Physics</button>
+          <button class="filter-btn" data-category="cs">Computer Science</button>
+          <button class="filter-btn" data-category="economics">Economics</button>
+          <button class="filter-btn" data-category="biology">Biology</button>
+        </div>
+
+        <!-- Theory Cards Grid -->
+        <div class="grid grid-3" id="theory-grid">
+          <!-- Mathematics & Logic -->
+          <a href="theories/game-theory/index.html" class="theory-card" data-category="math">
+            <span class="theory-card-category" data-category="math">Mathematics</span>
+            <h3 class="theory-card-title">Game Theory</h3>
+            <p class="theory-card-description">Strategic decision-making, Nash equilibrium, and the mathematics of cooperation.</p>
+            <span class="theory-card-status available">Available now</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="math">
+            <span class="theory-card-category" data-category="math">Mathematics</span>
+            <h3 class="theory-card-title">Probability & Bayes</h3>
+            <p class="theory-card-description">Conditional probability and updating beliefs with new evidence.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="math">
+            <span class="theory-card-category" data-category="math">Mathematics</span>
+            <h3 class="theory-card-title">Graph Theory</h3>
+            <p class="theory-card-description">Networks, shortest paths, and the mathematics of connections.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="math">
+            <span class="theory-card-category" data-category="math">Mathematics</span>
+            <h3 class="theory-card-title">Fractals</h3>
+            <p class="theory-card-description">Self-similarity, infinite patterns, and the Mandelbrot set.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="math">
+            <span class="theory-card-category" data-category="math">Mathematics</span>
+            <h3 class="theory-card-title">Chaos Theory</h3>
+            <p class="theory-card-description">The butterfly effect and sensitive dependence on initial conditions.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <!-- Physics -->
+          <a href="#" class="theory-card" data-category="physics">
+            <span class="theory-card-category" data-category="physics">Physics</span>
+            <h3 class="theory-card-title">Special Relativity</h3>
+            <p class="theory-card-description">Time dilation, length contraction, and E=mc&sup2;.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="physics">
+            <span class="theory-card-category" data-category="physics">Physics</span>
+            <h3 class="theory-card-title">Quantum Mechanics</h3>
+            <p class="theory-card-description">Superposition, measurement, and Heisenberg's uncertainty.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="physics">
+            <span class="theory-card-category" data-category="physics">Physics</span>
+            <h3 class="theory-card-title">Sound & Waves</h3>
+            <p class="theory-card-description">Fourier analysis, harmonics, and interference patterns.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="physics">
+            <span class="theory-card-category" data-category="physics">Physics</span>
+            <h3 class="theory-card-title">Entropy</h3>
+            <p class="theory-card-description">Order, disorder, and the arrow of time.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <!-- Computer Science & AI -->
+          <a href="#" class="theory-card" data-category="cs">
+            <span class="theory-card-category" data-category="cs">Computer Science</span>
+            <h3 class="theory-card-title">Generative AI</h3>
+            <p class="theory-card-description">How large language models work and learn.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="cs">
+            <span class="theory-card-category" data-category="cs">Computer Science</span>
+            <h3 class="theory-card-title">Quantum Computing</h3>
+            <p class="theory-card-description">Qubits, superposition, and quantum gates.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="cs">
+            <span class="theory-card-category" data-category="cs">Computer Science</span>
+            <h3 class="theory-card-title">Cryptography</h3>
+            <p class="theory-card-description">Public key encryption, RSA, and digital signatures.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="cs">
+            <span class="theory-card-category" data-category="cs">Computer Science</span>
+            <h3 class="theory-card-title">Information Theory</h3>
+            <p class="theory-card-description">Bits, compression, and Shannon entropy.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="cs">
+            <span class="theory-card-category" data-category="cs">Computer Science</span>
+            <h3 class="theory-card-title">Algorithms</h3>
+            <p class="theory-card-description">Sorting, searching, and Big O notation.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <!-- Economics & Social Sciences -->
+          <a href="#" class="theory-card" data-category="economics">
+            <span class="theory-card-category" data-category="economics">Economics</span>
+            <h3 class="theory-card-title">Supply & Demand</h3>
+            <p class="theory-card-description">Market equilibrium and price signals.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="economics">
+            <span class="theory-card-category" data-category="economics">Economics</span>
+            <h3 class="theory-card-title">Network Effects</h3>
+            <p class="theory-card-description">Six degrees, viral spread, and Metcalfe's law.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="economics">
+            <span class="theory-card-category" data-category="economics">Economics</span>
+            <h3 class="theory-card-title">Compound Growth</h3>
+            <p class="theory-card-description">Exponential functions and doubling time.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <!-- Biology & Systems -->
+          <a href="#" class="theory-card" data-category="biology">
+            <span class="theory-card-category" data-category="biology">Biology</span>
+            <h3 class="theory-card-title">Natural Selection</h3>
+            <p class="theory-card-description">Evolution, fitness, and adaptation.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="biology">
+            <span class="theory-card-category" data-category="biology">Biology</span>
+            <h3 class="theory-card-title">Epidemiology</h3>
+            <p class="theory-card-description">SIR models, R0, and herd immunity.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+
+          <a href="#" class="theory-card" data-category="biology">
+            <span class="theory-card-category" data-category="biology">Biology</span>
+            <h3 class="theory-card-title">Cognitive Biases</h3>
+            <p class="theory-card-description">Anchoring, confirmation bias, and framing effects.</p>
+            <span class="theory-card-status">Coming soon</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    // Category filter functionality
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.dataset.category;
+
+        // Update active button
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter cards
+        document.querySelectorAll('.theory-card').forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
