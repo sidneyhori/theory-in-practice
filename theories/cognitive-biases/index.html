@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognitive Biases - Theory in Practice</title>
+  <meta name="description" content="Explore cognitive biases through interactive demonstrations. Learn about anchoring, confirmation bias, framing effects, and how our minds systematically deceive us.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="cognitive-biases.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Biology</p>
+        <h1 class="article-title">Cognitive Biases</h1>
+        <p class="article-subtitle">
+          The systematic errors in human thinking: why our brains deceive us.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>Shortcuts That Mislead</h2>
+        <p>
+          Our brains evolved to make quick decisions with limited information. These mental
+          shortcuts&mdash;heuristics&mdash;usually work well enough. But they also create
+          predictable errors called <strong>cognitive biases</strong>. Understanding these
+          biases helps us think more clearly and make better decisions.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Why Biases Exist</p>
+          <p>
+            Evolution optimized our brains for survival, not truth. Fast, approximate thinking
+            that's occasionally wrong beats slow, accurate thinking that gets you eaten. Our
+            ancestors who jumped at shadows survived more often than those who carefully
+            analyzed whether that rustle was a predator.
+          </p>
+        </div>
+
+        <p>
+          Cognitive biases aren't random mistakes&mdash;they're systematic patterns. The same
+          bias affects most people in similar ways. This predictability means we can study
+          them scientifically and, with effort, partially counteract them.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Anchoring</p>
+            <p class="concept-definition">Over-relying on the first piece of information encountered</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Confirmation Bias</p>
+            <p class="concept-definition">Seeking information that confirms existing beliefs</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Framing Effect</p>
+            <p class="concept-definition">Being influenced by how information is presented</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Anchoring Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Anchoring Effect</h2>
+
+        <p class="interactive-description">
+          Your estimate will be influenced by a random number you see first. Even irrelevant
+          anchors affect our judgments. Try this classic demonstration.
+        </p>
+
+        <div class="anchoring-container">
+          <div class="anchoring-phases">
+            <!-- Phase 1: Show anchor -->
+            <div class="phase phase-1 active">
+              <p class="phase-instruction">First, look at this number:</p>
+              <div class="anchor-display">
+                <span class="anchor-number">--</span>
+              </div>
+              <button class="btn btn-primary generate-anchor-btn">Generate Random Number</button>
+            </div>
+
+            <!-- Phase 2: Make estimate -->
+            <div class="phase phase-2">
+              <p class="phase-instruction">Now, estimate what percentage of UN countries are in Africa:</p>
+              <div class="estimate-input">
+                <input type="range" id="estimate-slider" min="0" max="100" value="50" class="slider">
+                <span class="estimate-value">50%</span>
+              </div>
+              <button class="btn btn-primary submit-estimate-btn">Submit Estimate</button>
+            </div>
+
+            <!-- Phase 3: Show results -->
+            <div class="phase phase-3">
+              <div class="anchoring-results">
+                <div class="result-row">
+                  <span>Your anchor was:</span>
+                  <span class="result-anchor">--</span>
+                </div>
+                <div class="result-row">
+                  <span>Your estimate:</span>
+                  <span class="result-estimate">--</span>
+                </div>
+                <div class="result-row highlight">
+                  <span>Actual answer:</span>
+                  <span class="result-actual">28%</span>
+                </div>
+              </div>
+              <p class="anchoring-explanation"></p>
+              <button class="btn btn-secondary try-again-btn">Try Again</button>
+            </div>
+          </div>
+
+          <div class="anchoring-stats">
+            <p class="stats-title">Historical Results</p>
+            <div class="stats-row">
+              <span>High anchor (65) average:</span>
+              <span class="high-anchor-avg">45%</span>
+            </div>
+            <div class="stats-row">
+              <span>Low anchor (10) average:</span>
+              <span class="low-anchor-avg">25%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Framing Effect Section -->
+      <section class="content-section">
+        <h2>The Framing Effect</h2>
+
+        <p>
+          The same information can lead to different decisions depending on how it's presented.
+          "90% survival rate" sounds better than "10% mortality rate"&mdash;even though they're
+          identical. Our brains process gains and losses differently.
+        </p>
+
+        <p>
+          Framing affects everything from medical decisions to consumer choices. Marketers
+          exploit this constantly: "95% fat-free" sells better than "5% fat." Being aware
+          of framing helps you focus on the actual information rather than its packaging.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Loss Aversion</p>
+          <p>
+            Losses loom larger than gains. Losing $100 feels worse than gaining $100 feels
+            good&mdash;by about 2x according to research. This asymmetry means negative frames
+            are often more powerful than positive ones. Fear of loss motivates more than
+            hope of gain.
+          </p>
+        </div>
+      </section>
+
+      <!-- Framing Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Framing Effect Demo</h2>
+
+        <p class="interactive-description">
+          See how the same situation leads to different choices depending on how it's framed.
+          This is based on the famous "Asian Disease Problem" by Tversky and Kahneman.
+        </p>
+
+        <div class="framing-container">
+          <div class="framing-scenario">
+            <p class="scenario-intro">
+              A disease outbreak will affect 600 people. Two programs are proposed:
+            </p>
+          </div>
+
+          <div class="framing-choice">
+            <div class="frame-toggle">
+              <button class="frame-btn active" data-frame="positive">Positive Frame</button>
+              <button class="frame-btn" data-frame="negative">Negative Frame</button>
+            </div>
+
+            <div class="options-container">
+              <div class="option-card" data-option="A">
+                <p class="option-label">Program A</p>
+                <p class="option-text positive-frame">200 people will be saved.</p>
+                <p class="option-text negative-frame" style="display: none;">400 people will die.</p>
+              </div>
+              <div class="option-card" data-option="B">
+                <p class="option-label">Program B</p>
+                <p class="option-text positive-frame">1/3 chance all 600 saved, 2/3 chance none saved.</p>
+                <p class="option-text negative-frame" style="display: none;">1/3 chance nobody dies, 2/3 chance all 600 die.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="framing-explanation">
+            <p class="explanation-title">What research shows:</p>
+            <p class="explanation-text">
+              With positive framing, ~72% choose A (certainty). With negative framing, ~78%
+              choose B (the gamble). Same outcomes, different choices. We're risk-averse for
+              gains but risk-seeking to avoid losses.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Confirmation Bias Section -->
+      <section class="content-section">
+        <h2>Confirmation Bias</h2>
+
+        <p>
+          We seek out information that confirms what we already believe and ignore or
+          dismiss evidence that contradicts it. This isn't conscious dishonesty&mdash;it's
+          automatic. We genuinely find confirming evidence more compelling and memorable.
+        </p>
+
+        <p>
+          Confirmation bias explains why debates rarely change minds. Each side sees the
+          same evidence as supporting their position. It's why first impressions are so
+          sticky, why stereotypes persist, and why smart people can believe false things.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Backfire Effect</p>
+          <p>
+            Sometimes correcting misinformation makes people believe it more strongly.
+            Challenging core beliefs can feel like a personal attack, triggering defensive
+            reasoning. The most effective way to change minds is usually indirect&mdash;
+            asking questions rather than presenting contradicting evidence.
+          </p>
+        </div>
+      </section>
+
+      <!-- Confirmation Bias Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Confirmation Bias Test</h2>
+
+        <p class="interactive-description">
+          Can you figure out the rule? This is Wason's 2-4-6 task. Most people get it
+          wrong because they only test confirming examples.
+        </p>
+
+        <div class="wason-container">
+          <div class="wason-sequence">
+            <p>These numbers follow a rule:</p>
+            <div class="sequence-display">2, 4, 6</div>
+          </div>
+
+          <div class="wason-test">
+            <p>Test if your sequence follows the rule:</p>
+            <div class="test-inputs">
+              <input type="number" id="wason-1" placeholder="?" class="wason-input">
+              <input type="number" id="wason-2" placeholder="?" class="wason-input">
+              <input type="number" id="wason-3" placeholder="?" class="wason-input">
+            </div>
+            <button class="btn btn-primary test-sequence-btn">Test Sequence</button>
+            <p class="test-result"></p>
+          </div>
+
+          <div class="wason-guess">
+            <p>What's the rule?</p>
+            <div class="guess-options">
+              <button class="guess-btn" data-guess="even">Even numbers</button>
+              <button class="guess-btn" data-guess="add2">Add 2 each time</button>
+              <button class="guess-btn" data-guess="increasing">Increasing numbers</button>
+              <button class="guess-btn" data-guess="multiples">Multiples of 2</button>
+            </div>
+            <p class="guess-result"></p>
+          </div>
+
+          <div class="wason-reveal" style="display: none;">
+            <p class="reveal-title">The actual rule:</p>
+            <p class="reveal-rule">Any three increasing numbers</p>
+            <p class="reveal-explanation">
+              Most people guess "even numbers" or "add 2" because they only test sequences
+              like 8, 10, 12 or 20, 22, 24&mdash;which all follow the real rule too. To find
+              the rule, you need to test sequences that would <em>disprove</em> your hypothesis,
+              like 1, 2, 3 or 5, 10, 15.
+            </p>
+            <button class="btn btn-secondary reset-wason-btn">Try Again</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Other Biases Section -->
+      <section class="content-section">
+        <h2>More Common Biases</h2>
+
+        <p>
+          <strong>Availability Heuristic:</strong> We judge probability by how easily examples
+          come to mind. Plane crashes feel more likely than car crashes because they're more
+          memorable, even though cars are far more dangerous.
+        </p>
+
+        <p>
+          <strong>Hindsight Bias:</strong> After something happens, we feel we "knew it all
+          along." This makes us overconfident in our predictive abilities and prevents us
+          from learning from surprises.
+        </p>
+
+        <p>
+          <strong>Dunning-Kruger Effect:</strong> The less you know, the more you overestimate
+          your knowledge. Experts doubt themselves; novices are confident. True competence
+          brings awareness of how much you don't know.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Bias Blind Spot</p>
+          <p>
+            The most meta bias: we see biases in others but not in ourselves. Even knowing
+            about biases doesn't make us immune. The best defense is building systems and
+            habits that counteract bias, rather than trusting our ability to think clearly
+            in the moment.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Biases are universal.</strong> They're not signs of stupidity&mdash;they're
+          features of how human cognition works. Smart people are just as susceptible, sometimes
+          more so because they're better at rationalizing.
+        </p>
+
+        <p>
+          <strong>Awareness isn't enough.</strong> Knowing about biases doesn't prevent them.
+          You need explicit debiasing techniques: consider alternatives, seek disconfirming
+          evidence, use checklists, get outside perspectives.
+        </p>
+
+        <p>
+          <strong>Systems beat willpower.</strong> Instead of trying to think better in the
+          moment, design environments and processes that reduce bias. Blind review processes,
+          pre-commitment strategies, and diverse teams all help.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Decisions:</strong> Major life choices, investments, hiring.
+            <strong>Communication:</strong> Persuasion, negotiation, marketing.
+            <strong>Science:</strong> Research design, peer review, replication.
+            <strong>Technology:</strong> AI fairness, recommendation systems, UI design.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../epidemiology/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Epidemiology
+        </a>
+        <a href="../../index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Back to All Theories
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="cognitive-biases.js"></script>
+</body>
+</html>
