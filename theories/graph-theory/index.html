@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graph Theory - Theory in Practice</title>
+  <meta name="description" content="Learn graph theory through interactive experiences. Explore networks, shortest paths, and the mathematics of connections.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="graph-theory.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+
+      <div class="nav-controls">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Mathematics</p>
+        <h1 class="article-title">Graph Theory</h1>
+        <p class="article-subtitle">
+          The mathematics of connections: from social networks to GPS navigation.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What is Graph Theory?</h2>
+        <p>
+          Graph theory is the study of networks&mdash;collections of things (called nodes or vertices)
+          and the connections between them (called edges). Despite the name, it has nothing to do with
+          bar charts or line graphs. Instead, it's about understanding relationships and connections.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Bridges of K&ouml;nigsberg</p>
+          <p>
+            In 1736, mathematician Leonhard Euler solved a famous puzzle: Can you walk through the city
+            of K&ouml;nigsberg crossing each of its seven bridges exactly once? By abstracting the problem
+            into nodes (land masses) and edges (bridges), Euler proved it was impossible&mdash;and invented
+            graph theory in the process.
+          </p>
+        </div>
+
+        <p>
+          You encounter graphs constantly without realizing it. Your social network is a graph where
+          people are nodes and friendships are edges. The internet is a graph of connected computers.
+          Roads connecting cities, neurons in your brain, even the structure of molecules&mdash;all graphs.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Nodes (Vertices)</p>
+            <p class="concept-definition">The things in your network: people, cities, web pages, atoms</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Edges</p>
+            <p class="concept-definition">The connections: friendships, roads, hyperlinks, chemical bonds</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Path</p>
+            <p class="concept-definition">A sequence of nodes connected by edges&mdash;how you get from A to B</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-World Examples Section -->
+      <section class="content-section">
+        <h2>Graph Theory in the Real World</h2>
+
+        <p>
+          <strong>GPS Navigation:</strong> When Google Maps finds the fastest route, it's solving a graph
+          problem. Intersections are nodes, roads are edges (with weights for time/distance), and algorithms
+          like Dijkstra's find the shortest path. This same math powers logistics companies routing
+          thousands of packages daily.
+        </p>
+
+        <p>
+          <strong>Social Networks:</strong> Facebook's "People You May Know" feature uses graph analysis.
+          If you share many mutual friends with someone, you're likely to know them. The "six degrees of
+          separation" theory says any two people are connected by at most six friendship links&mdash;a
+          property of how social graphs are structured.
+        </p>
+
+        <p>
+          <strong>Recommendation Engines:</strong> Netflix and Spotify model users and content as a graph.
+          If users who liked A also liked B, there's probably a connection. These graphs help predict
+          what you'll enjoy based on patterns from millions of users.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">PageRank</p>
+          <p>
+            Google's original algorithm treated the web as a graph where pages are nodes and hyperlinks
+            are edges. Pages that receive many links from important pages are themselves important. This
+            recursive definition revolutionized search and made Google a trillion-dollar company.
+          </p>
+        </div>
+      </section>
+
+      <!-- Interactive Graph Builder -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Build Your Own Graph</h2>
+
+        <p class="interactive-description">
+          Click to add nodes, then click two nodes to connect them with an edge.
+          Explore how different structures change the network's properties.
+        </p>
+
+        <div class="graph-builder">
+          <div class="graph-canvas-container">
+            <canvas class="graph-canvas" id="graph-canvas"></canvas>
+          </div>
+
+          <div class="graph-controls">
+            <div class="control-group">
+              <label>Mode:</label>
+              <div class="mode-buttons">
+                <button class="btn btn-primary mode-btn active" data-mode="add-node">Add Node</button>
+                <button class="btn btn-secondary mode-btn" data-mode="add-edge">Add Edge</button>
+                <button class="btn btn-secondary mode-btn" data-mode="delete">Delete</button>
+              </div>
+            </div>
+            <button class="btn btn-secondary clear-graph-btn">Clear Graph</button>
+          </div>
+
+          <div class="graph-stats">
+            <div class="stat-item">
+              <div class="stat-value nodes-count">0</div>
+              <div class="stat-label">Nodes</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value edges-count">0</div>
+              <div class="stat-label">Edges</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value components-count">0</div>
+              <div class="stat-label">Components</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value avg-degree">0</div>
+              <div class="stat-label">Avg Degree</div>
+            </div>
+          </div>
+
+          <div class="graph-presets">
+            <span class="presets-label">Try a preset:</span>
+            <button class="btn btn-secondary preset-btn" data-preset="triangle">Triangle</button>
+            <button class="btn btn-secondary preset-btn" data-preset="star">Star</button>
+            <button class="btn btn-secondary preset-btn" data-preset="complete">Complete (K5)</button>
+            <button class="btn btn-secondary preset-btn" data-preset="bipartite">Bipartite</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shortest Path Finder -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Shortest Path Finder</h2>
+
+        <p class="interactive-description">
+          See Dijkstra's algorithm in action! Click on two nodes to find the shortest path between them.
+          This is exactly how GPS navigation works&mdash;just with millions more nodes.
+        </p>
+
+        <div class="pathfinder">
+          <div class="pathfinder-canvas-container">
+            <canvas class="pathfinder-canvas" id="pathfinder-canvas"></canvas>
+          </div>
+
+          <div class="pathfinder-controls">
+            <button class="btn btn-primary find-path-btn">Find Shortest Path</button>
+            <button class="btn btn-secondary reset-path-btn">Reset Selection</button>
+            <button class="btn btn-secondary randomize-graph-btn">New Random Graph</button>
+          </div>
+
+          <div class="pathfinder-info">
+            <div class="path-status">Click on two nodes to select start and end points</div>
+            <div class="path-result" style="display: none;">
+              <span class="path-length"></span>
+              <span class="path-nodes"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Concepts Section -->
+      <section class="content-section">
+        <h2>Key Concepts</h2>
+
+        <p>
+          <strong>Degree:</strong> The number of edges connected to a node. In a social network,
+          your degree is your friend count. Highly connected nodes (high degree) are often influential&mdash;
+          think celebrities or news outlets.
+        </p>
+
+        <p>
+          <strong>Connected Components:</strong> Groups of nodes where you can reach any node from any other
+          within the group. If your social network has two separate friend groups with no mutual connections,
+          those are two components.
+        </p>
+
+        <p>
+          <strong>Shortest Path:</strong> The minimum number of edges (or minimum total weight) to get from
+          one node to another. This concept underlies routing algorithms, from GPS to network packets.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Small World Phenomenon</p>
+          <p>
+            Most real-world networks have surprisingly short paths between any two nodes. In social networks,
+            this gives us "six degrees of separation." This happens because even a few random long-range
+            connections dramatically shrink distances in a network&mdash;a discovery that explains why trends
+            and information can spread so quickly.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Everything is connected.</strong> Once you see the world through graphs, you notice
+          networks everywhere. Supply chains, disease spread, power grids, the web&mdash;all follow similar
+          mathematical patterns despite being completely different systems.
+        </p>
+
+        <p>
+          <strong>Structure determines behavior.</strong> The shape of a network determines how information,
+          diseases, or failures spread through it. Highly connected "hub" nodes make networks efficient but
+          vulnerable&mdash;take out a hub and the whole system suffers.
+        </p>
+
+        <p>
+          <strong>Simple algorithms solve complex problems.</strong> Finding the shortest path through millions
+          of nodes sounds impossibly complex, but algorithms like Dijkstra's and BFS solve it efficiently.
+          The key insight: break the problem into small steps that guarantee progress.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Networking:</strong> Understanding how social and professional connections work.
+            <strong>Logistics:</strong> Optimizing routes and supply chains.
+            <strong>Problem Solving:</strong> Breaking complex relationships into nodes and edges.
+            <strong>Tech:</strong> How search engines, social platforms, and recommendation systems work.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../probability/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Probability & Bayes
+        </a>
+        <a href="../fractals/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Fractals
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="graph-theory.js"></script>
+</body>
+</html>
