@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cryptography - Theory in Practice</title>
+  <meta name="description" content="Explore cryptography through interactive demos. Learn about encryption, public key systems, and how digital security works.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="cryptography.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Computer Science</p>
+        <h1 class="article-title">Cryptography</h1>
+        <p class="article-subtitle">
+          The mathematics of secrets: keeping information safe in an open world.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What Is Cryptography?</h2>
+        <p>
+          Cryptography transforms readable information into scrambled nonsense that only the
+          intended recipient can unscramble. It's been used for millennia&mdash;from ancient
+          Roman military codes to the encrypted messages on your phone right now.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Security Through Mathematics</p>
+          <p>
+            Modern cryptography doesn't rely on keeping the method secret. The algorithms
+            are public&mdash;anyone can see how AES or RSA works. Security comes from
+            mathematical problems that are easy to create but impossibly hard to reverse
+            without the key.
+          </p>
+        </div>
+
+        <p>
+          Every time you see that padlock icon in your browser, cryptography is at work.
+          Your passwords, bank transactions, private messages&mdash;all protected by
+          mathematical transformations that would take billions of years to crack.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Encryption</p>
+            <p class="concept-definition">Transforming plaintext into unreadable ciphertext</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Key</p>
+            <p class="concept-definition">Secret information needed to encrypt or decrypt</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Hash Function</p>
+            <p class="concept-definition">One-way function that creates a fixed-size "fingerprint"</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Caesar Cipher -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Caesar Cipher</h2>
+
+        <p class="interactive-description">
+          One of the oldest encryption methods: shift each letter by a fixed amount. Julius
+          Caesar reportedly used a shift of 3. It's trivially breakable today (only 26 possible
+          keys!), but it introduces the core concept: a reversible transformation controlled by a key.
+        </p>
+
+        <div class="caesar-container">
+          <div class="caesar-input">
+            <label>Plaintext:</label>
+            <input type="text" id="caesar-plaintext" value="HELLO WORLD" class="text-input">
+          </div>
+
+          <div class="caesar-controls">
+            <label>Shift (Key): <span class="shift-value">3</span></label>
+            <input type="range" id="caesar-shift" min="1" max="25" value="3" class="slider">
+          </div>
+
+          <div class="caesar-alphabet">
+            <div class="alphabet-row plain-alphabet">
+              <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span>
+            </div>
+            <div class="alphabet-arrow">↓</div>
+            <div class="alphabet-row cipher-alphabet">
+              <span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span><span>A</span><span>B</span><span>C</span>
+            </div>
+          </div>
+
+          <div class="caesar-output">
+            <label>Ciphertext:</label>
+            <div class="output-text caesar-ciphertext">KHOOR ZRUOG</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modern Cryptography Section -->
+      <section class="content-section">
+        <h2>The Key Distribution Problem</h2>
+
+        <p>
+          Classical encryption has a fundamental problem: both parties need the same secret key.
+          How do you share a key securely? If you already had a secure channel, you wouldn't
+          need encryption! This is the <strong>key distribution problem</strong>.
+        </p>
+
+        <p>
+          In 1976, Whitfield Diffie and Martin Hellman proposed a revolutionary solution:
+          <strong>public key cryptography</strong>. You have two keys&mdash;a public key you
+          share with everyone, and a private key you keep secret. Anyone can encrypt with your
+          public key, but only you can decrypt with your private key.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Trapdoor</p>
+          <p>
+            Public key systems rely on "trapdoor" functions: easy to compute one way, hard to
+            reverse. Multiplying two large primes is easy; factoring their product is hard.
+            This asymmetry is what makes RSA secure&mdash;encryption is easy, but breaking
+            it would require factoring a number with hundreds of digits.
+          </p>
+        </div>
+      </section>
+
+      <!-- Public Key Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Public Key Encryption</h2>
+
+        <p class="interactive-description">
+          This simplified demo shows how public key encryption works. Alice publishes her public
+          key. Bob uses it to encrypt a message. Only Alice's private key can decrypt it. Even
+          if Eve intercepts the public key and ciphertext, she can't read the message.
+        </p>
+
+        <div class="pubkey-container">
+          <div class="pubkey-actors">
+            <div class="actor alice">
+              <div class="actor-icon">A</div>
+              <span class="actor-name">Alice</span>
+              <div class="key-display">
+                <div class="key-item public-key">
+                  <span class="key-label">Public Key:</span>
+                  <span class="key-value alice-public">1147</span>
+                </div>
+                <div class="key-item private-key">
+                  <span class="key-label">Private Key:</span>
+                  <span class="key-value alice-private">23</span>
+                  <span class="key-secret">(secret!)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="message-flow">
+              <div class="flow-arrow">→</div>
+              <div class="flow-label">Encrypted message</div>
+            </div>
+
+            <div class="actor bob">
+              <div class="actor-icon">B</div>
+              <span class="actor-name">Bob</span>
+            </div>
+          </div>
+
+          <div class="pubkey-demo">
+            <div class="demo-step">
+              <label>Bob's message:</label>
+              <input type="text" id="pubkey-message" value="42" class="text-input" maxlength="4">
+              <span class="demo-hint">(Use a small number for this demo)</span>
+            </div>
+
+            <div class="demo-actions">
+              <button class="btn btn-primary encrypt-btn">Encrypt with Alice's Public Key</button>
+            </div>
+
+            <div class="demo-result" style="display: none;">
+              <div class="result-row">
+                <span class="result-label">Original:</span>
+                <span class="result-value original-value"></span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">Encrypted:</span>
+                <span class="result-value encrypted-value"></span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">Decrypted (with private key):</span>
+                <span class="result-value decrypted-value"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pubkey-info">
+            <p>This demo uses simplified math. Real RSA uses numbers with 2048+ bits!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hash Functions -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Hash Functions</h2>
+
+        <p class="interactive-description">
+          A hash function takes any input and produces a fixed-size output (the "hash" or "digest").
+          It's a one-way function&mdash;you can't reverse it to find the input. Even tiny changes
+          to the input completely change the hash. This is used for password storage, file
+          verification, and digital signatures.
+        </p>
+
+        <div class="hash-container">
+          <div class="hash-input">
+            <label>Input:</label>
+            <input type="text" id="hash-input" value="Hello, World!" class="text-input">
+          </div>
+
+          <div class="hash-output">
+            <label>Hash (SHA-256 simulation):</label>
+            <div class="output-text hash-value">7f83b1657ff1fc...</div>
+          </div>
+
+          <div class="hash-demo">
+            <p class="hash-tip">Try changing just one character!</p>
+            <div class="hash-comparison">
+              <div class="hash-item">
+                <span class="hash-label">"Hello, World!"</span>
+                <span class="hash-result">7f83b1657ff1fc...</span>
+              </div>
+              <div class="hash-item">
+                <span class="hash-label">"Hello, World?"</span>
+                <span class="hash-result">1d91ca4c1e7b9a...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hash-uses">
+            <h4>What hashes are used for:</h4>
+            <ul>
+              <li><strong>Passwords:</strong> Websites store hashes, not your actual password</li>
+              <li><strong>File integrity:</strong> Verify downloads haven't been tampered with</li>
+              <li><strong>Digital signatures:</strong> Sign the hash instead of the whole document</li>
+              <li><strong>Blockchain:</strong> Each block contains the hash of the previous block</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="content-section">
+        <h2>Cryptography in Action</h2>
+
+        <p>
+          <strong>HTTPS:</strong> When you see the padlock, your browser and the server have
+          performed a "handshake" using public key crypto to establish a shared secret, then
+          switched to faster symmetric encryption for the actual data.
+        </p>
+
+        <p>
+          <strong>End-to-End Encryption:</strong> Apps like Signal encrypt messages so that
+          even the company running the servers can't read them. Only the sender and recipient
+          have the keys.
+        </p>
+
+        <p>
+          <strong>Digital Signatures:</strong> Just as you can encrypt with a public key and
+          decrypt with a private key, you can sign with a private key and verify with a public
+          key. This proves a message came from you and wasn't altered.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Quantum Threat</p>
+          <p>
+            Quantum computers could break RSA by efficiently factoring large numbers. That's
+            why cryptographers are developing "post-quantum" algorithms that will remain
+            secure even against quantum attacks. The race is on to deploy them before large
+            quantum computers arrive.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Security is mathematical.</strong> Modern encryption doesn't rely on
+          obscurity. The algorithms are public; security comes from mathematical hardness.
+          If a cipher is only secure because the method is secret, it's not truly secure.
+        </p>
+
+        <p>
+          <strong>Public key crypto solved key distribution.</strong> The ability to encrypt
+          to someone without first sharing a secret revolutionized secure communication.
+          It's why you can securely connect to a website you've never visited before.
+        </p>
+
+        <p>
+          <strong>Hashing is everywhere.</strong> One-way functions are fundamental to
+          security. Your passwords aren't stored as passwords. File downloads are verified
+          with hashes. Blockchains are chains of hashes.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Web:</strong> HTTPS, SSL/TLS certificates.
+            <strong>Communication:</strong> Encrypted messaging, email security.
+            <strong>Finance:</strong> Online banking, cryptocurrency.
+            <strong>Authentication:</strong> Passwords, digital signatures, certificates.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../quantum-computing/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Quantum Computing
+        </a>
+        <a href="../information-theory/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Information Theory
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="cryptography.js"></script>
+</body>
+</html>
