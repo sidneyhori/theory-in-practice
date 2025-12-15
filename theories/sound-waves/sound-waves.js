@@ -5,14 +5,24 @@
 
   // ===== Audio Context (shared) =====
   let audioCtx = null;
+  let audioContextReady = false;
 
-  function getAudioContext() {
+  async function getAudioContext() {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
     // Mobile browsers require resume() after user gesture
     if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
+      await audioCtx.resume();
+    }
+    audioContextReady = true;
+    return audioCtx;
+  }
+
+  // Synchronous version for non-playback operations
+  function getAudioContextSync() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
     return audioCtx;
   }
@@ -62,16 +72,16 @@
         this.frequency = parseInt(e.target.value);
         document.querySelector('.frequency-value').textContent = this.frequency;
         this.updateInfo();
-        if (this.oscillator) {
-          this.oscillator.frequency.setValueAtTime(this.frequency, getAudioContext().currentTime);
+        if (this.oscillator && audioContextReady) {
+          this.oscillator.frequency.setValueAtTime(this.frequency, getAudioContextSync().currentTime);
         }
       });
 
       document.getElementById('amplitude-slider')?.addEventListener('input', (e) => {
         this.amplitude = parseInt(e.target.value);
         document.querySelector('.amplitude-value').textContent = this.amplitude;
-        if (this.gainNode) {
-          this.gainNode.gain.setValueAtTime(this.amplitude / 100 * 0.3, getAudioContext().currentTime);
+        if (this.gainNode && audioContextReady) {
+          this.gainNode.gain.setValueAtTime(this.amplitude / 100 * 0.3, getAudioContextSync().currentTime);
         }
       });
 
@@ -93,10 +103,10 @@
       document.querySelector('.wavelength-value').textContent = wavelength.toFixed(2) + ' m';
     },
 
-    playSound() {
+    async playSound() {
       this.stopSound();
 
-      const ctx = getAudioContext();
+      const ctx = await getAudioContext();
       this.oscillator = ctx.createOscillator();
       this.gainNode = ctx.createGain();
 
@@ -271,10 +281,10 @@
       this.updateOscillators();
     },
 
-    playSound() {
+    async playSound() {
       this.stopSound();
 
-      const ctx = getAudioContext();
+      const ctx = await getAudioContext();
       this.masterGain = ctx.createGain();
       this.masterGain.gain.setValueAtTime(0.2, ctx.currentTime);
       this.masterGain.connect(ctx.destination);
@@ -299,9 +309,9 @@
     },
 
     updateOscillators() {
-      if (!this.masterGain) return;
+      if (!this.masterGain || !audioContextReady) return;
 
-      const ctx = getAudioContext();
+      const ctx = getAudioContextSync();
 
       // Update existing oscillators
       this.oscillators.forEach((osc, i) => {
@@ -481,10 +491,10 @@
       document.querySelector('.beat-freq-value').textContent = diff + ' beats/sec';
     },
 
-    playSound() {
+    async playSound() {
       this.stopSound();
 
-      const ctx = getAudioContext();
+      const ctx = await getAudioContext();
       this.masterGain = ctx.createGain();
       this.masterGain.gain.setValueAtTime(0.2, ctx.currentTime);
       this.masterGain.connect(ctx.destination);
@@ -507,8 +517,8 @@
     },
 
     updateOscillators() {
-      if (this.oscillators.length === 2) {
-        const ctx = getAudioContext();
+      if (this.oscillators.length === 2 && audioContextReady) {
+        const ctx = getAudioContextSync();
         this.oscillators[0].frequency.setValueAtTime(this.freq1, ctx.currentTime);
         this.oscillators[1].frequency.setValueAtTime(this.freq2, ctx.currentTime);
       }
