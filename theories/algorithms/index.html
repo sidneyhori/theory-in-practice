@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algorithms & Complexity - Theory in Practice</title>
+  <meta name="description" content="Explore algorithms through interactive visualizations. Learn about sorting, searching, Big O notation, and computational complexity.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="algorithms.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Computer Science</p>
+        <h1 class="article-title">Algorithms & Complexity</h1>
+        <p class="article-subtitle">
+          The art of solving problems efficiently: how fast can we go?
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What Is an Algorithm?</h2>
+        <p>
+          An algorithm is a step-by-step procedure for solving a problem. It's a recipe that
+          transforms inputs into outputs. But not all recipes are equal&mdash;some are fast,
+          some are slow, and understanding the difference is at the heart of computer science.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Why Efficiency Matters</p>
+          <p>
+            A slow algorithm might take years to process data that a fast algorithm handles in
+            seconds. When Google searches billions of web pages or your GPS finds the best route,
+            the difference between a good and bad algorithm isn't just speed&mdash;it's whether
+            the task is possible at all.
+          </p>
+        </div>
+
+        <p>
+          <strong>Big O notation</strong> describes how an algorithm's runtime grows with input
+          size. O(n) means linear growth: double the input, double the time. O(n<sup>2</sup>)
+          means quadratic growth: double the input, quadruple the time. The difference becomes
+          dramatic at scale.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">O(1) - Constant</p>
+            <p class="concept-definition">Same time regardless of input size</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">O(log n) - Logarithmic</p>
+            <p class="concept-definition">Time grows slowly as input grows exponentially</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">O(n) - Linear</p>
+            <p class="concept-definition">Time grows proportionally with input</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">O(n<sup>2</sup>) - Quadratic</p>
+            <p class="concept-definition">Time grows with the square of input size</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Big O Comparison -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Big O Growth Rates</h2>
+
+        <p class="interactive-description">
+          See how different time complexities scale. Even for small inputs, the differences are
+          striking. For large inputs, inefficient algorithms become impossibly slow.
+        </p>
+
+        <div class="bigo-container">
+          <div class="bigo-controls">
+            <label>Input Size (n): <span class="n-display">10</span></label>
+            <input type="range" id="bigo-n" min="1" max="100" value="10" class="slider">
+          </div>
+
+          <div class="bigo-chart">
+            <div class="chart-bars">
+              <div class="complexity-bar" data-complexity="1">
+                <div class="bar-fill"></div>
+                <span class="bar-label">O(1)</span>
+                <span class="bar-value">1</span>
+              </div>
+              <div class="complexity-bar" data-complexity="logn">
+                <div class="bar-fill"></div>
+                <span class="bar-label">O(log n)</span>
+                <span class="bar-value">3</span>
+              </div>
+              <div class="complexity-bar" data-complexity="n">
+                <div class="bar-fill"></div>
+                <span class="bar-label">O(n)</span>
+                <span class="bar-value">10</span>
+              </div>
+              <div class="complexity-bar" data-complexity="nlogn">
+                <div class="bar-fill"></div>
+                <span class="bar-label">O(n log n)</span>
+                <span class="bar-value">33</span>
+              </div>
+              <div class="complexity-bar" data-complexity="n2">
+                <div class="bar-fill"></div>
+                <span class="bar-label">O(n<sup>2</sup>)</span>
+                <span class="bar-value">100</span>
+              </div>
+              <div class="complexity-bar" data-complexity="2n">
+                <div class="bar-fill"></div>
+                <span class="bar-label">O(2<sup>n</sup>)</span>
+                <span class="bar-value">1024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bigo-table">
+            <div class="table-header">
+              <span>If each operation takes 1 microsecond:</span>
+            </div>
+            <div class="table-row">
+              <span class="table-label">O(n) at n=1,000,000:</span>
+              <span class="table-value">1 second</span>
+            </div>
+            <div class="table-row">
+              <span class="table-label">O(n<sup>2</sup>) at n=1,000,000:</span>
+              <span class="table-value">11.5 days</span>
+            </div>
+            <div class="table-row">
+              <span class="table-label">O(2<sup>n</sup>) at n=64:</span>
+              <span class="table-value">584,942 years</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sorting Section -->
+      <section class="content-section">
+        <h2>Sorting Algorithms</h2>
+
+        <p>
+          Sorting is one of the most fundamental operations in computing. Every time you sort
+          files by date, organize search results by relevance, or rank anything, a sorting
+          algorithm is at work. But how do you sort efficiently?
+        </p>
+
+        <p>
+          <strong>Bubble Sort</strong> is simple but slow: compare adjacent elements and swap
+          if out of order, repeat until sorted. It's O(n<sup>2</sup>)&mdash;fine for small lists
+          but impractical for large ones. <strong>Merge Sort</strong> is faster: divide the list
+          in half, sort each half, then merge. It's O(n log n), which is provably optimal for
+          comparison-based sorting.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Lower Bound</p>
+          <p>
+            No comparison-based sorting algorithm can do better than O(n log n) in the worst
+            case. This is a mathematical fact, not a limitation of current knowledge. You need
+            at least log(n!) comparisons to distinguish between all possible orderings, and
+            log(n!) is approximately n log n.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sorting Visualizer -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Sorting Visualizer</h2>
+
+        <p class="interactive-description">
+          Watch different sorting algorithms in action. Notice how Bubble Sort makes many more
+          comparisons than Merge Sort, especially as the array gets larger.
+        </p>
+
+        <div class="sorting-container">
+          <div class="sorting-display">
+            <div class="sort-bars" id="sort-bars"></div>
+          </div>
+
+          <div class="sorting-stats">
+            <div class="stat-item">
+              <span class="stat-label">Comparisons</span>
+              <span class="stat-value comparisons-count">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Swaps</span>
+              <span class="stat-value swaps-count">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Status</span>
+              <span class="stat-value sort-status">Ready</span>
+            </div>
+          </div>
+
+          <div class="sorting-controls">
+            <div class="control-row">
+              <label>Array Size: <span class="size-display">20</span></label>
+              <input type="range" id="array-size" min="10" max="50" value="20" class="slider">
+            </div>
+            <div class="control-row">
+              <label>Speed:</label>
+              <input type="range" id="sort-speed" min="1" max="100" value="50" class="slider">
+            </div>
+          </div>
+
+          <div class="algorithm-buttons">
+            <button class="btn btn-secondary algorithm-btn" data-algorithm="bubble">Bubble Sort</button>
+            <button class="btn btn-secondary algorithm-btn" data-algorithm="selection">Selection Sort</button>
+            <button class="btn btn-secondary algorithm-btn" data-algorithm="insertion">Insertion Sort</button>
+            <button class="btn btn-secondary algorithm-btn" data-algorithm="merge">Merge Sort</button>
+            <button class="btn btn-secondary algorithm-btn" data-algorithm="quick">Quick Sort</button>
+          </div>
+
+          <div class="sorting-actions">
+            <button class="btn btn-primary shuffle-btn">Shuffle</button>
+            <button class="btn btn-secondary stop-btn">Stop</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Searching Section -->
+      <section class="content-section">
+        <h2>Searching Algorithms</h2>
+
+        <p>
+          Finding an item in a collection is another fundamental operation. <strong>Linear
+          search</strong> checks each element one by one: O(n). <strong>Binary search</strong>
+          is much faster for sorted data: check the middle, eliminate half the remaining
+          elements, repeat. It's O(log n).
+        </p>
+
+        <p>
+          The power of binary search is remarkable. With just 20 comparisons, you can find any
+          item in a sorted list of a million elements. With 30 comparisons, you can search a
+          billion. This logarithmic efficiency is why binary search is everywhere&mdash;from
+          database indexes to dictionary lookups.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Trade-off</p>
+          <p>
+            Binary search requires sorted data. If you search once, it's faster to use linear
+            search than to sort first. But if you search many times, the upfront sorting cost
+            is quickly repaid by faster searches. This trade-off between preprocessing and
+            query time is fundamental in algorithm design.
+          </p>
+        </div>
+      </section>
+
+      <!-- Search Comparison -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Linear vs Binary Search</h2>
+
+        <p class="interactive-description">
+          Compare linear and binary search. Linear search checks elements one by one. Binary
+          search eliminates half the possibilities with each comparison. Watch the step counts!
+        </p>
+
+        <div class="search-container">
+          <div class="search-array">
+            <div class="array-display" id="search-array"></div>
+            <div class="search-target">
+              Looking for: <span class="target-value">--</span>
+            </div>
+          </div>
+
+          <div class="search-comparison">
+            <div class="search-panel linear-panel">
+              <h4>Linear Search</h4>
+              <div class="search-progress">
+                <span class="steps-count">0</span> steps
+              </div>
+              <div class="search-result">--</div>
+            </div>
+            <div class="search-panel binary-panel">
+              <h4>Binary Search</h4>
+              <div class="search-progress">
+                <span class="steps-count">0</span> steps
+              </div>
+              <div class="search-result">--</div>
+            </div>
+          </div>
+
+          <div class="search-controls">
+            <label>Array Size: <span class="search-size-display">20</span></label>
+            <input type="range" id="search-size" min="10" max="100" value="20" class="slider">
+          </div>
+
+          <div class="search-actions">
+            <button class="btn btn-primary search-btn">Search Random Element</button>
+            <button class="btn btn-secondary search-worst-btn">Search Worst Case</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Complexity Classes Section -->
+      <section class="content-section">
+        <h2>P, NP, and Hard Problems</h2>
+
+        <p>
+          Computer scientists classify problems by their inherent difficulty. <strong>P</strong>
+          contains problems solvable in polynomial time (like sorting). <strong>NP</strong>
+          contains problems where solutions can be <em>verified</em> in polynomial time (like
+          checking if a proposed route visits all cities).
+        </p>
+
+        <p>
+          The <strong>P vs NP</strong> question asks: if a solution can be verified quickly,
+          can it also be found quickly? Most experts believe P &ne; NP&mdash;that some
+          problems are fundamentally harder to solve than to verify. But proving this remains
+          one of the greatest unsolved problems in mathematics, with a $1 million prize.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Traveling Salesman</p>
+          <p>
+            Given n cities, what's the shortest route visiting all of them? With 20 cities,
+            there are over 10<sup>18</sup> possible routes. No known algorithm can solve this
+            efficiently for large n. Yet if someone gives you a route, you can quickly verify
+            its length. This gap between finding and verifying defines NP-complete problems.
+          </p>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="content-section">
+        <h2>Algorithms in Action</h2>
+
+        <p>
+          <strong>Search Engines:</strong> Google's PageRank algorithm ranks billions of pages
+          in milliseconds. Without efficient algorithms, web search would be impossible.
+          Clever data structures and approximation algorithms make it practical.
+        </p>
+
+        <p>
+          <strong>Route Planning:</strong> GPS systems use Dijkstra's algorithm and A* search
+          to find optimal routes among millions of road segments. Real-time traffic updates
+          require algorithms that can quickly recompute paths.
+        </p>
+
+        <p>
+          <strong>Compression:</strong> Huffman coding, LZ77, and other algorithms reduce file
+          sizes dramatically. Streaming video would be impossible without efficient compression
+          algorithms running in real-time.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Algorithm Design Principles</p>
+          <p>
+            <strong>Divide and conquer:</strong> Break problems into smaller subproblems (Merge Sort).
+            <strong>Dynamic programming:</strong> Solve subproblems once and reuse results.
+            <strong>Greedy algorithms:</strong> Make locally optimal choices hoping for global optimum.
+            <strong>Randomization:</strong> Use randomness to simplify or speed up algorithms.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Complexity matters more than constants.</strong> An O(n log n) algorithm
+          will eventually beat an O(n<sup>2</sup>) algorithm, no matter how optimized the
+          latter is. For large inputs, the growth rate dominates everything else.
+        </p>
+
+        <p>
+          <strong>The right algorithm makes the impossible possible.</strong> Problems that
+          would take centuries with brute force can be solved in seconds with the right
+          approach. Algorithm design is about finding clever shortcuts that preserve correctness.
+        </p>
+
+        <p>
+          <strong>Some problems may be fundamentally hard.</strong> Not every problem has an
+          efficient solution. Recognizing intractable problems lets you know when to seek
+          approximations or heuristics instead of exact solutions.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Databases:</strong> Indexing, query optimization, joins.
+            <strong>Graphics:</strong> Rendering, collision detection, pathfinding.
+            <strong>AI:</strong> Search, optimization, learning algorithms.
+            <strong>Everyday apps:</strong> Autocomplete, recommendations, feed ranking.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../information-theory/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Information Theory
+        </a>
+        <a href="../supply-demand/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Supply & Demand
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="algorithms.js"></script>
+</body>
+</html>
