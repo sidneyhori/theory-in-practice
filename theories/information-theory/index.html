@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Information Theory - Theory in Practice</title>
+  <meta name="description" content="Explore information theory through interactive demos. Learn about Shannon entropy, data compression, and the mathematics of communication.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="information-theory.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Computer Science</p>
+        <h1 class="article-title">Information Theory</h1>
+        <p class="article-subtitle">
+          The mathematics of communication: measuring, storing, and transmitting information.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What Is Information?</h2>
+        <p>
+          In 1948, Claude Shannon revolutionized how we think about communication. He asked a
+          simple question: How do you measure information? His answer created an entirely new
+          field&mdash;information theory&mdash;that underlies everything from ZIP files to WiFi.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Surprise Factor</p>
+          <p>
+            Shannon realized that information is about <em>surprise</em>. If I tell you the sun
+            will rise tomorrow, that's not much information&mdash;you already expected it. But if
+            I tell you it won't, that's highly informative. Information measures how much an
+            event reduces your uncertainty.
+          </p>
+        </div>
+
+        <p>
+          The fundamental unit of information is the <strong>bit</strong>&mdash;a binary digit
+          that can be 0 or 1. One bit is the information you gain from a fair coin flip. The
+          entire digital world is built on bits: your photos, music, messages, and this web page.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Bit</p>
+            <p class="concept-definition">The fundamental unit of information; a binary choice</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Entropy</p>
+            <p class="concept-definition">Average uncertainty or information content of a source</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Compression</p>
+            <p class="concept-definition">Reducing data size by removing redundancy</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Entropy Calculator -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Shannon Entropy</h2>
+
+        <p class="interactive-description">
+          Entropy measures how "random" or unpredictable a source is. A fair coin has maximum
+          entropy (1 bit)&mdash;you can't predict it better than chance. A biased coin has less
+          entropy because it's more predictable. Adjust the probability to see how entropy changes.
+        </p>
+
+        <div class="entropy-container">
+          <div class="entropy-controls">
+            <label>Probability of Heads: <span class="prob-display">50%</span></label>
+            <input type="range" id="entropy-prob" min="1" max="99" value="50" class="slider">
+          </div>
+
+          <div class="entropy-visual">
+            <div class="coin-distribution">
+              <div class="coin-bar heads-bar">
+                <div class="bar-fill" style="height: 50%;"></div>
+                <span class="bar-label">Heads</span>
+              </div>
+              <div class="coin-bar tails-bar">
+                <div class="bar-fill" style="height: 50%;"></div>
+                <span class="bar-label">Tails</span>
+              </div>
+            </div>
+            <div class="entropy-result">
+              <div class="result-box">
+                <span class="result-label">Entropy</span>
+                <span class="entropy-value">1.00</span>
+                <span class="result-unit">bits</span>
+              </div>
+              <div class="result-box">
+                <span class="result-label">Predictability</span>
+                <span class="predictability-value">0%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="entropy-formula">
+            <span class="formula-label">Formula:</span>
+            <code>H = -p log<sub>2</sub>(p) - (1-p) log<sub>2</sub>(1-p)</code>
+          </div>
+        </div>
+      </section>
+
+      <!-- Information Content Section -->
+      <section class="content-section">
+        <h2>Information Content</h2>
+
+        <p>
+          Each symbol in a message carries a certain amount of information, measured in bits.
+          The formula is: <strong>I = -log<sub>2</sub>(p)</strong>, where p is the probability.
+          Rare events carry more information than common ones.
+        </p>
+
+        <p>
+          In English text, the letter 'E' appears about 13% of the time, while 'Z' appears only
+          0.07% of the time. So seeing a 'Z' gives you about 10.5 bits of information, while an
+          'E' only gives you about 2.9 bits. This is why compression works&mdash;common things
+          can be encoded with fewer bits.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Why This Matters</p>
+          <p>
+            Compression algorithms like ZIP and JPEG exploit this principle. They use short codes
+            for common patterns and long codes for rare ones. Huffman coding and arithmetic coding
+            are direct applications of Shannon's ideas. Without information theory, streaming video
+            and mobile phones wouldn't be practical.
+          </p>
+        </div>
+      </section>
+
+      <!-- Text Analysis -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Text Entropy Analysis</h2>
+
+        <p class="interactive-description">
+          See how much information is in a piece of text. Random characters have high entropy;
+          natural language has lower entropy because it's predictable. Try typing different things
+          to see how entropy changes.
+        </p>
+
+        <div class="text-entropy-container">
+          <div class="text-input-area">
+            <label>Enter text to analyze:</label>
+            <textarea id="text-input" rows="3" placeholder="Type or paste text here...">The quick brown fox jumps over the lazy dog.</textarea>
+          </div>
+
+          <div class="text-stats">
+            <div class="stat-item">
+              <span class="stat-label">Characters</span>
+              <span class="stat-value char-count">44</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Unique</span>
+              <span class="stat-value unique-count">27</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Entropy</span>
+              <span class="stat-value text-entropy">4.03</span>
+              <span class="stat-unit">bits/char</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Total Info</span>
+              <span class="stat-value total-info">177</span>
+              <span class="stat-unit">bits</span>
+            </div>
+          </div>
+
+          <div class="frequency-display">
+            <h4>Character Frequencies</h4>
+            <div class="freq-bars"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Compression Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Compression Visualizer</h2>
+
+        <p class="interactive-description">
+          See how data compression works. Repetitive patterns can be encoded more efficiently than
+          random data. The theoretical limit is the entropy of the data&mdash;you can't compress
+          below that without losing information.
+        </p>
+
+        <div class="compression-container">
+          <div class="compression-input">
+            <label>Input string:</label>
+            <input type="text" id="compression-input" value="AAABBBCCCCDDDD" class="text-input">
+          </div>
+
+          <div class="compression-demo">
+            <div class="encoding-step">
+              <div class="step-label">Original (8 bits per char)</div>
+              <div class="step-content original-bits"></div>
+              <div class="step-size original-size"></div>
+            </div>
+
+            <div class="encoding-step">
+              <div class="step-label">Run-Length Encoded</div>
+              <div class="step-content rle-encoded"></div>
+              <div class="step-size rle-size"></div>
+            </div>
+
+            <div class="encoding-step">
+              <div class="step-label">Huffman-style Encoding</div>
+              <div class="step-content huffman-encoded"></div>
+              <div class="step-size huffman-size"></div>
+            </div>
+          </div>
+
+          <div class="compression-results">
+            <div class="result-item">
+              <span class="result-label">Compression Ratio</span>
+              <span class="compression-ratio">--</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Theoretical Minimum</span>
+              <span class="theoretical-min">--</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Channel Capacity Section -->
+      <section class="content-section">
+        <h2>Channel Capacity</h2>
+
+        <p>
+          Shannon's most famous result is the <strong>noisy-channel coding theorem</strong>. Every
+          communication channel has a maximum rate at which information can be transmitted reliably,
+          called its capacity. Below this rate, error-free communication is possible; above it,
+          errors are inevitable.
+        </p>
+
+        <p>
+          The formula for a channel with bandwidth B and signal-to-noise ratio S/N is:
+          <strong>C = B log<sub>2</sub>(1 + S/N)</strong>. This explains why your internet is faster
+          with a stronger signal and why 5G needs more bandwidth than 4G for higher speeds.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Error Correction</p>
+          <p>
+            Shannon proved you can communicate reliably over noisy channels by adding redundancy
+            in a clever way. Modern error-correcting codes come remarkably close to Shannon's
+            theoretical limits. QR codes, for example, can still be read even when partially
+            damaged&mdash;that's information theory at work.
+          </p>
+        </div>
+      </section>
+
+      <!-- Binary Guessing Game -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Twenty Questions</h2>
+
+        <p class="interactive-description">
+          Information theory explains why "20 Questions" works. Each yes/no question gives you
+          1 bit of information, cutting the possibilities in half. With 20 questions, you can
+          identify one item from over a million possibilities (2<sup>20</sup> = 1,048,576).
+        </p>
+
+        <div class="guessing-container">
+          <div class="guessing-setup">
+            <label>I'm thinking of a number between 1 and <span class="max-num">100</span></label>
+            <input type="range" id="range-size" min="2" max="8" value="7" class="slider">
+            <span class="range-display">Range: 1-128</span>
+          </div>
+
+          <div class="guessing-info">
+            <div class="info-item">
+              <span class="info-label">Possibilities</span>
+              <span class="possibilities-count">128</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Questions Needed</span>
+              <span class="questions-needed">7</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Bits of Information</span>
+              <span class="bits-needed">7</span>
+            </div>
+          </div>
+
+          <div class="guessing-game">
+            <button class="btn btn-primary start-game-btn">Start Game</button>
+            <div class="game-play" style="display: none;">
+              <div class="current-range">Looking for: <span class="range-text">1-128</span></div>
+              <div class="game-question">Is it greater than <span class="pivot">64</span>?</div>
+              <div class="game-buttons">
+                <button class="btn btn-secondary answer-no">No (lower)</button>
+                <button class="btn btn-secondary answer-yes">Yes (higher)</button>
+              </div>
+              <div class="game-progress">
+                <span class="questions-asked">0</span> questions asked
+              </div>
+            </div>
+            <div class="game-result" style="display: none;">
+              <div class="result-message"></div>
+              <button class="btn btn-secondary play-again-btn">Play Again</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="content-section">
+        <h2>Information Theory Everywhere</h2>
+
+        <p>
+          <strong>Data Compression:</strong> JPEG, MP3, ZIP, and H.264 all use information-theoretic
+          principles. They identify and remove redundancy, approaching the entropy limit. Lossless
+          compression preserves everything; lossy compression discards information you won't notice.
+        </p>
+
+        <p>
+          <strong>Error Correction:</strong> CDs, DVDs, QR codes, and satellite communications all
+          use error-correcting codes. They add redundancy strategically so errors can be detected
+          and fixed. Even your phone's memory uses error correction.
+        </p>
+
+        <p>
+          <strong>Machine Learning:</strong> Cross-entropy loss in neural networks comes directly
+          from information theory. The KL divergence measures how different two probability
+          distributions are. These concepts guide how AI systems learn.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Beyond Communication</p>
+          <p>
+            Information theory has spread far beyond its origins. It's used in biology to study
+            DNA (which is a code!), in neuroscience to understand how brains process signals, in
+            physics to study black holes, and in cryptography to prove security bounds. Shannon's
+            insight that information can be quantified mathematically was transformative.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Information is measurable.</strong> Bits give us a universal unit for
+          quantifying information, whether in text, images, or any signal. This lets us analyze
+          and optimize communication mathematically.
+        </p>
+
+        <p>
+          <strong>Compression has limits.</strong> You can't compress data below its entropy
+          without losing information. Random data (maximum entropy) can't be compressed at all.
+          Structure and predictability enable compression.
+        </p>
+
+        <p>
+          <strong>Noise can be overcome.</strong> Shannon proved that reliable communication
+          over noisy channels is possible through clever encoding. This theoretical guarantee
+          underpins all modern digital communication.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Storage:</strong> File compression, database optimization.
+            <strong>Communication:</strong> WiFi, cellular networks, streaming.
+            <strong>AI:</strong> Language models, classification, generative systems.
+            <strong>Security:</strong> Cryptographic bounds, randomness testing.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../cryptography/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Cryptography
+        </a>
+        <a href="../algorithms/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Algorithms
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="information-theory.js"></script>
+</body>
+</html>
