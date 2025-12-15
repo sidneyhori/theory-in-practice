@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supply & Demand - Theory in Practice</title>
+  <meta name="description" content="Explore supply and demand through interactive visualizations. Learn about market equilibrium, price elasticity, and how markets work.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="supply-demand.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Economics</p>
+        <h1 class="article-title">Supply & Demand</h1>
+        <p class="article-subtitle">
+          The invisible hand: how markets find prices without anyone deciding.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>The Market as a Computer</h2>
+        <p>
+          How does a city with millions of people get fed? No one plans it. No central authority
+          decides how many apples or how much bread to produce. Yet somehow, stores have roughly
+          what people want to buy. This coordination emerges from supply and demand&mdash;the
+          most powerful idea in economics.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Price as Information</p>
+          <p>
+            Prices are signals. When something is scarce, its price rises, telling producers
+            "make more of this" and consumers "buy less of this." When something is abundant,
+            prices fall, signaling the opposite. No one needs to understand the whole system;
+            prices coordinate everyone's actions automatically.
+          </p>
+        </div>
+
+        <p>
+          The <strong>law of demand</strong> says that when prices rise, people buy less.
+          The <strong>law of supply</strong> says that when prices rise, producers make more.
+          Where these two forces meet, we find <strong>equilibrium</strong>&mdash;the price
+          that clears the market.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Demand Curve</p>
+            <p class="concept-definition">Shows quantity buyers want at each price (slopes down)</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Supply Curve</p>
+            <p class="concept-definition">Shows quantity sellers offer at each price (slopes up)</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Equilibrium</p>
+            <p class="concept-definition">Price where quantity supplied equals quantity demanded</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Supply and Demand Curves -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Supply & Demand Curves</h2>
+
+        <p class="interactive-description">
+          The demand curve slopes down: higher prices mean less quantity demanded. The supply
+          curve slopes up: higher prices incentivize more production. The intersection is the
+          market equilibrium. Adjust the curves to see how equilibrium changes.
+        </p>
+
+        <div class="curves-container">
+          <canvas id="sd-canvas" width="400" height="300"></canvas>
+
+          <div class="equilibrium-display">
+            <div class="eq-item">
+              <span class="eq-label">Equilibrium Price</span>
+              <span class="eq-value price-value">$50</span>
+            </div>
+            <div class="eq-item">
+              <span class="eq-label">Equilibrium Quantity</span>
+              <span class="eq-value quantity-value">50 units</span>
+            </div>
+          </div>
+
+          <div class="curve-controls">
+            <div class="control-group">
+              <h4>Demand</h4>
+              <label>Base Demand: <span class="demand-display">100</span></label>
+              <input type="range" id="demand-shift" min="50" max="150" value="100" class="slider">
+              <label>Price Sensitivity: <span class="demand-slope-display">1.0</span></label>
+              <input type="range" id="demand-slope" min="5" max="20" value="10" class="slider">
+            </div>
+            <div class="control-group">
+              <h4>Supply</h4>
+              <label>Base Supply: <span class="supply-display">0</span></label>
+              <input type="range" id="supply-shift" min="-50" max="50" value="0" class="slider">
+              <label>Production Cost: <span class="supply-slope-display">1.0</span></label>
+              <input type="range" id="supply-slope" min="5" max="20" value="10" class="slider">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Market Shocks Section -->
+      <section class="content-section">
+        <h2>Shifts vs Movements</h2>
+
+        <p>
+          When the <em>price</em> of a good changes, we move along the existing curves. But
+          other factors can <em>shift</em> the entire curve. A drought shifts the supply curve
+          left (less available at every price). A viral trend shifts the demand curve right
+          (more wanted at every price).
+        </p>
+
+        <p>
+          <strong>Demand shifts</strong> from changes in income, preferences, population,
+          prices of substitutes/complements, or expectations. <strong>Supply shifts</strong>
+          from changes in input costs, technology, number of sellers, or regulations.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Reading the Market</p>
+          <p>
+            If price rises and quantity rises, demand increased. If price rises and quantity
+            falls, supply decreased. The pattern tells you which curve shifted. Markets
+            constantly adjust as millions of factors change, with prices doing the coordination.
+          </p>
+        </div>
+      </section>
+
+      <!-- Market Shocks Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Market Shocks</h2>
+
+        <p class="interactive-description">
+          See how different events affect market equilibrium. Each shock shifts either supply
+          or demand, changing both price and quantity. Watch how the market finds a new
+          equilibrium after each event.
+        </p>
+
+        <div class="shocks-container">
+          <canvas id="shocks-canvas" width="400" height="300"></canvas>
+
+          <div class="shock-info">
+            <div class="shock-result">
+              <span class="result-label">Price Change:</span>
+              <span class="price-change">--</span>
+            </div>
+            <div class="shock-result">
+              <span class="result-label">Quantity Change:</span>
+              <span class="quantity-change">--</span>
+            </div>
+          </div>
+
+          <div class="shock-buttons">
+            <button class="btn btn-secondary shock-btn" data-shock="demand-up">
+              Demand Increase
+              <span class="shock-example">Viral trend</span>
+            </button>
+            <button class="btn btn-secondary shock-btn" data-shock="demand-down">
+              Demand Decrease
+              <span class="shock-example">Recession</span>
+            </button>
+            <button class="btn btn-secondary shock-btn" data-shock="supply-up">
+              Supply Increase
+              <span class="shock-example">New technology</span>
+            </button>
+            <button class="btn btn-secondary shock-btn" data-shock="supply-down">
+              Supply Decrease
+              <span class="shock-example">Natural disaster</span>
+            </button>
+          </div>
+
+          <button class="btn btn-primary reset-shock-btn">Reset Market</button>
+        </div>
+      </section>
+
+      <!-- Elasticity Section -->
+      <section class="content-section">
+        <h2>Price Elasticity</h2>
+
+        <p>
+          Not all goods respond equally to price changes. <strong>Elastic demand</strong>
+          means buyers are sensitive to price&mdash;a small price increase causes a large
+          drop in quantity demanded. <strong>Inelastic demand</strong> means buyers keep
+          buying despite price changes.
+        </p>
+
+        <p>
+          Necessities (insulin, gasoline) tend to be inelastic&mdash;you need them regardless
+          of price. Luxuries with many substitutes (fancy coffee, brand-name goods) tend to
+          be elastic&mdash;you'll switch if the price rises.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Who Pays the Tax?</p>
+          <p>
+            When a tax is imposed, who bears the burden depends on elasticity. If demand is
+            inelastic, consumers pay most of the tax through higher prices. If supply is
+            inelastic, producers bear it through lower profits. The more elastic side can
+            "escape" the tax by changing their behavior.
+          </p>
+        </div>
+      </section>
+
+      <!-- Elasticity Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Elasticity Simulator</h2>
+
+        <p class="interactive-description">
+          Compare how elastic and inelastic goods respond to price changes. Elastic goods see
+          big quantity changes; inelastic goods see big revenue changes. Drag the price to see
+          the difference.
+        </p>
+
+        <div class="elasticity-container">
+          <div class="elasticity-comparison">
+            <div class="elasticity-panel elastic-panel">
+              <h4>Elastic Good</h4>
+              <p class="example-text">Luxury coffee, streaming services</p>
+              <canvas id="elastic-canvas" width="180" height="150"></canvas>
+              <div class="panel-stats">
+                <div class="panel-stat">
+                  <span class="stat-label">Revenue</span>
+                  <span class="stat-value elastic-revenue">$2,500</span>
+                </div>
+                <div class="panel-stat">
+                  <span class="stat-label">Quantity</span>
+                  <span class="stat-value elastic-qty">50</span>
+                </div>
+              </div>
+            </div>
+            <div class="elasticity-panel inelastic-panel">
+              <h4>Inelastic Good</h4>
+              <p class="example-text">Insulin, gasoline, utilities</p>
+              <canvas id="inelastic-canvas" width="180" height="150"></canvas>
+              <div class="panel-stats">
+                <div class="panel-stat">
+                  <span class="stat-label">Revenue</span>
+                  <span class="stat-value inelastic-revenue">$2,500</span>
+                </div>
+                <div class="panel-stat">
+                  <span class="stat-label">Quantity</span>
+                  <span class="stat-value inelastic-qty">50</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="price-control">
+            <label>Price: $<span class="price-display">50</span></label>
+            <input type="range" id="price-slider" min="20" max="80" value="50" class="slider">
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="content-section">
+        <h2>Markets in Action</h2>
+
+        <p>
+          <strong>Surge Pricing:</strong> Uber's prices rise when demand exceeds supply. This
+          isn't just profit-seeking&mdash;it signals to more drivers "come work now" and to
+          some riders "maybe wait or use alternatives." The higher price helps clear the
+          market.
+        </p>
+
+        <p>
+          <strong>Housing Markets:</strong> When cities restrict new construction (limiting
+          supply) while jobs grow (increasing demand), prices rise sharply. The solution
+          isn't price controls (which create shortages) but allowing more supply.
+        </p>
+
+        <p>
+          <strong>Minimum Wage:</strong> A minimum wage is a price floor. If set above
+          equilibrium, it creates surplus labor (unemployment). The debate is about whether
+          the benefits to employed workers outweigh the costs to those who lose or don't
+          get jobs.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Market Failures</p>
+          <p>
+            Markets aren't perfect. Externalities (pollution), public goods (national defense),
+            information asymmetries (used cars), and monopolies can prevent markets from reaching
+            efficient outcomes. Understanding supply and demand helps identify when and how
+            markets fail, and what interventions might help.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Prices coordinate without a coordinator.</strong> No one needs to understand
+          the whole economy. Prices signal scarcity and abundance, guiding individual decisions
+          toward collective efficiency. This decentralized coordination is remarkably powerful.
+        </p>
+
+        <p>
+          <strong>Equilibrium is dynamic.</strong> Markets constantly adjust to new information.
+          There's no "right" price carved in stone&mdash;equilibrium shifts as conditions change.
+          Price controls that fight this adjustment create shortages or surpluses.
+        </p>
+
+        <p>
+          <strong>Elasticity determines impact.</strong> How markets respond to changes depends
+          on how easily buyers and sellers can adjust. Understanding elasticity is key to
+          predicting the effects of taxes, regulations, and other interventions.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Business:</strong> Pricing strategies, market analysis, forecasting.
+            <strong>Policy:</strong> Taxes, subsidies, price controls, regulations.
+            <strong>Investing:</strong> Understanding market dynamics and valuations.
+            <strong>Daily life:</strong> Why prices change, when to buy, how wages work.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../algorithms/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Algorithms
+        </a>
+        <a href="../network-effects/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Network Effects
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="supply-demand.js"></script>
+</body>
+</html>
