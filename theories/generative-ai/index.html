@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generative AI & Neural Networks - Theory in Practice</title>
+  <meta name="description" content="Explore how neural networks and large language models work through interactive visualizations. Understand the basics of modern AI.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="generative-ai.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Computer Science</p>
+        <h1 class="article-title">Generative AI</h1>
+        <p class="article-subtitle">
+          How neural networks learn patterns and generate text, images, and more.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What Is a Neural Network?</h2>
+        <p>
+          A neural network is a computing system inspired by the brain. It's made of layers of
+          interconnected "neurons" that process information. Each connection has a "weight"
+          that determines how much influence one neuron has on another. The magic happens during
+          training, when the network adjusts these weights to learn patterns from data.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Learning from Examples</p>
+          <p>
+            Neural networks learn by example, not by following explicit rules. Show a network
+            millions of cat pictures labeled "cat" and dog pictures labeled "dog," and it will
+            learn to distinguish them&mdash;even for images it's never seen before. The network
+            discovers the patterns on its own.
+          </p>
+        </div>
+
+        <p>
+          Modern AI systems like ChatGPT and image generators are just very large neural networks
+          (billions of parameters) trained on massive amounts of data. The principles are the
+          same&mdash;it's the scale that's extraordinary.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Neuron</p>
+            <p class="concept-definition">A unit that receives inputs, applies weights, and outputs a value</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Weights</p>
+            <p class="concept-definition">Numbers that determine connection strength, adjusted during learning</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Training</p>
+            <p class="concept-definition">The process of adjusting weights to minimize prediction errors</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Neuron Simulator -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Single Neuron</h2>
+
+        <p class="interactive-description">
+          A neuron takes multiple inputs, multiplies each by a weight, adds them up, and passes
+          the result through an "activation function" that determines whether the neuron "fires."
+          Adjust the inputs and weights to see how the output changes.
+        </p>
+
+        <div class="neuron-container">
+          <div class="neuron-visualization">
+            <div class="inputs-column">
+              <div class="input-node" data-input="1">
+                <span class="node-value input-1-value">0.5</span>
+              </div>
+              <div class="input-node" data-input="2">
+                <span class="node-value input-2-value">0.3</span>
+              </div>
+              <div class="input-node" data-input="3">
+                <span class="node-value input-3-value">0.8</span>
+              </div>
+            </div>
+
+            <div class="connections">
+              <div class="weight-label w1-label">w1: 0.5</div>
+              <div class="weight-label w2-label">w2: -0.3</div>
+              <div class="weight-label w3-label">w3: 0.7</div>
+            </div>
+
+            <div class="neuron-node">
+              <span class="neuron-sum">Σ = 0.66</span>
+            </div>
+
+            <div class="activation-arrow">→ f(x)</div>
+
+            <div class="output-node">
+              <span class="node-value output-value">0.66</span>
+            </div>
+          </div>
+
+          <div class="neuron-controls">
+            <div class="control-row">
+              <div class="control-group">
+                <label>Input 1: <span class="i1-display">0.5</span></label>
+                <input type="range" class="input-slider" data-input="1" min="0" max="100" value="50">
+              </div>
+              <div class="control-group">
+                <label>Weight 1: <span class="w1-display">0.5</span></label>
+                <input type="range" class="weight-slider" data-weight="1" min="-100" max="100" value="50">
+              </div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-group">
+                <label>Input 2: <span class="i2-display">0.3</span></label>
+                <input type="range" class="input-slider" data-input="2" min="0" max="100" value="30">
+              </div>
+              <div class="control-group">
+                <label>Weight 2: <span class="w2-display">-0.3</span></label>
+                <input type="range" class="weight-slider" data-weight="2" min="-100" max="100" value="-30">
+              </div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-group">
+                <label>Input 3: <span class="i3-display">0.8</span></label>
+                <input type="range" class="input-slider" data-input="3" min="0" max="100" value="80">
+              </div>
+              <div class="control-group">
+                <label>Weight 3: <span class="w3-display">0.7</span></label>
+                <input type="range" class="weight-slider" data-weight="3" min="-100" max="100" value="70">
+              </div>
+            </div>
+          </div>
+
+          <div class="neuron-math">
+            <code>output = f(i1×w1 + i2×w2 + i3×w3) = f(<span class="math-sum">0.66</span>) = <span class="math-output">0.66</span></code>
+          </div>
+        </div>
+      </section>
+
+      <!-- How LLMs Work Section -->
+      <section class="content-section">
+        <h2>How Language Models Work</h2>
+
+        <p>
+          Large Language Models (LLMs) like GPT are trained on a simple task: predict the next
+          word. Given "The cat sat on the ____", the model learns to predict "mat" or "floor"
+          or "couch." By training on billions of sentences, the model develops a deep
+          understanding of language patterns, facts, and reasoning.
+        </p>
+
+        <p>
+          Text generation works by repeatedly predicting the next word. You give the model a
+          prompt, it predicts the most likely next word, adds it to the context, then predicts
+          again. This continues until the response is complete. Each prediction considers the
+          entire conversation so far.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Tokens, Not Words</p>
+          <p>
+            LLMs actually work with "tokens"&mdash;chunks of text that might be words, parts of
+            words, or punctuation. "Understanding" becomes ["Under", "standing"]. This lets the
+            model handle any text, including words it's never seen, by combining familiar pieces.
+          </p>
+        </div>
+      </section>
+
+      <!-- Next Word Predictor -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Next Token Prediction</h2>
+
+        <p class="interactive-description">
+          This simplified demo shows how language models predict the next token. The model
+          assigns probabilities to possible continuations based on the context. Higher
+          "temperature" means more randomness; lower means more predictable outputs.
+        </p>
+
+        <div class="prediction-container">
+          <div class="prompt-display">
+            <span class="prompt-label">Context:</span>
+            <span class="prompt-text">The quick brown fox</span>
+          </div>
+
+          <div class="predictions-list">
+            <div class="prediction-item" data-word="jumps">
+              <span class="prediction-word">jumps</span>
+              <div class="prediction-bar"><div class="prediction-fill" style="width: 45%;"></div></div>
+              <span class="prediction-prob">45%</span>
+            </div>
+            <div class="prediction-item" data-word="runs">
+              <span class="prediction-word">runs</span>
+              <div class="prediction-bar"><div class="prediction-fill" style="width: 25%;"></div></div>
+              <span class="prediction-prob">25%</span>
+            </div>
+            <div class="prediction-item" data-word="leaps">
+              <span class="prediction-word">leaps</span>
+              <div class="prediction-bar"><div class="prediction-fill" style="width: 15%;"></div></div>
+              <span class="prediction-prob">15%</span>
+            </div>
+            <div class="prediction-item" data-word="is">
+              <span class="prediction-word">is</span>
+              <div class="prediction-bar"><div class="prediction-fill" style="width: 10%;"></div></div>
+              <span class="prediction-prob">10%</span>
+            </div>
+            <div class="prediction-item" data-word="ran">
+              <span class="prediction-word">ran</span>
+              <div class="prediction-bar"><div class="prediction-fill" style="width: 5%;"></div></div>
+              <span class="prediction-prob">5%</span>
+            </div>
+          </div>
+
+          <div class="prediction-controls">
+            <div class="control-group">
+              <label>Temperature: <span class="temp-value">0.7</span></label>
+              <input type="range" id="temperature-slider" min="1" max="20" value="7" class="slider">
+            </div>
+
+            <div class="prompt-selector">
+              <label>Try different prompts:</label>
+              <select id="prompt-select">
+                <option value="fox">The quick brown fox</option>
+                <option value="weather">The weather today is</option>
+                <option value="code">def calculate_sum(</option>
+                <option value="story">Once upon a time</option>
+                <option value="science">The speed of light</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary sample-btn">Sample Next Token</button>
+
+          <div class="generated-text">
+            <span class="generated-label">Generated:</span>
+            <span class="generated-content">The quick brown fox</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Attention Section -->
+      <section class="content-section">
+        <h2>The Power of Attention</h2>
+
+        <p>
+          The breakthrough behind modern LLMs is the "attention mechanism." When processing
+          each word, the model can look back at all previous words and decide which ones
+          are most relevant. Processing "it" in "The cat sat on the mat because it was tired,"
+          the model attends to "cat" to understand what "it" refers to.
+        </p>
+
+        <p>
+          This allows the model to capture long-range dependencies and understand context in
+          ways previous architectures couldn't. A transformer model can directly connect any
+          word to any other word, regardless of distance.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Transformers</p>
+          <p>
+            The architecture powering GPT, Claude, and other modern LLMs is called a "Transformer."
+            Introduced in 2017, it processes all words in parallel (not one at a time) and uses
+            attention to let each word influence every other word. This parallelism enables
+            training on massive datasets.
+          </p>
+        </div>
+      </section>
+
+      <!-- Attention Visualizer -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Attention Visualization</h2>
+
+        <p class="interactive-description">
+          Click on any word to see which other words the model might "attend to" when processing
+          it. Thicker lines indicate stronger attention. This is a simplified illustration of
+          how attention works in real transformers.
+        </p>
+
+        <div class="attention-container">
+          <div class="attention-sentence">
+            <span class="attention-word" data-idx="0">The</span>
+            <span class="attention-word" data-idx="1">cat</span>
+            <span class="attention-word" data-idx="2">sat</span>
+            <span class="attention-word" data-idx="3">on</span>
+            <span class="attention-word" data-idx="4">the</span>
+            <span class="attention-word" data-idx="5">mat</span>
+            <span class="attention-word" data-idx="6">because</span>
+            <span class="attention-word" data-idx="7">it</span>
+            <span class="attention-word" data-idx="8">was</span>
+            <span class="attention-word" data-idx="9">soft</span>
+          </div>
+
+          <canvas class="attention-canvas" id="attention-canvas"></canvas>
+
+          <div class="attention-info">
+            <span class="attention-prompt">Click a word to see its attention pattern</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deep Concepts Section -->
+      <section class="content-section">
+        <h2>Training and Emergence</h2>
+
+        <p>
+          Training a neural network means showing it examples and adjusting weights to reduce
+          errors. The algorithm "backpropagation" calculates how much each weight contributed
+          to the error, then nudges weights in the right direction. Repeated billions of times,
+          the network gradually learns.
+        </p>
+
+        <p>
+          One of the most fascinating aspects of large models is "emergent" capabilities. As
+          models get larger, they suddenly gain abilities they weren't explicitly trained
+          for&mdash;like solving math problems or writing code. This emergence isn't fully
+          understood but suggests that scale itself can unlock new capabilities.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Backpropagation</p>
+            <p class="concept-definition">Algorithm that calculates how to adjust each weight to reduce errors</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Loss Function</p>
+            <p class="concept-definition">Measures how wrong the model's predictions are</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Parameters</p>
+            <p class="concept-definition">The weights and biases that define what a model has learned</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Pattern recognition at scale.</strong> Neural networks are powerful pattern
+          matchers. What seems like "understanding" is sophisticated pattern recognition
+          learned from vast amounts of data.
+        </p>
+
+        <p>
+          <strong>Next token prediction is surprisingly powerful.</strong> Just predicting
+          the next word, repeated billions of times during training, creates models that can
+          reason, translate, code, and more. Simple objectives can lead to complex capabilities.
+        </p>
+
+        <p>
+          <strong>Scale changes things qualitatively.</strong> A small neural network and a
+          massive one aren't just different in degree&mdash;larger models exhibit fundamentally
+          new behaviors. Size isn't everything, but it matters enormously.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Writing:</strong> ChatGPT, Claude, content generation.
+            <strong>Images:</strong> DALL-E, Midjourney, Stable Diffusion.
+            <strong>Code:</strong> GitHub Copilot, code completion.
+            <strong>Science:</strong> Protein folding, drug discovery, materials science.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../entropy/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Entropy
+        </a>
+        <a href="../quantum-computing/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Quantum Computing
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="generative-ai.js"></script>
+</body>
+</html>
