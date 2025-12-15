@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network Effects - Theory in Practice</title>
+  <meta name="description" content="Explore network effects through interactive visualizations. Learn about Metcalfe's law, viral spread, and why networks become more valuable as they grow.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="network-effects.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Economics</p>
+        <h1 class="article-title">Network Effects</h1>
+        <p class="article-subtitle">
+          Why the rich get richer: how networks become more valuable as they grow.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>The Power of Connections</h2>
+        <p>
+          A telephone is useless if you're the only person with one. But with each new user,
+          every existing user gains new people to call. This is a <strong>network effect</strong>:
+          the value of a product increases as more people use it. It's one of the most powerful
+          forces in modern economics.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Metcalfe's Law</p>
+          <p>
+            The value of a network grows with the square of its users. With n users, there are
+            n(n-1)/2 possible connections&mdash;roughly n<sup>2</sup>. Double the users,
+            quadruple the value. This explains why dominant networks tend to stay dominant and
+            why network businesses are often winner-take-all.
+          </p>
+        </div>
+
+        <p>
+          Network effects explain the rise of social media, messaging apps, and platforms like
+          Uber and Airbnb. Once a network reaches critical mass, it becomes very hard for
+          competitors to catch up&mdash;why join a social network where your friends aren't?
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Direct Network Effect</p>
+            <p class="concept-definition">Value increases as same-side users join (social media)</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Indirect Network Effect</p>
+            <p class="concept-definition">More users attract more complementary offerings (app stores)</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Critical Mass</p>
+            <p class="concept-definition">Threshold of users needed for self-sustaining growth</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Network Value Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Metcalfe's Law</h2>
+
+        <p class="interactive-description">
+          Watch how network value grows with users. Each new user adds connections to everyone
+          else. The number of connections grows much faster than the number of users.
+        </p>
+
+        <div class="metcalfe-container">
+          <canvas id="network-canvas" width="400" height="300"></canvas>
+
+          <div class="network-stats">
+            <div class="stat-item">
+              <span class="stat-label">Users</span>
+              <span class="stat-value user-count">5</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Connections</span>
+              <span class="stat-value connection-count">10</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Network Value</span>
+              <span class="stat-value network-value">25</span>
+            </div>
+          </div>
+
+          <div class="network-controls">
+            <label>Number of Users: <span class="users-display">5</span></label>
+            <input type="range" id="users-slider" min="2" max="20" value="5" class="slider">
+          </div>
+
+          <div class="value-comparison">
+            <div class="comparison-item">
+              <span class="comp-label">Linear (n):</span>
+              <div class="comp-bar linear-bar"><div class="bar-fill"></div></div>
+              <span class="comp-value linear-value">5</span>
+            </div>
+            <div class="comparison-item">
+              <span class="comp-label">Quadratic (n<sup>2</sup>):</span>
+              <div class="comp-bar quadratic-bar"><div class="bar-fill"></div></div>
+              <span class="comp-value quadratic-value">25</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Viral Spread Section -->
+      <section class="content-section">
+        <h2>Viral Spread</h2>
+
+        <p>
+          Networks don't just create value&mdash;they spread information. An idea, meme, or
+          product can spread through a network like a virus, reaching millions from a single
+          starting point. The structure of the network determines how fast and how far things
+          spread.
+        </p>
+
+        <p>
+          <strong>Six degrees of separation</strong> suggests that any two people are connected
+          by at most six intermediate acquaintances. In densely connected networks, this means
+          information can spread to everyone in just a few hops&mdash;much faster than you
+          might expect.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Viral Coefficient</p>
+          <p>
+            If each infected user "infects" more than one new user on average (viral coefficient > 1),
+            spread is exponential. Below 1, the spread dies out. Above 1, it explodes. This is
+            why companies obsess over making their products "viral"&mdash;the difference between
+            R=0.9 and R=1.1 is the difference between fading away and taking over the world.
+          </p>
+        </div>
+      </section>
+
+      <!-- Viral Spread Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Viral Spread Simulator</h2>
+
+        <p class="interactive-description">
+          Watch information spread through a network. Click a node to start the spread.
+          Adjust the spread probability to see how it affects the outcome.
+        </p>
+
+        <div class="viral-container">
+          <canvas id="viral-canvas" width="400" height="300"></canvas>
+
+          <div class="viral-stats">
+            <div class="stat-item">
+              <span class="stat-label">Infected</span>
+              <span class="stat-value infected-count">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Generation</span>
+              <span class="stat-value generation-count">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">R (avg spread)</span>
+              <span class="stat-value r-value">--</span>
+            </div>
+          </div>
+
+          <div class="viral-controls">
+            <div class="control-row">
+              <label>Spread Probability: <span class="prob-display">30%</span></label>
+              <input type="range" id="spread-prob" min="10" max="90" value="30" class="slider">
+            </div>
+            <div class="control-row">
+              <label>Network Density: <span class="density-display">Medium</span></label>
+              <input type="range" id="network-density" min="1" max="3" value="2" class="slider">
+            </div>
+          </div>
+
+          <div class="viral-actions">
+            <button class="btn btn-primary reset-viral-btn">Reset Network</button>
+            <p class="viral-hint">Click any node to start spreading</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Types of Networks Section -->
+      <section class="content-section">
+        <h2>Winner-Take-All Markets</h2>
+
+        <p>
+          Network effects create <strong>winner-take-all</strong> dynamics. Once a network
+          becomes dominant, users have strong incentives to stay (all their connections are
+          there) and newcomers have strong incentives to join (that's where everyone is). This
+          positive feedback loop is hard to break.
+        </p>
+
+        <p>
+          However, networks aren't invincible. <strong>Multi-homing</strong> (using multiple
+          networks) reduces lock-in. <strong>Differentiation</strong> can create niches.
+          <strong>Bridge technologies</strong> can enable switching. And new technology can
+          reset the game entirely.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Cold Start Problem</p>
+          <p>
+            New networks face a chicken-and-egg dilemma: users won't join without other users,
+            but you can't get users without users. Solutions include subsidizing early adopters,
+            starting with a niche community, providing standalone value, or faking initial
+            network effects until real ones develop.
+          </p>
+        </div>
+      </section>
+
+      <!-- Growth Comparison -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Network Growth Dynamics</h2>
+
+        <p class="interactive-description">
+          Compare how different products grow. Products with network effects show exponential
+          S-curves; products without them grow linearly. Once network effects kick in, the
+          advantage compounds.
+        </p>
+
+        <div class="growth-container">
+          <canvas id="growth-canvas" width="400" height="250"></canvas>
+
+          <div class="growth-legend">
+            <div class="legend-item">
+              <span class="legend-color network-color"></span>
+              <span>With Network Effects</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color linear-color"></span>
+              <span>Without Network Effects</span>
+            </div>
+          </div>
+
+          <div class="growth-controls">
+            <label>Time Period: <span class="time-display">10</span></label>
+            <input type="range" id="time-slider" min="5" max="30" value="10" class="slider">
+          </div>
+
+          <div class="growth-stats">
+            <div class="stat-item">
+              <span class="stat-label">Network Product Users</span>
+              <span class="stat-value network-users">--</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Linear Product Users</span>
+              <span class="stat-value linear-users">--</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Advantage</span>
+              <span class="stat-value advantage-ratio">--</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="content-section">
+        <h2>Networks in Action</h2>
+
+        <p>
+          <strong>Social Media:</strong> Facebook reached 2 billion users because each new user
+          makes the platform more valuable for existing users. Your friends are there, so you
+          stay, which makes your friends stay too.
+        </p>
+
+        <p>
+          <strong>Marketplaces:</strong> Amazon Marketplace, Uber, and Airbnb benefit from
+          two-sided network effects. More buyers attract more sellers; more sellers attract
+          more buyers. Once the flywheel spins, it's hard to stop.
+        </p>
+
+        <p>
+          <strong>Standards:</strong> USB, PDF, and TCP/IP became dominant through network
+          effects. The more people use a standard, the more valuable it becomes. This is why
+          standards battles are so fierce&mdash;the winner takes all.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Data Network Effects</p>
+          <p>
+            Modern AI systems exhibit data network effects: more users generate more data, which
+            improves the AI, which attracts more users. This is why AI leaders invest heavily in
+            user acquisition. The company with the most data trains the best model, which gets
+            the most users, which generates the most data...
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Value grows faster than users.</strong> Networks exhibit increasing returns:
+          each new user adds more value than the previous one. This creates powerful competitive
+          moats for established networks.
+        </p>
+
+        <p>
+          <strong>Critical mass is the goal.</strong> Below critical mass, growth is hard.
+          Above it, growth becomes self-sustaining. The challenge is surviving long enough to
+          reach that tipping point.
+        </p>
+
+        <p>
+          <strong>Networks can be disrupted.</strong> Despite their power, networks aren't
+          permanent. Technology shifts, user preferences change, and regulatory action can
+          create openings for challengers. The key is finding angles where incumbents are weak.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Business:</strong> Platform strategy, competitive analysis, growth hacking.
+            <strong>Investing:</strong> Valuing network businesses, identifying moats.
+            <strong>Policy:</strong> Antitrust, platform regulation, standards setting.
+            <strong>Career:</strong> Choosing which platforms to build on or work at.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../supply-demand/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Supply & Demand
+        </a>
+        <a href="../compound-growth/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Compound Growth
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="network-effects.js"></script>
+</body>
+</html>
