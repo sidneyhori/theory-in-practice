@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Computing - Theory in Practice</title>
+  <meta name="description" content="Explore quantum computing through interactive visualizations. Understand qubits, quantum gates, and superposition in computation.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="quantum-computing.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Computer Science</p>
+        <h1 class="article-title">Quantum Computing</h1>
+        <p class="article-subtitle">
+          Computing with the strange rules of quantum mechanics.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What Is Quantum Computing?</h2>
+        <p>
+          Classical computers use bits&mdash;zeros and ones. A bit is either 0 or 1, never both.
+          Quantum computers use <strong>qubits</strong>, which can be 0, 1, or a superposition of
+          both simultaneously. This isn't just "0.5"&mdash;it's genuinely both states at once until
+          measured.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Exponential Power</p>
+          <p>
+            One qubit holds two states. Two qubits hold four. Three qubits hold eight. With n qubits,
+            you can represent 2^n states simultaneously. Just 300 qubits could hold more states than
+            there are atoms in the visible universe&mdash;that's the power of quantum parallelism.
+          </p>
+        </div>
+
+        <p>
+          Quantum computers aren't just faster classical computers. They solve certain problems
+          in fundamentally different ways, using quantum effects like superposition, entanglement,
+          and interference to explore many possibilities simultaneously.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Qubit</p>
+            <p class="concept-definition">A quantum bit that can exist in superposition of |0⟩ and |1⟩</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Quantum Gate</p>
+            <p class="concept-definition">An operation that transforms qubit states</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Entanglement</p>
+            <p class="concept-definition">When qubits become correlated so measuring one affects others</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Qubit Visualizer -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">The Bloch Sphere</h2>
+
+        <p class="interactive-description">
+          A qubit's state can be visualized as a point on a sphere. The north pole is |0⟩, the south
+          pole is |1⟩, and points on the equator are equal superpositions with different phases.
+          Apply quantum gates to see how they transform the state.
+        </p>
+
+        <div class="bloch-container">
+          <canvas class="bloch-canvas" id="bloch-canvas"></canvas>
+
+          <div class="bloch-state">
+            <span class="state-label">Current State:</span>
+            <span class="state-value">|0⟩</span>
+          </div>
+
+          <div class="gate-buttons">
+            <button class="gate-btn" data-gate="H">H (Hadamard)</button>
+            <button class="gate-btn" data-gate="X">X (NOT)</button>
+            <button class="gate-btn" data-gate="Y">Y</button>
+            <button class="gate-btn" data-gate="Z">Z</button>
+            <button class="gate-btn" data-gate="S">S (Phase)</button>
+            <button class="gate-btn" data-gate="T">T (π/8)</button>
+          </div>
+
+          <div class="bloch-controls">
+            <button class="btn btn-secondary reset-bloch-btn">Reset to |0⟩</button>
+            <button class="btn btn-primary measure-qubit-btn">Measure</button>
+          </div>
+
+          <div class="measurement-result bloch-result" style="display: none;">
+            <span class="result-label">Measurement Result:</span>
+            <span class="result-value"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="content-section">
+        <h2>Quantum Gates</h2>
+
+        <p>
+          Just as classical computers use logic gates (AND, OR, NOT), quantum computers use
+          quantum gates. But quantum gates are reversible and work on amplitudes, not just
+          bits. The Hadamard gate (H) is fundamental&mdash;it creates superposition from a
+          definite state.
+        </p>
+
+        <p>
+          <strong>Hadamard (H):</strong> Transforms |0⟩ into (|0⟩ + |1⟩)/√2 (equal superposition)
+          and |1⟩ into (|0⟩ - |1⟩)/√2. Apply H twice and you're back where you started.
+        </p>
+
+        <p>
+          <strong>Pauli-X:</strong> The quantum NOT gate. Flips |0⟩ to |1⟩ and vice versa.
+          It's a 180° rotation around the X-axis of the Bloch sphere.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Reversibility</p>
+          <p>
+            Unlike classical gates (AND loses information), quantum gates are always reversible.
+            Every operation can be undone. This is required by quantum mechanics and enables
+            quantum algorithms to "uncompute" intermediate steps.
+          </p>
+        </div>
+      </section>
+
+      <!-- Circuit Builder -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Quantum Circuit</h2>
+
+        <p class="interactive-description">
+          Build a simple quantum circuit by adding gates. Start with two qubits in |00⟩, apply
+          gates, and see the resulting probabilities when measured. The CNOT gate entangles
+          two qubits&mdash;essential for quantum computing's power.
+        </p>
+
+        <div class="circuit-container">
+          <div class="circuit-display">
+            <div class="circuit-wire" data-qubit="0">
+              <span class="wire-label">q0: |0⟩</span>
+              <div class="wire-line">
+                <div class="gate-slots" data-qubit="0"></div>
+              </div>
+            </div>
+            <div class="circuit-wire" data-qubit="1">
+              <span class="wire-label">q1: |0⟩</span>
+              <div class="wire-line">
+                <div class="gate-slots" data-qubit="1"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="circuit-controls">
+            <div class="gate-palette">
+              <span class="palette-label">Add gate to q0:</span>
+              <button class="add-gate-btn" data-gate="H" data-qubit="0">H</button>
+              <button class="add-gate-btn" data-gate="X" data-qubit="0">X</button>
+              <button class="add-gate-btn" data-gate="CNOT" data-qubit="0">CNOT</button>
+            </div>
+            <div class="gate-palette">
+              <span class="palette-label">Add gate to q1:</span>
+              <button class="add-gate-btn" data-gate="H" data-qubit="1">H</button>
+              <button class="add-gate-btn" data-gate="X" data-qubit="1">X</button>
+            </div>
+          </div>
+
+          <div class="circuit-buttons">
+            <button class="btn btn-primary run-circuit-btn">Run Circuit</button>
+            <button class="btn btn-secondary clear-circuit-btn">Clear</button>
+          </div>
+
+          <div class="circuit-output">
+            <div class="output-label">Output Probabilities:</div>
+            <div class="probability-bars">
+              <div class="prob-item">
+                <span class="prob-state">|00⟩</span>
+                <div class="prob-bar"><div class="prob-fill prob-00" style="width: 100%;"></div></div>
+                <span class="prob-value prob-00-val">100%</span>
+              </div>
+              <div class="prob-item">
+                <span class="prob-state">|01⟩</span>
+                <div class="prob-bar"><div class="prob-fill prob-01" style="width: 0%;"></div></div>
+                <span class="prob-value prob-01-val">0%</span>
+              </div>
+              <div class="prob-item">
+                <span class="prob-state">|10⟩</span>
+                <div class="prob-bar"><div class="prob-fill prob-10" style="width: 0%;"></div></div>
+                <span class="prob-value prob-10-val">0%</span>
+              </div>
+              <div class="prob-item">
+                <span class="prob-state">|11⟩</span>
+                <div class="prob-bar"><div class="prob-fill prob-11" style="width: 0%;"></div></div>
+                <span class="prob-value prob-11-val">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="content-section">
+        <h2>What Quantum Computers Can Do</h2>
+
+        <p>
+          <strong>Cryptography:</strong> Shor's algorithm can factor large numbers exponentially
+          faster than classical computers, threatening RSA encryption. But quantum key distribution
+          offers theoretically unbreakable security.
+        </p>
+
+        <p>
+          <strong>Simulation:</strong> Richard Feynman originally proposed quantum computers to
+          simulate quantum systems&mdash;molecules, materials, chemical reactions. Classical
+          computers struggle because the complexity grows exponentially; quantum computers
+          handle it naturally.
+        </p>
+
+        <p>
+          <strong>Optimization:</strong> Many important problems (logistics, finance, machine
+          learning) involve finding the best solution among huge numbers of possibilities.
+          Quantum algorithms like Grover's search offer quadratic speedups.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Quantum Advantage</p>
+          <p>
+            Quantum computers aren't faster at everything&mdash;they're fundamentally different.
+            For many tasks (browsing the web, word processing), classical computers will always
+            be better. Quantum computers shine at specific problems where quantum parallelism
+            and interference provide an advantage.
+          </p>
+        </div>
+      </section>
+
+      <!-- Entanglement Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Quantum Entanglement</h2>
+
+        <p class="interactive-description">
+          Create a Bell state&mdash;two maximally entangled qubits. When you measure one, you
+          instantly know the other's state, no matter how far apart they are. This isn't
+          communication; it's correlation stronger than anything classical physics allows.
+        </p>
+
+        <div class="entanglement-container">
+          <div class="entanglement-visual">
+            <div class="qubit-display qubit-a">
+              <span class="qubit-label">Qubit A</span>
+              <div class="qubit-state">
+                <span class="qubit-icon">?</span>
+              </div>
+              <span class="qubit-value qubit-a-value">Superposition</span>
+            </div>
+
+            <div class="entangle-link">
+              <span class="link-symbol">⟷</span>
+              <span class="link-label">Entangled</span>
+            </div>
+
+            <div class="qubit-display qubit-b">
+              <span class="qubit-label">Qubit B</span>
+              <div class="qubit-state">
+                <span class="qubit-icon">?</span>
+              </div>
+              <span class="qubit-value qubit-b-value">Superposition</span>
+            </div>
+          </div>
+
+          <div class="entanglement-info">
+            <p>Bell State: (|00⟩ + |11⟩)/√2</p>
+            <p class="info-detail">50% chance of |00⟩, 50% chance of |11⟩. Never |01⟩ or |10⟩!</p>
+          </div>
+
+          <div class="entanglement-controls">
+            <button class="btn btn-primary measure-a-btn">Measure Qubit A</button>
+            <button class="btn btn-primary measure-b-btn">Measure Qubit B</button>
+            <button class="btn btn-secondary reset-entangle-btn">Reset</button>
+          </div>
+
+          <div class="entanglement-result" style="display: none;">
+            <span class="result-text"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deep Concepts Section -->
+      <section class="content-section">
+        <h2>The Challenges</h2>
+
+        <p>
+          <strong>Decoherence:</strong> Qubits are incredibly fragile. Any interaction with the
+          environment causes "decoherence"&mdash;the quantum states collapse into classical ones.
+          This is why quantum computers need extreme isolation, often near absolute zero temperature.
+        </p>
+
+        <p>
+          <strong>Error Correction:</strong> Because qubits are noisy, quantum computers need
+          error correction. But measuring a qubit destroys its state, so quantum error correction
+          is complex&mdash;requiring many physical qubits per "logical" qubit.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Decoherence</p>
+            <p class="concept-definition">Loss of quantum properties due to environmental interaction</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Quantum Supremacy</p>
+            <p class="concept-definition">Solving a problem faster than any classical computer</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">NISQ</p>
+            <p class="concept-definition">Noisy Intermediate-Scale Quantum&mdash;today's imperfect devices</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Different, not just faster.</strong> Quantum computers process information
+          in a fundamentally different way. They're not "super-fast classical computers"&mdash;they're
+          a new paradigm that excels at specific problem types.
+        </p>
+
+        <p>
+          <strong>Superposition enables parallelism.</strong> A quantum computer can explore
+          many solutions simultaneously, then use interference to amplify correct answers and
+          cancel wrong ones. This is the heart of quantum algorithms.
+        </p>
+
+        <p>
+          <strong>We're still early.</strong> Today's quantum computers have dozens to a few
+          thousand qubits, are noisy, and can only run short computations. Fault-tolerant
+          quantum computers that outperform classical ones at useful tasks are still years away.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Future:</strong> Drug discovery, materials science, optimization.
+            <strong>Security:</strong> Breaking and making unbreakable encryption.
+            <strong>Science:</strong> Simulating quantum chemistry and physics.
+            <strong>Finance:</strong> Portfolio optimization, risk analysis.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../generative-ai/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Generative AI
+        </a>
+        <a href="../cryptography/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Cryptography
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="quantum-computing.js"></script>
+</body>
+</html>
