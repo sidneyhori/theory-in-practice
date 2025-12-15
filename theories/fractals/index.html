@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fractals & Self-Similarity - Theory in Practice</title>
+  <meta name="description" content="Explore fractals and self-similarity through interactive visualizations. Generate the Mandelbrot set, Sierpinski triangle, and more.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="fractals.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+
+      <div class="nav-controls">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Mathematics</p>
+        <h1 class="article-title">Fractals & Self-Similarity</h1>
+        <p class="article-subtitle">
+          Infinite complexity from simple rules: patterns that repeat at every scale.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What are Fractals?</h2>
+        <p>
+          Fractals are patterns that look similar at any scale&mdash;zoom in and you see the same shapes
+          repeating endlessly. Unlike smooth geometric shapes like circles and squares, fractals have
+          infinitely complex boundaries that never simplify no matter how close you look.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Nature's Favorite Pattern</p>
+          <p>
+            Look at a fern leaf: each frond looks like a miniature version of the whole leaf. The same
+            pattern appears in tree branches, river networks, lightning bolts, and your lungs' airways.
+            Nature uses fractals because they're efficient&mdash;maximum surface area in minimum space.
+          </p>
+        </div>
+
+        <p>
+          The mathematical study of fractals began in the 1970s when Benoit Mandelbrot coined the term
+          (from Latin "fractus," meaning broken). He showed that many natural phenomena that seemed
+          random&mdash;coastlines, mountains, clouds&mdash;actually follow fractal patterns.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Self-Similarity</p>
+            <p class="concept-definition">Parts of the shape look like smaller copies of the whole</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Infinite Detail</p>
+            <p class="concept-definition">No matter how far you zoom, you always see more structure</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Fractional Dimension</p>
+            <p class="concept-definition">Fractals have dimensions between integers (e.g., 1.26 dimensions)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-World Examples Section -->
+      <section class="content-section">
+        <h2>Fractals in the Real World</h2>
+
+        <p>
+          <strong>Biology:</strong> Your circulatory system is fractal&mdash;arteries branch into smaller
+          arteries, which branch into capillaries. This fractal structure lets blood reach every cell
+          efficiently. The same pattern appears in lungs (bronchi branching into bronchioles), neurons,
+          and even broccoli.
+        </p>
+
+        <p>
+          <strong>Geography:</strong> Coastlines are famously fractal. The "coastline paradox" says that
+          a coastline's length depends on your measuring stick&mdash;smaller sticks reveal more detail,
+          making the coast longer. Britain's coastline is about 2,800 km with a 100km ruler, but 3,400 km
+          with a 50km ruler.
+        </p>
+
+        <p>
+          <strong>Technology:</strong> Fractal antennas pack more length into less space, making your
+          phone's antenna fit in a tiny case while receiving multiple frequencies. Fractal compression
+          reduces image file sizes by finding and encoding self-similar regions.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Mandelbrot Set</p>
+          <p>
+            The most famous fractal, discovered by Mandelbrot in 1980. Despite being generated by a simple
+            formula (z = z&sup2; + c), it contains infinite complexity. Zoom into any part of its boundary
+            and you find new patterns, including miniature copies of the whole set.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sierpinski Triangle Interactive -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Sierpinski Triangle</h2>
+
+        <p class="interactive-description">
+          Watch how a simple rule creates infinite complexity. Start with a triangle, remove the middle,
+          and repeat for each remaining triangle. Each iteration triples the number of triangles.
+        </p>
+
+        <div class="sierpinski-container">
+          <canvas class="sierpinski-canvas" id="sierpinski-canvas"></canvas>
+
+          <div class="sierpinski-controls">
+            <div class="control-group">
+              <label for="sierpinski-depth">Iteration Depth: <span class="depth-value">0</span></label>
+              <input type="range" id="sierpinski-depth" min="0" max="8" value="0" class="sierpinski-slider">
+            </div>
+            <div class="sierpinski-stats">
+              <span>Triangles: <strong class="triangle-count">1</strong></span>
+              <span>Removed: <strong class="removed-count">0</strong></span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary animate-sierpinski-btn">Animate Growth</button>
+        </div>
+      </section>
+
+      <!-- Mandelbrot Set Interactive -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Mandelbrot Set Explorer</h2>
+
+        <p class="interactive-description">
+          Explore the infinite complexity of the Mandelbrot set. Click anywhere to zoom in and discover
+          new patterns. The coloring shows how quickly points escape to infinity.
+        </p>
+
+        <div class="mandelbrot-container">
+          <canvas class="mandelbrot-canvas" id="mandelbrot-canvas"></canvas>
+
+          <div class="mandelbrot-controls">
+            <button class="btn btn-secondary zoom-out-btn">Zoom Out</button>
+            <button class="btn btn-secondary reset-mandelbrot-btn">Reset View</button>
+            <div class="control-group">
+              <label for="max-iterations">Detail Level:</label>
+              <select id="max-iterations" class="iterations-select">
+                <option value="50">Low (Fast)</option>
+                <option value="100" selected>Medium</option>
+                <option value="200">High</option>
+                <option value="500">Ultra (Slow)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mandelbrot-info">
+            <span>Zoom: <strong class="zoom-level">1x</strong></span>
+            <span>Center: <strong class="center-coords">(-0.5, 0)</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fractal Tree Interactive -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Fractal Tree Generator</h2>
+
+        <p class="interactive-description">
+          Create your own fractal tree by adjusting the branching rules. See how small changes
+          in angle and length ratio produce dramatically different structures.
+        </p>
+
+        <div class="tree-container">
+          <canvas class="tree-canvas" id="tree-canvas"></canvas>
+
+          <div class="tree-controls">
+            <div class="control-group">
+              <label for="branch-angle">Branch Angle: <span class="angle-value">25</span>&deg;</label>
+              <input type="range" id="branch-angle" min="10" max="60" value="25" class="angle-slider">
+            </div>
+            <div class="control-group">
+              <label for="branch-ratio">Length Ratio: <span class="ratio-value">0.7</span></label>
+              <input type="range" id="branch-ratio" min="50" max="85" value="70" class="ratio-slider">
+            </div>
+            <div class="control-group">
+              <label for="tree-depth">Depth: <span class="tree-depth-value">8</span></label>
+              <input type="range" id="tree-depth" min="1" max="12" value="8" class="tree-depth-slider">
+            </div>
+          </div>
+
+          <button class="btn btn-primary randomize-tree-btn">Randomize</button>
+        </div>
+      </section>
+
+      <!-- Key Concepts Section -->
+      <section class="content-section">
+        <h2>The Math Behind Fractals</h2>
+
+        <p>
+          <strong>Iteration:</strong> Most fractals are created by repeating a simple rule over and over.
+          The Sierpinski triangle removes the middle third; the Mandelbrot set squares a number and adds
+          a constant. Simplicity creates complexity through repetition.
+        </p>
+
+        <p>
+          <strong>Fractal Dimension:</strong> A line is 1D, a square is 2D. But the Sierpinski triangle
+          is about 1.58 dimensional&mdash;more than a line but less than a filled shape. This "fractional
+          dimension" measures how completely a fractal fills space.
+        </p>
+
+        <p>
+          <strong>Chaos Connection:</strong> Fractals often appear in chaotic systems. The boundary between
+          stable and unstable behavior (like in the Mandelbrot set) tends to be fractal. This connects to
+          chaos theory&mdash;small changes can lead to vastly different outcomes.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">How Long is a Coastline?</p>
+          <p>
+            Mandelbrot's famous 1967 paper asked this question. The answer: it depends on your ruler.
+            Shorter rulers capture more detail, increasing the measured length without limit. This
+            "coastline paradox" led to the development of fractal geometry.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Simplicity creates complexity.</strong> Fractals prove that incredibly complex patterns
+          can emerge from simple rules applied repeatedly. You don't need complicated instructions to
+          create intricate structures&mdash;just iteration.
+        </p>
+
+        <p>
+          <strong>Scale matters less than you think.</strong> Self-similar structures behave the same way
+          whether you're looking at the whole or a tiny part. This principle appears in everything from
+          stock market fluctuations to network traffic patterns.
+        </p>
+
+        <p>
+          <strong>Nature is efficient.</strong> Fractal structures maximize surface area while minimizing
+          volume and material. That's why lungs, roots, and blood vessels all use fractal branching&mdash;
+          evolution discovered the math.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Art:</strong> Generating natural-looking landscapes and textures.
+            <strong>Engineering:</strong> Designing efficient antennas and heat exchangers.
+            <strong>Finance:</strong> Understanding market volatility and risk.
+            <strong>Medicine:</strong> Diagnosing diseases by analyzing tissue patterns.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../graph-theory/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Graph Theory
+        </a>
+        <a href="../chaos-theory/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Chaos Theory
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="fractals.js"></script>
+</body>
+</html>
