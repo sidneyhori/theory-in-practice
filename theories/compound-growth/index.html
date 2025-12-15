@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compound Growth - Theory in Practice</title>
+  <meta name="description" content="Explore compound growth through interactive visualizations. Learn about exponential growth, the Rule of 72, and why small differences compound into huge outcomes.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="compound-growth.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Economics</p>
+        <h1 class="article-title">Compound Growth</h1>
+        <p class="article-subtitle">
+          The eighth wonder of the world: how small gains become enormous over time.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>The Magic of Compounding</h2>
+        <p>
+          Einstein allegedly called compound interest the "eighth wonder of the world." Whether
+          or not he said it, the principle is profound: when growth builds on itself, small
+          rates create massive outcomes given enough time. A penny that doubles every day for
+          a month becomes over $10 million.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Linear vs Exponential</p>
+          <p>
+            Linear growth adds a fixed amount each period. Exponential growth multiplies by a
+            fixed rate. The difference is dramatic: add $100/year for 30 years and you have
+            $3,000. Grow $100 at 10%/year for 30 years and you have $1,745. The percentage
+            wins despite looking smaller at first.
+          </p>
+        </div>
+
+        <p>
+          Compounding applies everywhere: investment returns, skill development, relationship
+          building, knowledge acquisition. Understanding exponential growth&mdash;and its
+          counterpart, exponential decay&mdash;is essential for long-term thinking.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Compound Interest</p>
+            <p class="concept-definition">Interest calculated on initial principal plus accumulated interest</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Rule of 72</p>
+            <p class="concept-definition">Divide 72 by the rate to estimate years to double</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Exponential Growth</p>
+            <p class="concept-definition">Growth proportional to current size: larger = faster</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Compound Interest Calculator -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Compound Interest Calculator</h2>
+
+        <p class="interactive-description">
+          See how your money grows over time. Adjust the principal, interest rate, and time
+          period to see how compound interest works. Notice how the curve accelerates&mdash;most
+          growth happens at the end.
+        </p>
+
+        <div class="calculator-container">
+          <canvas id="compound-canvas" width="400" height="250"></canvas>
+
+          <div class="result-display">
+            <div class="result-item">
+              <span class="result-label">Final Value</span>
+              <span class="result-value final-value">$1,000</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Total Interest</span>
+              <span class="result-value interest-earned">$0</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Growth Multiple</span>
+              <span class="result-value growth-multiple">1.0x</span>
+            </div>
+          </div>
+
+          <div class="calculator-controls">
+            <div class="control-group">
+              <label>Principal: $<span class="principal-display">1,000</span></label>
+              <input type="range" id="principal-slider" min="100" max="10000" value="1000" step="100" class="slider">
+            </div>
+            <div class="control-group">
+              <label>Annual Rate: <span class="rate-display">7%</span></label>
+              <input type="range" id="rate-slider" min="1" max="20" value="7" class="slider">
+            </div>
+            <div class="control-group">
+              <label>Years: <span class="years-display">20</span></label>
+              <input type="range" id="years-slider" min="1" max="50" value="20" class="slider">
+            </div>
+          </div>
+
+          <div class="compound-formula">
+            <code>A = P(1 + r)<sup>t</sup></code>
+            <span class="formula-description">A = Final amount, P = Principal, r = Rate, t = Time</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rule of 72 Section -->
+      <section class="content-section">
+        <h2>The Rule of 72</h2>
+
+        <p>
+          Want to know how long until your money doubles? Divide 72 by the interest rate. At
+          7% growth, your money doubles in about 10 years (72 &divide; 7 &approx; 10). At 12%,
+          it doubles in 6 years. This simple rule gives surprisingly accurate estimates.
+        </p>
+
+        <p>
+          The rule works because ln(2) &approx; 0.693, and 72 is close to 69.3 while being
+          conveniently divisible by many numbers. It's a mental math shortcut that investors
+          and financial planners use constantly.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Flip Side</p>
+          <p>
+            The Rule of 72 also works for decay. If inflation is 3%, prices double every 24
+            years. If a currency depreciates at 6%, it loses half its value in 12 years.
+            Understanding exponential decay is just as important as understanding growth.
+          </p>
+        </div>
+      </section>
+
+      <!-- Rule of 72 Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Rule of 72 Calculator</h2>
+
+        <p class="interactive-description">
+          Enter a growth rate to see how long until your investment doubles. The rule of 72
+          gives a quick estimate; the exact calculation uses logarithms.
+        </p>
+
+        <div class="rule72-container">
+          <div class="rule72-input">
+            <label>Growth Rate: <span class="rule72-rate">7</span>%</label>
+            <input type="range" id="rule72-slider" min="1" max="24" value="7" class="slider">
+          </div>
+
+          <div class="rule72-results">
+            <div class="rule72-item">
+              <span class="item-label">Rule of 72 Estimate</span>
+              <span class="item-value rule72-estimate">10.3 years</span>
+            </div>
+            <div class="rule72-item">
+              <span class="item-label">Exact Doubling Time</span>
+              <span class="item-value rule72-exact">10.2 years</span>
+            </div>
+          </div>
+
+          <div class="doubling-timeline">
+            <h4>After how many doublings...</h4>
+            <div class="timeline-items">
+              <div class="timeline-item">
+                <span class="double-count">1x</span>
+                <span class="double-value">$2,000</span>
+                <span class="double-time time-1">10 yrs</span>
+              </div>
+              <div class="timeline-item">
+                <span class="double-count">2x</span>
+                <span class="double-value">$4,000</span>
+                <span class="double-time time-2">21 yrs</span>
+              </div>
+              <div class="timeline-item">
+                <span class="double-count">3x</span>
+                <span class="double-value">$8,000</span>
+                <span class="double-time time-3">31 yrs</span>
+              </div>
+              <div class="timeline-item">
+                <span class="double-count">4x</span>
+                <span class="double-value">$16,000</span>
+                <span class="double-time time-4">41 yrs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rate Comparison Section -->
+      <section class="content-section">
+        <h2>Small Differences, Big Outcomes</h2>
+
+        <p>
+          A 1% difference in returns might not seem like much, but over decades it's enormous.
+          $10,000 growing at 7% for 30 years becomes $76,000. At 8%, it becomes $100,000. That
+          single percentage point difference is $24,000&mdash;more than twice the original
+          investment.
+        </p>
+
+        <p>
+          This is why fees matter so much in investing. A fund with 1% higher fees might seem
+          similar to a cheaper alternative, but over a career of investing, that 1% could cost
+          you hundreds of thousands of dollars.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Patience Tax</p>
+          <p>
+            Compounding rewards patience and punishes impatience. If you withdraw 10% of your
+            gains each year instead of reinvesting them, your long-term wealth is dramatically
+            reduced. The real power of compounding only emerges when you leave the money alone
+            to grow.
+          </p>
+        </div>
+      </section>
+
+      <!-- Rate Comparison Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Rate Comparison</h2>
+
+        <p class="interactive-description">
+          Compare how different growth rates lead to vastly different outcomes over time.
+          Small differences compound into huge gaps.
+        </p>
+
+        <div class="comparison-container">
+          <canvas id="comparison-canvas" width="400" height="250"></canvas>
+
+          <div class="comparison-legend">
+            <div class="legend-item">
+              <span class="legend-color rate-a-color"></span>
+              <span>Rate A: <span class="rate-a-label">5%</span></span>
+              <span class="legend-value rate-a-final">$26,533</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color rate-b-color"></span>
+              <span>Rate B: <span class="rate-b-label">7%</span></span>
+              <span class="legend-value rate-b-final">$38,697</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color rate-c-color"></span>
+              <span>Rate C: <span class="rate-c-label">10%</span></span>
+              <span class="legend-value rate-c-final">$67,275</span>
+            </div>
+          </div>
+
+          <div class="comparison-controls">
+            <div class="control-row">
+              <label>Rate A: <span class="rate-a-display">5%</span></label>
+              <input type="range" id="rate-a" min="1" max="15" value="5" class="slider slider-a">
+            </div>
+            <div class="control-row">
+              <label>Rate B: <span class="rate-b-display">7%</span></label>
+              <input type="range" id="rate-b" min="1" max="15" value="7" class="slider slider-b">
+            </div>
+            <div class="control-row">
+              <label>Rate C: <span class="rate-c-display">10%</span></label>
+              <input type="range" id="rate-c" min="1" max="15" value="10" class="slider slider-c">
+            </div>
+            <div class="control-row">
+              <label>Time Period: <span class="period-display">20</span> years</label>
+              <input type="range" id="period-slider" min="5" max="40" value="20" class="slider">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="content-section">
+        <h2>Compounding Everywhere</h2>
+
+        <p>
+          <strong>Investing:</strong> Starting early matters more than starting big. Someone
+          who invests $5,000/year from age 25-35 (10 years) will have more at 65 than someone
+          who invests $5,000/year from 35-65 (30 years), at the same rate. Time beats money.
+        </p>
+
+        <p>
+          <strong>Skills:</strong> Getting 1% better at something each day means you're 37
+          times better after a year. Knowledge compounds too&mdash;what you learn today makes
+          tomorrow's learning easier. This is why consistent practice beats occasional cramming.
+        </p>
+
+        <p>
+          <strong>Relationships:</strong> Small acts of kindness compound into deep
+          relationships. Small acts of neglect compound into distance. The daily choices
+          matter more than the grand gestures.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Negative Compounding</p>
+          <p>
+            Debt compounds against you. Credit card debt at 20% interest doubles in under 4
+            years. This is why paying off high-interest debt is often the best "investment"
+            you can make&mdash;it's a guaranteed return equal to the interest rate.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Time is the biggest factor.</strong> Starting early is more powerful than
+          starting with more money. A 20-year-old investing $100/month will likely beat a
+          40-year-old investing $500/month by retirement.
+        </p>
+
+        <p>
+          <strong>Small rates matter.</strong> A 1% difference seems trivial but compounds
+          into enormous differences. Minimize fees, maximize returns, and be patient.
+        </p>
+
+        <p>
+          <strong>Compounding works both ways.</strong> It builds wealth when you save and
+          destroys it when you borrow. Understanding this asymmetry is financially crucial.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Finance:</strong> Savings, investments, loans, inflation.
+            <strong>Career:</strong> Skills, knowledge, reputation building.
+            <strong>Health:</strong> Exercise benefits, habit formation.
+            <strong>Business:</strong> Customer acquisition, brand building, market share.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../network-effects/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Network Effects
+        </a>
+        <a href="../natural-selection/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Natural Selection
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="compound-growth.js"></script>
+</body>
+</html>
