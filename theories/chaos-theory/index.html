@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaos Theory - Theory in Practice</title>
+  <meta name="description" content="Explore chaos theory and the butterfly effect through interactive simulations. Discover how small changes lead to unpredictable outcomes.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="chaos-theory.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+
+      <div class="nav-controls">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Mathematics</p>
+        <h1 class="article-title">Chaos Theory</h1>
+        <p class="article-subtitle">
+          The butterfly effect: how tiny changes create unpredictable futures.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What is Chaos Theory?</h2>
+        <p>
+          Chaos theory studies systems where small differences in starting conditions lead to vastly
+          different outcomes. These systems follow precise rules&mdash;they're not random&mdash;yet
+          they're impossible to predict long-term because tiny measurement errors get amplified exponentially.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Butterfly Effect</p>
+          <p>
+            Meteorologist Edward Lorenz discovered chaos in 1961 when he reran a weather simulation.
+            He entered 0.506 instead of 0.506127, thinking the tiny difference wouldn't matter. Instead,
+            the weather patterns diverged completely. He later asked: "Does the flap of a butterfly's
+            wings in Brazil set off a tornado in Texas?"
+          </p>
+        </div>
+
+        <p>
+          Chaos isn't randomness&mdash;it's deterministic unpredictability. The system follows exact rules,
+          but we can never measure starting conditions precisely enough to predict far into the future.
+          This limits weather forecasts, explains turbulence, and even affects your heartbeat.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Sensitive Dependence</p>
+            <p class="concept-definition">Tiny changes in initial conditions lead to huge differences later</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Deterministic</p>
+            <p class="concept-definition">The system follows exact rules&mdash;nothing is actually random</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Strange Attractors</p>
+            <p class="concept-definition">Patterns that chaotic systems tend toward but never exactly repeat</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-World Examples Section -->
+      <section class="content-section">
+        <h2>Chaos in the Real World</h2>
+
+        <p>
+          <strong>Weather:</strong> This is why forecasts beyond about 10 days are unreliable. The atmosphere
+          is chaotic&mdash;we'd need to measure every air molecule's position to predict perfectly. Modern
+          forecasters run many simulations with slightly different starting conditions to see how predictions diverge.
+        </p>
+
+        <p>
+          <strong>The Stock Market:</strong> Financial markets show chaotic behavior. Small events can trigger
+          cascading effects, making long-term predictions impossible despite sophisticated models. This is why
+          no one consistently beats the market.
+        </p>
+
+        <p>
+          <strong>Your Heart:</strong> A healthy heartbeat isn't perfectly regular&mdash;it's chaotically
+          variable. Paradoxically, a too-regular heartbeat can signal problems. The heart operates near
+          the "edge of chaos," giving it flexibility to respond to changing demands.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Lorenz Attractor</p>
+          <p>
+            Lorenz's weather equations produce a beautiful butterfly-shaped pattern called a "strange attractor."
+            The system orbits this shape forever but never exactly repeats its path. It's deterministic
+            yet unpredictable&mdash;the signature of chaos.
+          </p>
+        </div>
+      </section>
+
+      <!-- Double Pendulum Interactive -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Double Pendulum</h2>
+
+        <p class="interactive-description">
+          The double pendulum is a classic example of chaos. Two pendulums start with nearly identical
+          positions but quickly diverge into completely different paths. Watch how sensitive this
+          system is to initial conditions.
+        </p>
+
+        <div class="pendulum-container">
+          <canvas class="pendulum-canvas" id="pendulum-canvas"></canvas>
+
+          <div class="pendulum-controls">
+            <button class="btn btn-primary start-pendulum-btn">Start</button>
+            <button class="btn btn-secondary reset-pendulum-btn">Reset</button>
+            <div class="control-group">
+              <label>
+                <input type="checkbox" class="show-trace-checkbox" checked>
+                Show Traces
+              </label>
+            </div>
+          </div>
+
+          <div class="pendulum-info">
+            <span class="pendulum-label pendulum1-label">Pendulum 1</span>
+            <span class="pendulum-label pendulum2-label">Pendulum 2 (0.1° offset)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Logistic Map Interactive -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">The Logistic Map</h2>
+
+        <p class="interactive-description">
+          A simple population model that shows the route to chaos. As the growth rate increases,
+          the population goes from stable, to oscillating, to chaotic. The famous bifurcation
+          diagram shows where chaos begins.
+        </p>
+
+        <div class="logistic-container">
+          <canvas class="logistic-canvas" id="logistic-canvas"></canvas>
+
+          <div class="logistic-controls">
+            <div class="control-group">
+              <label for="growth-rate">Growth Rate (r): <span class="r-value">2.5</span></label>
+              <input type="range" id="growth-rate" min="0" max="400" value="250" class="growth-slider">
+            </div>
+          </div>
+
+          <div class="logistic-info">
+            <div class="behavior-label">Behavior: <strong class="behavior-type">Stable</strong></div>
+            <div class="population-display">Population converges to: <strong class="final-population">0.60</strong></div>
+          </div>
+
+          <button class="btn btn-secondary show-bifurcation-btn">Show Bifurcation Diagram</button>
+
+          <div class="bifurcation-container" style="display: none;">
+            <canvas class="bifurcation-canvas" id="bifurcation-canvas"></canvas>
+            <p class="bifurcation-caption">
+              Each vertical slice shows the long-term behavior at that growth rate.
+              Notice how order gives way to chaos around r = 3.57.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lorenz System Interactive -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Lorenz Attractor</h2>
+
+        <p class="interactive-description">
+          The iconic butterfly-shaped attractor from Lorenz's weather equations. Watch how two
+          trajectories starting incredibly close together (difference of 0.0001) eventually diverge completely.
+        </p>
+
+        <div class="lorenz-container">
+          <canvas class="lorenz-canvas" id="lorenz-canvas"></canvas>
+
+          <div class="lorenz-controls">
+            <button class="btn btn-primary start-lorenz-btn">Start</button>
+            <button class="btn btn-secondary reset-lorenz-btn">Reset</button>
+          </div>
+
+          <div class="lorenz-info">
+            <span>Two trajectories with initial difference: 0.0001</span>
+            <span class="divergence-display">Current separation: <strong class="separation-value">0.0001</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Concepts Section -->
+      <section class="content-section">
+        <h2>Understanding Chaos</h2>
+
+        <p>
+          <strong>Lyapunov Exponents:</strong> These measure how fast nearby trajectories separate.
+          A positive exponent means chaos&mdash;errors grow exponentially. Weather has positive
+          Lyapunov exponents, which is why we can't predict it beyond about two weeks.
+        </p>
+
+        <p>
+          <strong>Period Doubling:</strong> Many systems enter chaos through a specific route.
+          As a parameter changes, the system goes from one stable state, to oscillating between two,
+          then four, then eight... until suddenly it's chaotic. This pattern is universal.
+        </p>
+
+        <p>
+          <strong>Order Within Chaos:</strong> Strange attractors show that even chaotic systems have
+          structure. They're confined to specific regions of possibility, even though the exact path
+          is unpredictable. Weather is chaotic, but Earth never becomes Venus.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Edge of Chaos</p>
+          <p>
+            Many complex systems operate at the "edge of chaos"&mdash;not fully ordered, not fully chaotic.
+            This sweet spot allows both stability and adaptability. Life, ecosystems, and markets all
+            seem to self-organize near this critical boundary.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Unpredictability isn't randomness.</strong> Chaotic systems follow exact rules,
+          but we can never know initial conditions precisely enough. This is a fundamental limit,
+          not a lack of computing power or knowledge.
+        </p>
+
+        <p>
+          <strong>Small causes can have big effects.</strong> In chaotic systems, tiny differences
+          get amplified. This explains why weather forecasts fail, why markets crash unexpectedly,
+          and why history hinges on seemingly minor events.
+        </p>
+
+        <p>
+          <strong>Long-term prediction has limits.</strong> No matter how good our models get,
+          some systems are fundamentally unpredictable beyond a certain horizon. Recognizing this
+          limit is itself valuable knowledge.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Planning:</strong> Build resilience rather than trying to predict everything.
+            <strong>Science:</strong> Understand why some phenomena resist precise prediction.
+            <strong>Finance:</strong> Respect the limits of forecasting and diversify.
+            <strong>Life:</strong> Small actions can have outsized long-term consequences.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../fractals/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Fractals
+        </a>
+        <a href="../special-relativity/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Special Relativity
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="chaos-theory.js"></script>
+</body>
+</html>
