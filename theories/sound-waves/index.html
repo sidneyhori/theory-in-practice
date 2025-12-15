@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sound & Waves - Theory in Practice</title>
+  <meta name="description" content="Explore the physics of sound through interactive visualizations. Learn about waveforms, harmonics, and interference patterns.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="sound-waves.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Physics</p>
+        <h1 class="article-title">Sound & Waves</h1>
+        <p class="article-subtitle">
+          How vibrations become music, speech, and everything you hear.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What Are Sound Waves?</h2>
+        <p>
+          Sound is vibration traveling through matter&mdash;air, water, or solids. When something
+          vibrates (a guitar string, your vocal cords, a speaker cone), it pushes and pulls the
+          surrounding air molecules, creating waves of compression and rarefaction that your ears
+          interpret as sound.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">In Space, No One Can Hear You</p>
+          <p>
+            Sound needs a medium to travel through. In the vacuum of space, there's nothing to
+            vibrate&mdash;so there's no sound. The iconic explosions in sci-fi movies? They'd be
+            completely silent in reality.
+          </p>
+        </div>
+
+        <p>
+          Every sound has three key properties: <strong>frequency</strong> (pitch&mdash;how fast
+          the wave oscillates), <strong>amplitude</strong> (volume&mdash;how much energy the wave
+          carries), and <strong>timbre</strong> (tone quality&mdash;what makes a violin sound
+          different from a flute playing the same note).
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Frequency</p>
+            <p class="concept-definition">Cycles per second (Hz). Higher frequency = higher pitch</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Wavelength</p>
+            <p class="concept-definition">Distance between wave peaks. Inversely related to frequency</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Amplitude</p>
+            <p class="concept-definition">Wave height. Larger amplitude = louder sound</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Waveform Explorer -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Waveform Explorer</h2>
+
+        <p class="interactive-description">
+          Different waveforms have different sounds. A pure sine wave sounds smooth and simple.
+          Square waves sound buzzy. Triangle waves are softer. Sawtooth waves are bright and harsh.
+          Adjust the frequency and see how the wave changes.
+        </p>
+
+        <div class="waveform-container">
+          <canvas class="waveform-canvas" id="waveform-canvas"></canvas>
+
+          <div class="waveform-controls">
+            <div class="control-group">
+              <label>Waveform Type</label>
+              <div class="waveform-buttons">
+                <button class="wave-btn active" data-wave="sine">Sine</button>
+                <button class="wave-btn" data-wave="square">Square</button>
+                <button class="wave-btn" data-wave="triangle">Triangle</button>
+                <button class="wave-btn" data-wave="sawtooth">Sawtooth</button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label>Frequency: <span class="frequency-value">440</span> Hz</label>
+              <input type="range" id="frequency-slider" min="100" max="1000" value="440" class="slider">
+            </div>
+
+            <div class="control-group">
+              <label>Amplitude: <span class="amplitude-value">50</span>%</label>
+              <input type="range" id="amplitude-slider" min="10" max="100" value="50" class="slider">
+            </div>
+          </div>
+
+          <div class="sound-controls">
+            <button class="btn btn-primary play-sound-btn">Play Sound</button>
+            <button class="btn btn-secondary stop-sound-btn">Stop</button>
+          </div>
+
+          <div class="wave-info">
+            <div class="info-item">
+              <span class="info-label">Period:</span>
+              <span class="info-value period-value">2.27 ms</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Wavelength (in air):</span>
+              <span class="info-value wavelength-value">0.78 m</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-World Examples Section -->
+      <section class="content-section">
+        <h2>Sound in the Real World</h2>
+
+        <p>
+          <strong>Human Hearing:</strong> We can hear frequencies from about 20 Hz (a deep rumble)
+          to 20,000 Hz (a piercing whistle). As we age, we lose high-frequency sensitivity. Dogs
+          can hear up to 65,000 Hz; bats use frequencies up to 200,000 Hz for echolocation.
+        </p>
+
+        <p>
+          <strong>Musical Notes:</strong> Middle C on a piano vibrates at 261.6 Hz. The A above
+          middle C (the note orchestras tune to) is 440 Hz. Each octave doubles the frequency&mdash;A5
+          is 880 Hz, A6 is 1760 Hz.
+        </p>
+
+        <p>
+          <strong>Doppler Effect:</strong> When an ambulance passes you, the siren seems to drop
+          in pitch. As it approaches, the sound waves are compressed (higher frequency); as it
+          recedes, they're stretched (lower frequency). This same effect lets astronomers measure
+          how fast stars are moving.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Breaking the Sound Barrier</p>
+          <p>
+            Sound travels at about 343 m/s (767 mph) in air at sea level. When a jet exceeds this
+            speed, it creates a sonic boom&mdash;a shock wave of compressed air. The "crack" of a
+            whip is a tiny sonic boom from the tip moving faster than sound.
+          </p>
+        </div>
+      </section>
+
+      <!-- Harmonics Explorer -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Harmonics & Overtones</h2>
+
+        <p class="interactive-description">
+          Real instruments don't produce pure sine waves. They create a fundamental frequency plus
+          overtones (harmonics) at integer multiples of the fundamental. This mix of frequencies
+          gives each instrument its unique timbre. Add harmonics to hear how they change the sound.
+        </p>
+
+        <div class="harmonics-container">
+          <canvas class="harmonics-canvas" id="harmonics-canvas"></canvas>
+
+          <div class="harmonics-controls">
+            <div class="control-group">
+              <label>Fundamental: <span class="fundamental-value">220</span> Hz</label>
+              <input type="range" id="fundamental-slider" min="100" max="440" value="220" class="slider">
+            </div>
+
+            <div class="harmonic-sliders">
+              <div class="harmonic-control">
+                <label>1st (Fund.)</label>
+                <input type="range" class="harmonic-slider" data-harmonic="1" min="0" max="100" value="100">
+                <span class="harmonic-value">100%</span>
+              </div>
+              <div class="harmonic-control">
+                <label>2nd</label>
+                <input type="range" class="harmonic-slider" data-harmonic="2" min="0" max="100" value="0">
+                <span class="harmonic-value">0%</span>
+              </div>
+              <div class="harmonic-control">
+                <label>3rd</label>
+                <input type="range" class="harmonic-slider" data-harmonic="3" min="0" max="100" value="0">
+                <span class="harmonic-value">0%</span>
+              </div>
+              <div class="harmonic-control">
+                <label>4th</label>
+                <input type="range" class="harmonic-slider" data-harmonic="4" min="0" max="100" value="0">
+                <span class="harmonic-value">0%</span>
+              </div>
+              <div class="harmonic-control">
+                <label>5th</label>
+                <input type="range" class="harmonic-slider" data-harmonic="5" min="0" max="100" value="0">
+                <span class="harmonic-value">0%</span>
+              </div>
+            </div>
+
+            <div class="preset-buttons">
+              <button class="preset-btn" data-preset="pure">Pure Tone</button>
+              <button class="preset-btn" data-preset="clarinet">Clarinet-like</button>
+              <button class="preset-btn" data-preset="brass">Brass-like</button>
+              <button class="preset-btn" data-preset="string">String-like</button>
+            </div>
+          </div>
+
+          <div class="sound-controls">
+            <button class="btn btn-primary play-harmonics-btn">Play Sound</button>
+            <button class="btn btn-secondary stop-harmonics-btn">Stop</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interference -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Wave Interference</h2>
+
+        <p class="interactive-description">
+          When two waves meet, they combine. If their peaks align, they reinforce each other
+          (constructive interference). If a peak meets a trough, they cancel out (destructive
+          interference). This creates "beats"&mdash;a pulsing effect when two similar frequencies
+          interact.
+        </p>
+
+        <div class="interference-container">
+          <canvas class="interference-canvas" id="interference-canvas"></canvas>
+
+          <div class="interference-controls">
+            <div class="control-group">
+              <label>Wave 1 Frequency: <span class="freq1-value">440</span> Hz</label>
+              <input type="range" id="freq1-slider" min="200" max="600" value="440" class="slider">
+            </div>
+
+            <div class="control-group">
+              <label>Wave 2 Frequency: <span class="freq2-value">445</span> Hz</label>
+              <input type="range" id="freq2-slider" min="200" max="600" value="445" class="slider">
+            </div>
+          </div>
+
+          <div class="interference-info">
+            <div class="info-item">
+              <span class="info-label">Frequency difference:</span>
+              <span class="info-value freq-diff-value">5 Hz</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Beat frequency:</span>
+              <span class="info-value beat-freq-value">5 beats/sec</span>
+            </div>
+          </div>
+
+          <div class="sound-controls">
+            <button class="btn btn-primary play-interference-btn">Play Both Waves</button>
+            <button class="btn btn-secondary stop-interference-btn">Stop</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fourier Section -->
+      <section class="content-section">
+        <h2>Fourier Analysis: Decoding Sound</h2>
+
+        <p>
+          One of mathematics' most beautiful discoveries: <strong>any</strong> periodic wave can
+          be built by adding sine waves together. A square wave? It's an infinite sum of odd
+          harmonics. Joseph Fourier proved this in 1822, and it revolutionized physics and
+          engineering.
+        </p>
+
+        <p>
+          Your phone's voice recognition, MP3 compression, earthquake analysis, MRI imaging&mdash;they
+          all use Fourier transforms to break complex signals into simple frequency components.
+          It's the mathematical Swiss Army knife of signal processing.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Your Ear Does This Too</p>
+          <p>
+            Your cochlea (inner ear) is essentially a biological Fourier analyzer. Different
+            positions along its spiral respond to different frequencies, separating the complex
+            sound wave into its component frequencies before sending that information to your brain.
+          </p>
+        </div>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Fourier Transform</p>
+            <p class="concept-definition">Decomposes any signal into its constituent frequencies</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Spectrum</p>
+            <p class="concept-definition">The frequency content of a sound, shown as a graph</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Resonance</p>
+            <p class="concept-definition">When an object vibrates strongly at its natural frequency</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Everything is vibration.</strong> Sound, heat, light, even matter at its
+          deepest level&mdash;all involve waves and oscillations. Understanding waves gives
+          you insight into countless phenomena.
+        </p>
+
+        <p>
+          <strong>Simple rules, complex results.</strong> Just by adding sine waves, you can
+          build any sound imaginable. The rich timbre of a symphony orchestra? It's all sine
+          waves, combined in infinitely varied ways.
+        </p>
+
+        <p>
+          <strong>Interference is everywhere.</strong> Noise-canceling headphones, radio dead
+          spots, iridescent soap bubbles&mdash;all examples of wave interference. Once you
+          understand it, you see it everywhere.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Music:</strong> Instruments, synthesizers, audio engineering.
+            <strong>Medicine:</strong> Ultrasound imaging, hearing aids.
+            <strong>Engineering:</strong> Sonar, radar, vibration analysis.
+            <strong>Telecommunications:</strong> Radio, Wi-Fi, fiber optics.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../quantum-mechanics/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Quantum Mechanics
+        </a>
+        <a href="../entropy/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Entropy
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="sound-waves.js"></script>
+</body>
+</html>
