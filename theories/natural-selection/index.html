@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Natural Selection - Theory in Practice</title>
+  <meta name="description" content="Explore natural selection through interactive simulations. Learn about evolution, fitness, adaptation, and how populations change over generations.">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="natural-selection.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Biology</p>
+        <h1 class="article-title">Natural Selection</h1>
+        <p class="article-subtitle">
+          Evolution's engine: how random variation and selective pressure shape life over time.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>Darwin's Dangerous Idea</h2>
+        <p>
+          Natural selection is perhaps the most powerful idea in biology. It explains how simple
+          rules&mdash;variation, inheritance, and differential survival&mdash;can produce the
+          stunning complexity and diversity of life. No designer required; just time and selection.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Algorithm of Evolution</p>
+          <p>
+            Natural selection works like a simple algorithm: 1) Individuals vary in traits.
+            2) Some traits improve survival and reproduction. 3) These traits are inherited.
+            4) Over generations, beneficial traits become more common. That's it&mdash;but the
+            results are extraordinary.
+          </p>
+        </div>
+
+        <p>
+          Darwin didn't invent evolution&mdash;the idea that species change over time was already
+          circulating. His breakthrough was identifying the <em>mechanism</em>: natural selection.
+          Given variation and inheritance, populations inevitably adapt to their environments.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Fitness</p>
+            <p class="concept-definition">Reproductive success relative to others in the population</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Adaptation</p>
+            <p class="concept-definition">Traits that improve survival in a specific environment</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Selection Pressure</p>
+            <p class="concept-definition">Environmental factors that favor certain traits</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Population Evolution Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Population Evolution</h2>
+
+        <p class="interactive-description">
+          Watch a population evolve in real-time. Creatures with traits better suited to the
+          environment survive longer and reproduce more. Over generations, the population adapts.
+        </p>
+
+        <div class="evolution-container">
+          <canvas id="evolution-canvas" width="400" height="300"></canvas>
+
+          <div class="evolution-stats">
+            <div class="stat-item">
+              <span class="stat-label">Generation</span>
+              <span class="stat-value generation-count">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Population</span>
+              <span class="stat-value population-count">50</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Avg Speed</span>
+              <span class="stat-value avg-speed">1.0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Avg Size</span>
+              <span class="stat-value avg-size">1.0</span>
+            </div>
+          </div>
+
+          <div class="evolution-controls">
+            <div class="control-row">
+              <label>Selection Pressure: <span class="pressure-display">Medium</span></label>
+              <input type="range" id="pressure-slider" min="1" max="3" value="2" class="slider">
+            </div>
+            <div class="control-row">
+              <label>Mutation Rate: <span class="mutation-display">5%</span></label>
+              <input type="range" id="mutation-slider" min="1" max="20" value="5" class="slider">
+            </div>
+          </div>
+
+          <div class="evolution-actions">
+            <button class="btn btn-primary start-evolution-btn">Start Evolution</button>
+            <button class="btn btn-secondary reset-evolution-btn">Reset</button>
+          </div>
+
+          <p class="evolution-hint">Faster creatures catch more food. Larger creatures need more food.</p>
+        </div>
+      </section>
+
+      <!-- Selection Types Section -->
+      <section class="content-section">
+        <h2>Types of Selection</h2>
+
+        <p>
+          Natural selection doesn't always favor extremes. <strong>Directional selection</strong>
+          pushes traits in one direction (faster, bigger, brighter). <strong>Stabilizing
+          selection</strong> favors the average and eliminates extremes. <strong>Disruptive
+          selection</strong> favors extremes and eliminates the middle.
+        </p>
+
+        <p>
+          Human birth weight shows stabilizing selection: very small babies face health risks,
+          while very large babies complicate delivery. Finch beaks show directional selection
+          during droughts: larger beaks crack harder seeds. Darwin's finches show disruptive
+          selection: medium beaks are outcompeted by specialists.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Sexual Selection</p>
+          <p>
+            Darwin identified a special case: traits that improve mating success even if they
+            reduce survival. The peacock's tail is a handicap, but peahens prefer it. Sexual
+            selection explains many extravagant features in nature that seem to defy survival logic.
+          </p>
+        </div>
+      </section>
+
+      <!-- Selection Types Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Selection Types</h2>
+
+        <p class="interactive-description">
+          See how different selection pressures shape trait distributions over generations.
+          Watch the bell curve shift, narrow, or split depending on the type of selection.
+        </p>
+
+        <div class="selection-container">
+          <canvas id="selection-canvas" width="400" height="200"></canvas>
+
+          <div class="selection-stats">
+            <div class="stat-item">
+              <span class="stat-label">Mean</span>
+              <span class="stat-value selection-mean">50</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Std Dev</span>
+              <span class="stat-value selection-std">15</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Generation</span>
+              <span class="stat-value selection-gen">0</span>
+            </div>
+          </div>
+
+          <div class="selection-controls">
+            <div class="selection-type-buttons">
+              <button class="selection-btn active" data-type="directional">Directional</button>
+              <button class="selection-btn" data-type="stabilizing">Stabilizing</button>
+              <button class="selection-btn" data-type="disruptive">Disruptive</button>
+            </div>
+          </div>
+
+          <div class="selection-actions">
+            <button class="btn btn-primary run-selection-btn">Run Generation</button>
+            <button class="btn btn-secondary reset-selection-btn">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Genetic Drift Section -->
+      <section class="content-section">
+        <h2>Genetic Drift</h2>
+
+        <p>
+          Natural selection isn't the only force that changes populations. <strong>Genetic drift</strong>
+          is random change due to chance events. In small populations, lucky or unlucky individuals
+          can dramatically shift the gene pool&mdash;regardless of fitness.
+        </p>
+
+        <p>
+          Imagine a population of 10 beetles where 5 are green and 5 are brown, with no fitness
+          difference. By chance, the 5 who reproduce might be 4 green and 1 brown. Now the next
+          generation is 80% green. This random walk can eventually fix one trait and eliminate the
+          other&mdash;pure luck, not selection.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Founder Effect</p>
+          <p>
+            When a small group colonizes a new habitat, they carry only a subset of the original
+            population's genes. This genetic bottleneck can make the new population very different
+            from the original. Island populations often show founder effects.
+          </p>
+        </div>
+      </section>
+
+      <!-- Genetic Drift Demo -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Genetic Drift Simulator</h2>
+
+        <p class="interactive-description">
+          Compare how population size affects random genetic drift. Small populations show
+          wild fluctuations; large populations stay stable. Run multiple trials to see the
+          pattern emerge.
+        </p>
+
+        <div class="drift-container">
+          <canvas id="drift-canvas" width="400" height="200"></canvas>
+
+          <div class="drift-stats">
+            <div class="stat-item">
+              <span class="stat-label">Small Pop (20)</span>
+              <span class="stat-value small-pop-freq">50%</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Large Pop (500)</span>
+              <span class="stat-value large-pop-freq">50%</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Generation</span>
+              <span class="stat-value drift-gen">0</span>
+            </div>
+          </div>
+
+          <div class="drift-legend">
+            <div class="legend-item">
+              <span class="legend-color small-pop-color"></span>
+              <span>Small Population (n=20)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color large-pop-color"></span>
+              <span>Large Population (n=500)</span>
+            </div>
+          </div>
+
+          <div class="drift-actions">
+            <button class="btn btn-primary run-drift-btn">Run Simulation</button>
+            <button class="btn btn-secondary reset-drift-btn">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Section -->
+      <section class="content-section">
+        <h2>Evolution in Action</h2>
+
+        <p>
+          <strong>Antibiotic Resistance:</strong> Bacteria evolve resistance to antibiotics in
+          real-time. Each antibiotic course kills susceptible bacteria but leaves resistant
+          mutants to multiply. This is natural selection happening in days, not millennia.
+        </p>
+
+        <p>
+          <strong>Artificial Selection:</strong> Humans have used selection for thousands of
+          years. Dogs, crops, and livestock are all products of artificial selection&mdash;we
+          chose which individuals reproduced, and species transformed dramatically.
+        </p>
+
+        <p>
+          <strong>Evolutionary Computing:</strong> Computer scientists use evolutionary algorithms
+          to solve optimization problems. Virtual "organisms" compete, reproduce, and mutate.
+          The fittest solutions survive. Natural selection works in silicon too.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Misconceptions</p>
+          <p>
+            Evolution doesn't have a goal or direction&mdash;it's not "progress." Organisms
+            don't "try" to evolve or "choose" to adapt. Traits don't arise because they're
+            "needed." Evolution is blind: variation is random, selection is not.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Simple rules, complex results.</strong> Variation plus inheritance plus
+          differential reproduction equals adaptation. No foresight, no designer&mdash;just
+          an algorithm that has been running for billions of years.
+        </p>
+
+        <p>
+          <strong>Fitness is relative.</strong> There's no universally "fit" organism. Fitness
+          depends on environment. A trait that helps in one context may hurt in another. Evolution
+          adapts populations to their current conditions.
+        </p>
+
+        <p>
+          <strong>Chance plays a role.</strong> Natural selection is the primary driver of
+          adaptation, but genetic drift shows that evolution isn't purely deterministic. Small
+          populations are especially vulnerable to random change.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Medicine:</strong> Drug resistance, cancer evolution, immune responses.
+            <strong>Technology:</strong> Evolutionary algorithms, machine learning.
+            <strong>Business:</strong> Market competition, startup ecosystems.
+            <strong>Culture:</strong> Memetics, idea spreading, language change.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../compound-growth/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Compound Growth
+        </a>
+        <a href="../epidemiology/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Epidemiology
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="natural-selection.js"></script>
+</body>
+</html>
