@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Relativity - Theory in Practice</title>
+  <meta name="description" content="Explore Einstein's special relativity through interactive simulations. Experience time dilation, length contraction, and E=mc².">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="special-relativity.css">
+
+  <!-- Prevent flash of wrong theme -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('tip-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">Theory in Practice</a>
+
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <article class="article container">
+      <!-- Header -->
+      <header class="article-header">
+        <p class="article-category">Physics</p>
+        <h1 class="article-title">Special Relativity</h1>
+        <p class="article-subtitle">
+          Einstein's revolutionary discovery: time and space are not what they seem.
+        </p>
+      </header>
+
+      <!-- Introduction Section -->
+      <section class="content-section">
+        <h2>What is Special Relativity?</h2>
+        <p>
+          In 1905, Albert Einstein upended our understanding of space and time. Special relativity
+          starts with a simple premise: the speed of light is the same for all observers, regardless
+          of how fast they're moving. This seemingly innocent statement leads to mind-bending consequences.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Cosmic Speed Limit</p>
+          <p>
+            Light travels at 299,792,458 meters per second (about 670 million mph). Einstein showed
+            this isn't just a fast speed&mdash;it's the universal speed limit. Nothing with mass can
+            reach it, and everything massless (like light) must travel at exactly this speed.
+          </p>
+        </div>
+
+        <p>
+          The key insight: if light speed is constant, then time and space must be flexible. Moving
+          clocks tick slower. Moving objects shrink. What's simultaneous for one observer isn't for
+          another. These aren't illusions&mdash;they're real physical effects confirmed by countless experiments.
+        </p>
+
+        <div class="key-concepts">
+          <div class="concept-card">
+            <p class="concept-term">Time Dilation</p>
+            <p class="concept-definition">Moving clocks run slower&mdash;time itself passes differently</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Length Contraction</p>
+            <p class="concept-definition">Moving objects shrink in the direction of motion</p>
+          </div>
+          <div class="concept-card">
+            <p class="concept-term">Mass-Energy Equivalence</p>
+            <p class="concept-definition">E=mc&sup2; &mdash; mass is concentrated energy</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-World Examples Section -->
+      <section class="content-section">
+        <h2>Relativity in Your Pocket</h2>
+
+        <p>
+          <strong>GPS Satellites:</strong> Your phone's GPS depends on relativity. Satellites move fast
+          (14,000 km/h) and sit high in Earth's gravity well. Both special and general relativity
+          affect their clocks&mdash;without corrections, GPS would drift by about 10 km per day!
+        </p>
+
+        <p>
+          <strong>Particle Accelerators:</strong> At CERN, protons reach 99.999999% of light speed.
+          At these speeds, they gain mass dramatically&mdash;each proton acts like it has 7,000 times
+          its rest mass. Unstable particles that should decay in microseconds survive long enough
+          to be detected because time dilation extends their lives.
+        </p>
+
+        <p>
+          <strong>Nuclear Power:</strong> E=mc&sup2; explains where the sun's energy comes from, and why
+          nuclear reactions release millions of times more energy than chemical reactions. A tiny
+          amount of mass converts to enormous energy.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">The Twin Paradox</p>
+          <p>
+            If one twin travels to a star at near-light speed and returns, they'll be younger than
+            their stay-at-home sibling. Time literally passed slower for the traveler. This isn't
+            science fiction&mdash;we've verified it with atomic clocks on airplanes.
+          </p>
+        </div>
+      </section>
+
+      <!-- Time Dilation Interactive -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Time Dilation Calculator</h2>
+
+        <p class="interactive-description">
+          See how time slows down as you approach light speed. The Lorentz factor (γ) determines
+          how much time dilates. At everyday speeds it's negligible, but near light speed it
+          becomes dramatic.
+        </p>
+
+        <div class="time-dilation-container">
+          <div class="speed-control">
+            <label for="velocity-slider">Velocity: <span class="velocity-value">0%</span> of light speed</label>
+            <input type="range" id="velocity-slider" min="0" max="99.99" step="0.01" value="0" class="velocity-slider">
+            <div class="speed-presets">
+              <button class="btn btn-secondary preset-btn" data-speed="0.00001">Car (100 km/h)</button>
+              <button class="btn btn-secondary preset-btn" data-speed="0.0037">ISS</button>
+              <button class="btn btn-secondary preset-btn" data-speed="50">Half light</button>
+              <button class="btn btn-secondary preset-btn" data-speed="86.6">γ = 2</button>
+              <button class="btn btn-secondary preset-btn" data-speed="99.5">γ = 10</button>
+            </div>
+          </div>
+
+          <div class="dilation-results">
+            <div class="result-card">
+              <div class="result-value lorentz-factor">1.000</div>
+              <div class="result-label">Lorentz Factor (γ)</div>
+            </div>
+            <div class="result-card">
+              <div class="result-value time-ratio">1 second</div>
+              <div class="result-label">Your 1 second = Stationary observer sees</div>
+            </div>
+            <div class="result-card">
+              <div class="result-value length-ratio">100%</div>
+              <div class="result-label">Length (in direction of motion)</div>
+            </div>
+          </div>
+
+          <div class="trip-calculator">
+            <h4>Space Trip Calculator</h4>
+            <p class="trip-description">At your current speed, a trip to Alpha Centauri (4.37 light years):</p>
+            <div class="trip-results">
+              <div class="trip-stat">
+                <span class="trip-label">Earth time:</span>
+                <span class="trip-value earth-time">4.37 years</span>
+              </div>
+              <div class="trip-stat">
+                <span class="trip-label">Ship time:</span>
+                <span class="trip-value ship-time">4.37 years</span>
+              </div>
+              <div class="trip-stat">
+                <span class="trip-label">You age:</span>
+                <span class="trip-value age-difference">0 less</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Twin Paradox Visualization -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">Twin Paradox Visualizer</h2>
+
+        <p class="interactive-description">
+          Watch two twins age differently. One stays on Earth while the other makes a round trip
+          to a nearby star. When they reunite, the traveling twin is younger&mdash;proof that time
+          dilation is real, not an illusion.
+        </p>
+
+        <div class="twin-container">
+          <canvas class="twin-canvas" id="twin-canvas"></canvas>
+
+          <div class="twin-controls">
+            <div class="control-group">
+              <label for="trip-speed">Trip speed: <span class="trip-speed-value">80</span>% of c</label>
+              <input type="range" id="trip-speed" min="10" max="99" value="80" class="trip-speed-slider">
+            </div>
+            <button class="btn btn-primary start-trip-btn">Start Trip</button>
+            <button class="btn btn-secondary reset-trip-btn">Reset</button>
+          </div>
+
+          <div class="twin-ages">
+            <div class="twin-age earth-twin">
+              <span class="twin-icon">🏠</span>
+              <span class="twin-label">Earth Twin</span>
+              <span class="twin-age-value earth-age">20 years</span>
+            </div>
+            <div class="twin-age space-twin">
+              <span class="twin-icon">🚀</span>
+              <span class="twin-label">Space Twin</span>
+              <span class="twin-age-value space-age">20 years</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- E=mc² Calculator -->
+      <section class="interactive-section">
+        <h2 class="interactive-title">E=mc&sup2; Calculator</h2>
+
+        <p class="interactive-description">
+          Explore mass-energy equivalence. Even tiny amounts of mass contain enormous energy
+          because c&sup2; is such a huge number (about 9 × 10&sup1;&sup6; m&sup2;/s&sup2;).
+        </p>
+
+        <div class="energy-container">
+          <div class="mass-input-group">
+            <label for="mass-input">Mass:</label>
+            <input type="number" id="mass-input" value="1" min="0" step="any" class="mass-input">
+            <select id="mass-unit" class="mass-unit-select">
+              <option value="1">kg</option>
+              <option value="0.001">gram</option>
+              <option value="0.000001">milligram</option>
+              <option value="1.66054e-27">atomic mass unit</option>
+            </select>
+          </div>
+
+          <div class="energy-result">
+            <div class="energy-value-display">
+              <span class="energy-number">9.00 × 10¹⁶</span>
+              <span class="energy-unit">Joules</span>
+            </div>
+          </div>
+
+          <div class="energy-equivalents">
+            <h4>That's equivalent to:</h4>
+            <div class="equivalent-list">
+              <div class="equivalent-item">
+                <span class="equivalent-value tnt-value">21.5 megatons</span>
+                <span class="equivalent-label">of TNT</span>
+              </div>
+              <div class="equivalent-item">
+                <span class="equivalent-value homes-value">2.5 billion</span>
+                <span class="equivalent-label">homes powered for a year</span>
+              </div>
+              <div class="equivalent-item">
+                <span class="equivalent-value hiroshima-value">1,430×</span>
+                <span class="equivalent-label">Hiroshima bomb</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mass-presets">
+            <button class="btn btn-secondary mass-preset-btn" data-mass="1" data-unit="1">1 kg</button>
+            <button class="btn btn-secondary mass-preset-btn" data-mass="1" data-unit="0.001">1 gram</button>
+            <button class="btn btn-secondary mass-preset-btn" data-mass="0.7" data-unit="0.001">Uranium-235 fission</button>
+            <button class="btn btn-secondary mass-preset-btn" data-mass="0.007" data-unit="1.66054e-27">Hydrogen fusion</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Concepts Section -->
+      <section class="content-section">
+        <h2>The Mathematics</h2>
+
+        <p>
+          <strong>The Lorentz Factor:</strong> γ = 1/√(1 - v&sup2;/c&sup2;). This factor appears everywhere
+          in relativity. At v=0, γ=1 (no effects). As v approaches c, γ approaches infinity. Time
+          dilates by factor γ, length contracts by factor 1/γ, and relativistic mass increases by factor γ.
+        </p>
+
+        <p>
+          <strong>Spacetime:</strong> Einstein showed that space and time aren't separate&mdash;they're
+          woven into a four-dimensional "spacetime." Different observers slice this spacetime differently,
+          which is why they disagree about time and length.
+        </p>
+
+        <p>
+          <strong>The Light Cone:</strong> Events that can affect each other must be connected by signals
+          traveling at or below light speed. This creates "light cones" that separate what can causally
+          influence what&mdash;preserving cause and effect even when time is relative.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Why Can't You Go Faster Than Light?</p>
+          <p>
+            As you speed up, your kinetic energy increases&mdash;and so does your effective mass.
+            Near light speed, tiny speed increases require enormous energy. Reaching c would require
+            infinite energy. This isn't a technological limit; it's built into the fabric of spacetime.
+          </p>
+        </div>
+      </section>
+
+      <!-- Takeaways Section -->
+      <section class="content-section">
+        <h2>Key Insights</h2>
+
+        <p>
+          <strong>Time is relative.</strong> There's no universal "now." Two events simultaneous for
+          one observer might occur at different times for another. Your sense that time flows uniformly
+          is only accurate at low speeds.
+        </p>
+
+        <p>
+          <strong>The speed of light is special.</strong> It's not just very fast&mdash;it's the speed
+          at which cause and effect propagate. Nothing carries information faster, which is why c
+          appears in so many physics equations.
+        </p>
+
+        <p>
+          <strong>Mass is frozen energy.</strong> E=mc&sup2; means matter is incredibly concentrated energy.
+          This explains nuclear power, why antimatter annihilation releases so much energy, and
+          ultimately where the mass of everything comes from.
+        </p>
+
+        <div class="callout">
+          <p class="callout-title">Where This Applies</p>
+          <p>
+            <strong>Technology:</strong> GPS corrections, particle accelerators, medical imaging.
+            <strong>Astronomy:</strong> Understanding cosmic distances and stellar lifetimes.
+            <strong>Philosophy:</strong> The nature of time, space, and reality itself.
+            <strong>Future:</strong> Interstellar travel considerations.
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <nav class="section-nav">
+        <a href="../chaos-theory/index.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous: Chaos Theory
+        </a>
+        <a href="../quantum-mechanics/index.html" style="display: flex; align-items: center; gap: var(--space-2);">
+          Next: Quantum Mechanics
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>Theory in Practice &mdash; Interactive learning for everyone</p>
+        <p>Open source project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="special-relativity.js"></script>
+</body>
+</html>

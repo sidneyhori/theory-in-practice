@@ -337,23 +337,26 @@
 
     simulate(count) {
       for (let i = 0; i < count; i++) {
-        // Simulate one game with always switching
+        // Simulate one game testing both strategies
         const car = Math.floor(Math.random() * 3) + 1;
         const initialPick = Math.floor(Math.random() * 3) + 1;
 
-        // After switch, we get the car if initial pick was wrong
+        // Switching wins if initial pick was wrong, staying wins if initial pick was right
         const switchWins = initialPick !== car;
 
-        this.stats.gamesPlayed++;
+        this.stats.gamesPlayed += 2; // Two strategies tested per game
+
         if (switchWins) {
           this.stats.switchWins++;
+          this.stats.stayLosses++;
         } else {
+          this.stats.switchLosses++;
           this.stats.stayWins++;
         }
       }
 
       this.updateStats();
-      this.setMessage(`Simulated ${count} games (always switching). Check the win rates!`);
+      this.setMessage(`Simulated ${count} games with both strategies. Check the win rates!`);
     },
 
     updateStats() {

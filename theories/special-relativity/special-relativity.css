@@ -1,0 +1,513 @@
+/* Special Relativity Page Styles */
+
+/* Article Layout */
+.article {
+  padding: var(--space-12) 0;
+}
+
+.article-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  padding: 0 var(--space-4);
+}
+
+.article-category {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-physics);
+  margin-bottom: var(--space-4);
+}
+
+.article-title {
+  font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+  margin-bottom: var(--space-4);
+}
+
+.article-subtitle {
+  font-size: var(--text-xl);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Content Sections */
+.content-section {
+  max-width: 700px;
+  margin: 0 auto var(--space-12);
+  padding: 0 var(--space-4);
+}
+
+.content-section h2 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-4);
+}
+
+.content-section p {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.content-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Interactive Section */
+.interactive-section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  margin: var(--space-8) var(--space-4);
+  max-width: 700px;
+}
+
+@media (min-width: 740px) {
+  .interactive-section {
+    margin: var(--space-8) auto;
+  }
+}
+
+.interactive-title {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2);
+}
+
+.interactive-description {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+/* Time Dilation Calculator */
+.time-dilation-container {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.speed-control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.speed-control label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.velocity-slider {
+  width: 100%;
+}
+
+.speed-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.speed-presets .preset-btn {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.dilation-results {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.result-card {
+  background-color: var(--color-bg);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.result-value {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-physics);
+  font-family: var(--font-mono);
+  margin-bottom: var(--space-1);
+}
+
+.result-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.trip-calculator {
+  background-color: var(--color-bg);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+.trip-calculator h4 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-2);
+}
+
+.trip-description {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.trip-results {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.trip-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.trip-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.trip-value {
+  font-weight: var(--font-semibold);
+  color: var(--color-physics);
+}
+
+/* Twin Paradox */
+.twin-container {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.twin-canvas {
+  width: 100%;
+  height: 250px;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+  display: block;
+}
+
+.twin-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.twin-ages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.twin-age {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+
+.twin-icon {
+  font-size: var(--text-2xl);
+}
+
+.twin-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.twin-age-value {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-physics);
+}
+
+/* E=mc² Calculator */
+.energy-container {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.mass-input-group {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.mass-input-group label {
+  font-weight: var(--font-medium);
+}
+
+.mass-input {
+  width: 120px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-base);
+}
+
+.mass-unit-select {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+.energy-result {
+  text-align: center;
+  padding: var(--space-6);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+
+.energy-value-display {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.energy-number {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--color-physics);
+  font-family: var(--font-mono);
+}
+
+.energy-unit {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.energy-equivalents {
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+
+.energy-equivalents h4 {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.equivalent-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.equivalent-item {
+  text-align: center;
+}
+
+.equivalent-value {
+  display: block;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-physics);
+}
+
+.equivalent-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.mass-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.mass-preset-btn {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+/* Control Group */
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.control-group label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+}
+
+/* Range Slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--color-physics);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--color-physics);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+/* Key Concepts */
+.key-concepts {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.concept-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.concept-term {
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.concept-definition {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Callout Box */
+.callout {
+  background-color: var(--color-surface);
+  border-left: 4px solid var(--color-physics);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-4) var(--space-6);
+  margin: var(--space-6) 0;
+}
+
+.callout-title {
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-2);
+}
+
+.callout p {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Navigation */
+.section-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-8) var(--space-4);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-12);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-nav a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--font-medium);
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .article-header,
+  .content-section,
+  .section-nav {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  .interactive-section {
+    margin-left: var(--space-4);
+    margin-right: var(--space-4);
+    padding: var(--space-4);
+  }
+
+  .article {
+    padding: var(--space-8) 0;
+  }
+
+  .dilation-results {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-results {
+    grid-template-columns: 1fr;
+  }
+
+  .equivalent-list {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .twin-canvas {
+    height: 200px;
+  }
+
+  .twin-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .twin-controls .btn {
+    width: 100%;
+  }
+
+  .mass-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mass-input {
+    width: 100%;
+  }
+
+  .section-nav {
+    flex-direction: column;
+    gap: var(--space-4);
+    text-align: center;
+    align-items: center;
+  }
+
+  .section-nav a {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .article-title {
+    font-size: var(--text-2xl);
+  }
+}
